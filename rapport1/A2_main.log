@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.17 (MiKTeX 2.9) (preloaded format=pdflatex 2016.9.13)  31 MAR 2017 13:24
+This is pdfTeX, Version 3.14159265-2.6-1.40.17 (MiKTeX 2.9) (preloaded format=pdflatex 2016.9.13)  31 MAR 2017 14:04
 entering extended mode
 **D:/DRIVE/afysik/Q4/boelgerOgOptikRapporter/rapport1/A2_main.tex
 (D:/DRIVE/afysik/Q4/boelgerOgOptikRapporter/rapport1/A2_main.tex
@@ -1719,7 +1719,7 @@ Package biblatex Info: ... file 'danish.lbx' found.
 ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\biblatex\lbx\danish.lbx"
 File: danish.lbx 2016/12/05 v3.7 biblatex localization (PK/JW/AB)
 )
-No file A2_main.aux.
+(A2_main.aux)
 \openout1 = `A2_main.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 12.
@@ -1736,7 +1736,7 @@ LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 12.
 LaTeX Font Info:    ... okay on input line 12.
 LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 12.
 LaTeX Font Info:    Try loading font information for TS1+cmr on input line 12.
-("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\base\ts1cmr.fd"
+ ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\base\ts1cmr.fd"
 File: ts1cmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    ... okay on input line 12.
@@ -1793,6 +1793,7 @@ LaTeX Info: Redefining \nameref on input line 12.
 LaTeX Info: Redefining \ref on input line 12.
 LaTeX Info: Redefining \pageref on input line 12.
 LaTeX Info: Redefining \nameref on input line 12.
+(A2_main.out) (A2_main.out)
 \@outlinefile=\write6
 \openout6 = `A2_main.out'.
 
@@ -1921,33 +1922,18 @@ Package cleveref Info: loaded `danish' language definitions on input line 27.
 )
 Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 24.
 Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 24.
-
-
-Package rerunfilecheck Warning: File `A2_main.out' has changed.
-(rerunfilecheck)                Rerun to get outlines right
-(rerunfilecheck)                or use package `bookmark'.
-
-Package rerunfilecheck Info: Checksums for `A2_main.out':
-(rerunfilecheck)             Before: <no file>
-(rerunfilecheck)             After:  C61CECEA7A518C3F6544C9D8F3CC4126;303.
-
-LaTeX Warning: There were undefined references.
-
-
-Package biblatex Warning: Please (re)run Biber on the file:
-(biblatex)                A2_main
-(biblatex)                and rerun LaTeX afterwards.
-
+Package rerunfilecheck Info: File `A2_main.out' has not changed.
+(rerunfilecheck)             Checksum: C61CECEA7A518C3F6544C9D8F3CC4126;303.
 Package logreq Info: Writing requests to 'A2_main.run.xml'.
 \openout1 = `A2_main.run.xml'.
 
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 24.
  ) 
 Here is how much of TeX's memory you used:
- 31057 strings out of 493334
- 564244 string characters out of 3136672
- 1022456 words of memory out of 3000000
- 34263 multiletter control sequences out of 15000+200000
+ 31072 strings out of 493334
+ 564424 string characters out of 3136672
+ 1022599 words of memory out of 3000000
+ 34272 multiletter control sequences out of 15000+200000
  14896 words of font info for 63 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
  63i,11n,94p,10470b,1690s stack positions out of 5000i,500n,10000p,200000b,50000s
@@ -1958,9 +1944,9 @@ fonts/cm/cmbx12.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfo
 nts/cm/cmr10.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts
 /cm/cmr12.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm
 /cmr8.pfb>
-Output written on A2_main.pdf (1 page, 51755 bytes).
+Output written on A2_main.pdf (1 page, 53206 bytes).
 PDF statistics:
- 47 PDF objects out of 1000 (max. 8388607)
+ 66 PDF objects out of 1000 (max. 8388607)
  8 named destinations out of 1000 (max. 500000)
- 1 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 49 words of extra memory for PDF output out of 10000 (max. 10000000)
 
