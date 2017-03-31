@@ -1,0 +1,242 @@
+\usepackage[utf8]{inputenc}
+\usepackage[danish]{babel}
+
+%Specielle mat. karakterer
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{textcomp}
+\usepackage{amsmath}
+
+%Import af data
+%\usepackage{csvsimple}
+
+%Facit-komando
+\newcommand{\facit}[1]{\underline{\underline{#1}}}
+
+%Kapitler uden numre
+\usepackage{titlesec}
+
+\setcounter{secnumdepth}{4}
+
+\titleformat{\section}
+	{\LARGE\bfseries} 	% format
+	{\arabic{section}}	% label
+	{5pt}             	% sep
+	{\LARGE}			% before-code
+
+\newcommand{\sectionstylefremstilling}
+{
+	\titleformat{\section}
+		{\Large\bfseries} 					% format
+		{\Roman{part}.\arabic{section}}	% label
+		{5pt}             					% sep
+		{\LARGE}							% before-code
+}
+\newcommand{\sectionstyleanalyse}
+{
+	\titleformat{\section}
+	{\Large\bfseries} 					% format
+	{\arabic{chapter}.\arabic{section}}	% label
+	{5pt}             					% sep
+	{\LARGE}							% before-code
+}
+\newcommand{\sectionstylestandard}
+{
+	\titleformat{\section}
+	{\Large\bfseries} 	% format
+	{\arabic{section}}	% label
+	{5pt}             	% sep
+	{\LARGE}			% before-code
+}
+\newcommand{\sectionstylebilag}
+{
+	\titleformat{\section}
+	{\Large\bfseries} 			% format
+	{\Alph{chapter}.\arabic{section}}	% label
+	{5pt}             			% sep
+	{\LARGE}					% before-code
+}
+
+\titleformat{\subsection}
+	{\large \bfseries \filcenter}                                       % format
+	{\arabic{section}.\arabic{subsection}}                              % label
+	{5pt}             			                                        % sep
+	{\large}           			                                        % before-code         			
+%Margen
+\usepackage[top=3cm, bottom=3cm, left=2.5cm, right=2.5cm]{geometry}
+\pagestyle{plain}
+
+%Rigtige Navne til figurer og indholdsfortegnelse.
+\addto\captionsdanish{%
+	\renewcommand{\figurename}{Fig.}%
+	\renewcommand{\contentsname}{Indholdsfortegnelse}%
+	\renewcommand{\listfigurename}{Figurliste}%
+	\renewcommand{\partname}{Delrapport}%
+	\renewcommand{\chaptername}{Analyse}%
+	}
+
+% MPOST Doc's i LaTeX.
+%\usepackage{graphicx}
+%\usepackage{ifpdf}
+
+% Så den ved hvorledes den skal håndtere figurerne.
+%\ifpdf
+%	\DeclareGraphicsRule{*}{mps}{*}{}
+%\fi
+
+%Sektioner er øverst
+\usepackage{chngcntr}
+	\counterwithout{section}{chapter}
+	\counterwithout{figure}{section}
+	\counterwithout{figure}{chapter}
+	\counterwithout{table}{chapter}
+	\counterwithout{equation}{chapter}
+
+%Figurer & Tabeller samme side som Indholdsfotegnelse
+\usepackage{tocloft}
+
+%TOC går til subsection (Benytter nu istedet 'chapter' til sections og 'section' til subsections)
+\setcounter{tocdepth}{1}
+
+%Så kommaer i mat. ser rigtige ud, ingen mellemrum efter.
+\usepackage{icomma}
+
+%Hyperlinks i TOC, etc.
+\usepackage[hidelinks]{hyperref}
+	\providecommand\phantomsection{} %Så den kan compile med og uden hyperref.
+
+%Smarte referancer
+\usepackage[danish]{cleveref}
+	\crefname{figure}{figur}{figurerne} % {Type af referance}{Ental}{Flertal}	
+										% Ændrer hvad der skrives
+	\crefname{equation}{ligning}{ligningerne}
+	
+	\crefname{table}{tabel}{tabellerne}
+	
+	\crefname{appendix}{bilag}{bilagene}
+	
+	\crefname{rea}{reaktion}{reaktionerne}
+	
+	\creflabelformat{equation}{#2#1#3} %Ligningsnumre uden parentes omkring
+
+%Smarte citater.
+	\usepackage[
+		danish 		= guillemets, %guillemets el. quotes
+		autostyle	= true,
+	]{csquotes}
+		
+%FIXme notes
+	\usepackage[draft]{fixme}
+	
+%Margen til FIXme Notes
+	%\setlength{\marginparwidth}{50pt}
+
+%Flere bogstavs-vektorpile
+	\usepackage{esvect} %\vv{arg}
+
+%Figurtekst ændret udseende
+	\usepackage[font=small,labelfont=bf,listformat=simple]{caption}
+
+%SI-enheder
+\usepackage{siunitx}
+	\sisetup{output-decimal-marker = {,}}
+	\sisetup{exponent-product = {\cdot}}
+	\sisetup{per-mode = fraction}
+	%Specielle SI-enheder
+		\DeclareSIUnit\molar{\mole\per\cubic\deci\metre}
+		\DeclareSIUnit\Molar{\textsc{m}}
+		\DeclareSIUnit[number-unit-product = {}]\opsym{~\g\per\SI{100}{\milli\liter}}
+		\DeclareSIUnit[number-unit-product = {}]\opfrac{~\frac{\g}{\SI{100}{\milli\liter}}}
+		\DeclareSIUnit[number-unit-product = {}]\opreci{~\g \ \SI{100}{\per\milli\liter}}
+		
+		\DeclareSIUnit[number-unit-product = {}]\opomre{~\frac{\liter}{\SI{100}{\milli\liter}}}
+
+
+%Oxidationstal, RedOx-kemi:
+%\usepackage{chemmacros}
+
+	%Faser i subscript
+%	\chemsetup[phases]{pos=sub}
+	%Oversættelser
+%	\DeclareTranslation{danish}{K-acid}{\mathrm{s}}
+%	\DeclareTranslation{danish}{K-water}{\mathrm{v}}
+	%Alternativ til \Ka mm.
+%	\newcommand{\Ks}{$K_\mathrm{s}$}
+%	\newcommand{\Kseq}{K_\mathrm{s}}
+%	\newcommand{\Ko}{$K_\mathrm{o}$}
+%	\newcommand{\Koeq}{K_\mathrm{o}}
+%	\newcommand{\Kp}{$K_\mathrm{p}$}
+%	\newcommand{\Kpeq}{K_\mathrm{p}}
+%	\newcommand{\Kc}{$K_\mathrm{c}$}
+%	\newcommand{\Kceq}{K_\mathrm{c}}
+	
+%Dashed streger i tabeller. : istedet for |.
+%\usepackage{arydshln}
+
+%Itemize, flere valgmuligheder.
+%\usepackage{enumitem}
+
+%Tabeller, række over flere rækker
+\usepackage{multirow}
+\usepackage{float}
+%Centrering af for store tabeller.
+\usepackage{adjustbox}
+	%Brug \begin{adjustbox}{center} <tabular her> \end{adjustbox}
+
+%Tabller, med dobbeltet linjer
+%\usepackage{hhline}
+
+
+% Delrapport (part) navne
+\renewcommand*{\cftpartname}{Delrapport\space} %Delrapport foran navn på delrapporter i TOC
+\renewcommand*{\cftpartaftersnum}{: \space} %Kolon efter 'Delrapport X' i ToC
+
+% Definition og udseende af kapitel titler og ToC, etc. titler.
+	\makeatletter
+		\renewcommand\tableofcontents{%
+			\if@twocolumn
+			\@restonecoltrue\onecolumn
+			\else
+			\@restonecolfalse
+			\fi
+			\section*{{\LARGE\contentsname}% change here the formatting
+				\@mkboth{%
+					\MakeUppercase\contentsname}{\MakeUppercase\contentsname}}%
+			\@starttoc{toc}%
+			\if@restonecol\twocolumn\fi
+		}
+	\makeatother
+	
+	\makeatletter
+		\renewcommand\listoffigures{%
+			\if@twocolumn
+			\@restonecoltrue\onecolumn
+			\else
+			\@restonecolfalse
+			\fi
+			\section*{{\LARGE\listfigurename}% change here the formatting
+				\@mkboth{%
+					\MakeUppercase\listfigurename}{\MakeUppercase\listfigurename}}%
+			\@starttoc{lof}%
+			\if@restonecol\twocolumn\fi
+		}
+	\makeatother
+	
+	\makeatletter
+		\renewcommand\listoftables{%
+			\if@twocolumn
+			\@restonecoltrue\onecolumn
+			\else
+			\@restonecolfalse
+			\fi
+			\section*{{\LARGE\listtablename}% change here the formatting
+				\@mkboth{%
+					\MakeUppercase\listtablename}{\MakeUppercase\listtablename}}%
+			\@starttoc{lot}%
+			\if@restonecol\twocolumn\fi
+		}
+	\makeatother
+	
+\parindent = 0pt
+\usepackage{float}
+\graphicspath{{./Grafik/}}
