@@ -1,4 +1,4 @@
-# Preamble
+# - - - - - - - - - - - - - Pakker - - - - - - - - - - 
 import numpy as np
 import matplotlib as plt
 
