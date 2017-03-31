@@ -3,7 +3,7 @@ import numpy as np
 import matplotlib as plt
 
 # Rene
-#dette er en test
+#dette er en tests
 
 
 # Laurits
