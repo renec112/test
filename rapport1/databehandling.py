@@ -7,7 +7,7 @@ import matplotlib as plt
 
 
 # Laurits
-
+print("HEJ RENE!")
 
 
 
