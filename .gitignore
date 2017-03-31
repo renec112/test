@@ -4,10 +4,7 @@
 *.log
 *.out
 *.xml
-<<<<<<< HEAD
 #ikke sync pdf 
 *.pdf
-=======
 #skrald fra vim
 *.swp
->>>>>>> 40bbe46995c67262982d5a404d1d6b32066461f8
