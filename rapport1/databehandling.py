@@ -10,6 +10,8 @@ import matplotlib.pyplot as plt
 
 l = 0.60; #m
 
+#Hejsa LAUR
+
 #Snor 1: gul
 # Snor 1: - 35 N +-1
 # grundtone: 53.3 Hz
