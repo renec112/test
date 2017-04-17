@@ -59,17 +59,18 @@ xerr_F = DF;
 plt.errorbar(data_snor1[1],data_snor1[0],xerr=xerr_F,yerr=yerr_F,label = 'Observation', fmt='o',  capsize=2);
 plt.plot(F_range,freq_opt,'b--',label = 'Fit');
 plt.plot(F_range,freq_F, 'r--',label='Teoretisk');
-plt.legend(numpoints = 1)
-plt.xlabel('$F_{snor}$')
-plt.ylabel('$f_g$')
+plt.legend(loc = 'upper left',numpoints = 1)
+plt.xlabel('$F_{snor}$ [N]')
+plt.ylabel('$f_g$ [Hz]')
 plt.tight_layout();
 plt.savefig("frekvensSnorSpaending.png", dpi = 199)
 plt.show()
 #%% - - - - - - - - - Frekvens som funktion af masse pr laengde
-'''
-data_30_N = np.array([[49.4, 140, 60.5, 144, 203.3],[8.72/1000, 1.00/1000, 5.79/1000, 7.87/1000, 0.564/1000]]) #grundtone, mu
 mu_range = np.linspace(0.4,9,1000)/1000
 freq_mu = grundFrekvens(30,mu_range)
+data_30_N = np.array([[49.4, 140, 60.5, 144, 203.3],[8.72/1000, 1.00/1000, 5.79/1000, 7.87/1000, 0.564/1000]]) #grundtone, mu
+'''
+
 plt.plot(mu_range,freq_mu,'r--')
 plt.errorbar(data_30_N[1],data_30_N[0],xerr=0,yerr=20,label = 'Observation', fmt='o',  capsize=2)
 plt.legend(["Teoretisk vaerdi","Observation"],numpoints = 1)
