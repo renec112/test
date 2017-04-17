@@ -60,7 +60,7 @@ data_30_N = np.array([[49.4, 140, 60.5, 144, 203.3],[8.72/1000, 1.00/1000, 5.79/
 mu_range = np.linspace(0.2,10,1000)/1000
 freq_mu = grundFrekvens(30,mu_range)
 plt.plot(mu_range,freq_mu,'r--')
-plt.plot(data_30_N[1],data_30_N[0],'k.')
+plt.errorbar(data_30_N[1],data_30_N[0],xerr=0,yerr=20,label = 'Observation', fmt='o',  capsize=2)
 plt.legend(["Teoretisk værdi","Observation"])
 plt.xlabel('$\mu $ [kg/m]')
 plt.ylabel('$f_g $ [Hz]')
