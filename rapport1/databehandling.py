@@ -46,13 +46,14 @@ def func(mu_fit):
 
 u_opt,u_cov = opt.curve_fit(grundFrekvens,xdata,ydata);
 freq_opt = grundFrekvens(F_range,u_opt);
-plt.plot(data_snor1[1],data_snor1[0], 'k.',label = 'Observation');
+plt.errorbar(data_snor1[1],data_snor1[0],xerr=0,yerr=2,label = 'Observation', fmt='o',  capsize=2);
 plt.plot(F_range,freq_opt,'b--',label = 'Fit');
 plt.plot(F_range,freq_F, 'r--',label='Teoretisk');
 plt.legend()
 plt.xlabel('$F_{snor}$')
 plt.ylabel('$f_g$')
-plt.savefig("frekvensSnorSpaending.png")
+plt.tight_layout();
+plt.savefig("frekvensSnorSpaending.png", dpi = 199)
 plt.show()
 #%% - - - - - - - - - Frekvens som funktion af masse pr længde
 data_30_N = np.array([[49.4, 140, 60.5, 144, 203.3],[8.72/1000, 1.00/1000, 5.79/1000, 7.87/1000, 0.564/1000]]) #grundtone, mu
@@ -61,7 +62,8 @@ freq_mu = grundFrekvens(30,mu_range)
 plt.plot(mu_range,freq_mu,'r--')
 plt.plot(data_30_N[1],data_30_N[0],'k.')
 plt.legend(["Teoretisk værdi","Observation"])
-plt.xlabel('$\mu$')
-plt.ylabel('$f_g$')
-plt.savefig("frekvensMu.png")
+plt.xlabel('$\mu $ [kg/m]')
+plt.ylabel('$f_g $ [Hz]')
+plt.tight_layout();
+plt.savefig("frekvensMu.png", dpi = 199)
 plt.show()
