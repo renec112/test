@@ -1,0 +1,65 @@
+# - - - - - - - - - - - - - Pakker - - - - - - - - - - 
+import numpy as np
+import matplotlib as plt
+
+# Rene
+#dette er en tests
+
+
+# Laurits
+print("Hej, jeg er Developer!")
+<<<<<<< Updated upstream
+print("DET VAR IKKE SØDT GJORT!")
+=======
+>>>>>>> Stashed changes
+print("Jeg er lyn hurtigt")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

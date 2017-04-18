@@ -1,0 +1,9 @@
+[0] Config.pm:343> INFO - This is Biber 2.5
+[0] Config.pm:346> INFO - Logfile is 'C_Teori.blg'
+[42] biber:290> INFO - === Tue Apr 18, 2017, 23:24:59
+[146] Biber.pm:352> INFO - Reading 'C_Teori.bcf'
+[305] Biber.pm:777> INFO - Found 0 citekeys in bib section 0
+[313] Utils.pm:149> WARN - The file 'C_Teori.bcf' does not contain any citations!
+[319] bbl.pm:526> INFO - Writing 'C_Teori.bbl' with encoding 'UTF-8'
+[320] bbl.pm:619> INFO - Output to C_Teori.bbl
+[320] Biber.pm:109> INFO - WARNINGS: 1

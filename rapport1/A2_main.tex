@@ -1,19 +1,21 @@
 \documentclass[danish,a4paper,twocolumn, oneside]{memoir}
 \usepackage{A1_preamble}
 \usepackage{subfiles}
+
 \title{Øvelse 1 – Snorbølger}
-\author{Rasmus Klitgaard\thanks{Rasmus.Klitgaard@post.au.dk}, Rene Czepluch\thanks{rene.czepluch@post.au.dk} og Laurits N. Stokholm\thanks{laurits.stokholm@post.au.dk}}
-\date
+\author{Rasmus Klitgaard\thanks{Rasmus.Klitgaard@post.au.dk}\and Rene Czepluch\thanks{rene.czepluch@post.au.dk} \and  Laurits N. Stokholm\thanks{laurits.stokholm@post.au.dk}}
+\date{\today}
 
 \usepackage[backend=biber, style=authortitle, defernumbers=true, sorting=nty]{biblatex}
 \addbibresource{bib.bib}
 
+%\includeonly[C_Teori]
 
 \begin{document}
 \maketitle
 \noindent
-\subfile{B_Introduktion}
 
+\subfile{B_Introduktion}
 \subfile{C_Teori}
 \subfile{D_Opstilling}
 \subfile{E_Databehandling}

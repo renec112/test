@@ -7,64 +7,67 @@
 \usepackage{textcomp}
 \usepackage{amsmath}
 
+% LaTeX smarte pakker
+\usepackage{microtype}
+
 %Import af data
 %\usepackage{csvsimple}
 
 %Facit-komando
 \newcommand{\facit}[1]{\underline{\underline{#1}}}
 
-%Kapitler uden numre
-\usepackage{titlesec}
-
-\setcounter{secnumdepth}{4}
-
-\titleformat{\section}
-	{\LARGE\bfseries} 	% format
-	{\arabic{section}}	% label
-	{5pt}             	% sep
-	{\LARGE}			% before-code
-
-\newcommand{\sectionstylefremstilling}
-{
-	\titleformat{\section}
-		{\Large\bfseries} 					% format
-		{\Roman{part}.\arabic{section}}	% label
-		{5pt}             					% sep
-		{\LARGE}							% before-code
-}
-\newcommand{\sectionstyleanalyse}
-{
-	\titleformat{\section}
-	{\Large\bfseries} 					% format
-	{\arabic{chapter}.\arabic{section}}	% label
-	{5pt}             					% sep
-	{\LARGE}							% before-code
-}
-\newcommand{\sectionstylestandard}
-{
-	\titleformat{\section}
-	{\Large\bfseries} 	% format
-	{\arabic{section}}	% label
-	{5pt}             	% sep
-	{\LARGE}			% before-code
-}
-\newcommand{\sectionstylebilag}
-{
-	\titleformat{\section}
-	{\Large\bfseries} 			% format
-	{\Alph{chapter}.\arabic{section}}	% label
-	{5pt}             			% sep
-	{\LARGE}					% before-code
-}
-
-\titleformat{\subsection}
-	{\large \bfseries \filcenter}                                       % format
-	{\arabic{section}.\arabic{subsection}}                              % label
-	{5pt}             			                                        % sep
-	{\large}           			                                        % before-code         			
-%Margen
-\usepackage[top=3cm, bottom=3cm, left=2.5cm, right=2.5cm]{geometry}
-\pagestyle{plain}
+% %Kapitler uden numre
+% \usepackage{titlesec}
+% 
+% \setcounter{secnumdepth}{4}
+% 
+% \titleformat{\section}
+% 	{\LARGE\bfseries} 	% format
+% 	{\arabic{section}}	% label
+% 	{5pt}             	% sep
+% 	{\LARGE}			% before-code
+% 
+% \newcommand{\sectionstylefremstilling}
+% {
+% 	\titleformat{\section}
+% 		{\Large\bfseries} 					% format
+% 		{\Roman{part}.\arabic{section}}	% label
+% 		{5pt}             					% sep
+% 		{\LARGE}							% before-code
+% }
+% \newcommand{\sectionstyleanalyse}
+% {
+% 	\titleformat{\section}
+% 	{\Large\bfseries} 					% format
+% 	{\arabic{chapter}.\arabic{section}}	% label
+% 	{5pt}             					% sep
+% 	{\LARGE}							% before-code
+% }
+% \newcommand{\sectionstylestandard}
+% {
+% 	\titleformat{\section}
+% 	{\Large\bfseries} 	% format
+% 	{\arabic{section}}	% label
+% 	{5pt}             	% sep
+% 	{\LARGE}			% before-code
+% }
+% \newcommand{\sectionstylebilag}
+% {
+% 	\titleformat{\section}
+% 	{\Large\bfseries} 			% format
+% 	{\Alph{chapter}.\arabic{section}}	% label
+% 	{5pt}             			% sep
+% 	{\LARGE}					% before-code
+% }
+% 
+% \titleformat{\subsection}
+% 	{\large \bfseries \filcenter}                                       % format
+% 	{\arabic{section}.\arabic{subsection}}                              % label
+% 	{5pt}             			                                        % sep
+% 	{\large}           			                                        % before-code         			
+% %Margen
+% \usepackage[top=3cm, bottom=3cm, left=2.5cm, right=2.5cm]{geometry}
+% \pagestyle{plain}
 
 %Rigtige Navne til figurer og indholdsfortegnelse.
 \addto\captionsdanish{%
@@ -126,7 +129,7 @@
 	]{csquotes}
 		
 %FIXme notes
-	\usepackage[draft]{fixme}
+	\usepackage[final]{fixme}
 	
 %Margen til FIXme Notes
 	%\setlength{\marginparwidth}{50pt}

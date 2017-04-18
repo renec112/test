@@ -1,0 +1,9 @@
+[0] Config.pm:343> INFO - This is Biber 2.5
+[0] Config.pm:346> INFO - Logfile is 'B_Introduktion.blg'
+[42] biber:290> INFO - === Tue Apr 18, 2017, 23:24:43
+[143] Biber.pm:352> INFO - Reading 'B_Introduktion.bcf'
+[298] Biber.pm:777> INFO - Found 0 citekeys in bib section 0
+[305] Utils.pm:149> WARN - The file 'B_Introduktion.bcf' does not contain any citations!
+[311] bbl.pm:526> INFO - Writing 'B_Introduktion.bbl' with encoding 'UTF-8'
+[312] bbl.pm:619> INFO - Output to B_Introduktion.bbl
+[312] Biber.pm:109> INFO - WARNINGS: 1
