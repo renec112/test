@@ -54,7 +54,8 @@ DF = 1;
 Dmu = 0.005/1000
 yerr_F = (Dl/l+DF/data_snor1[1]+Dmu/mu_gul)*data_snor1[0];
 xerr_F = DF;
-
+print("hello")
+print(u_opt*1000)
 
 plt.errorbar(data_snor1[1],data_snor1[0],xerr=xerr_F,yerr=yerr_F,label = 'Observation', fmt='o',  capsize=2);
 plt.plot(F_range,freq_opt,'b--',label = 'Fit');
