@@ -1,0 +1,9 @@
+[0] Config.pm:343> INFO - This is Biber 2.5
+[0] Config.pm:346> INFO - Logfile is 'E_Databehandling.blg'
+[50] biber-darwin:290> INFO - === Wed Apr 19, 2017, 17:04:53
+[78] Biber.pm:351> INFO - Reading 'E_Databehandling.bcf'
+[171] Biber.pm:776> INFO - Found 0 citekeys in bib section 0
+[179] Utils.pm:149> WARN - The file 'E_Databehandling.bcf' does not contain any citations!
+[187] bbl.pm:526> INFO - Writing 'E_Databehandling.bbl' with encoding 'UTF-8'
+[188] bbl.pm:619> INFO - Output to E_Databehandling.bbl
+[188] Biber.pm:108> INFO - WARNINGS: 1
