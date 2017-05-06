@@ -58,8 +58,18 @@ print(sds_f1,sds_f2)
 def focal(s,s_mark):
     return (s*s_mark)/(s+s_mark)
 focal_teo1 = focal(s1,s_mark1)
+<<<<<<< HEAD
+linspaced = np.linspace(30,55,100)-I_0
+
+
+=======
 #print(focal_teo1)
+<<<<<<< HEAD
 # %% - - - - - - - - p.l.o.t - - - - - - - -
+=======
+>>>>>>> 78bfe63774006c023f51e10f95877c6fc46fe09a
+# %% - - - - - - - - plot - - - - - - - -
+>>>>>>> 720bb997469a24fbb66b3ecede88502538a892df
 s_inv1 = 1/s1
 s_markinv1 = 1/s_mark1
 s_inv2 = 1/s2
@@ -74,6 +84,16 @@ plt.xlabel("s")
 plt.ylabel("s'")
 plt.axis([0.08, 0.4, 0.05, 0.36])
 
+<<<<<<< HEAD
+# %% - - - - - - - - fit - - - - - - - - HEJ LAURITS
+def func_fit(s,f):
+    return (f*s)/(f-s)
+f_opt,f_cov = opt.curve_fit(func_fit,s_mark1,s1)
+xrange = np.linspace(0.1,0.35,1000)
+s_mark_fit = func_fit(xrange,f_opt)
+
+# %% - - - - - - - - PLot - - - - - - - -
+=======
 
 # %% - - - - - - - - fit - - - - - - - -
 def func_fit(s_inv,f):
@@ -85,8 +105,24 @@ print(f_opt1)
 print(f_opt2)
 range = np.linspace(2,7,1000.)
 s_mark_fit1 = func_fit(range,f_opt1)
+<<<<<<< HEAD
+=======
+s_mark_fit2 = func_fit(range,f_opt2)
+<<<<<<< HEAD
+#figur for datasæt 1
+<<<<<<< HEAD
+>>>>>>> 78bfe63774006c023f51e10f95877c6fc46fe09a
+=======
+plt.figure()
+plt.plot(range,s_mark_fit1)
+>>>>>>> e00bdedba267e93ca2c93329afea3069575381c6
+=======
+=======
+>>>>>>> b74d326430a571ac378485cd6c96b640e46f67df
+>>>>>>> 720bb997469a24fbb66b3ecede88502538a892df
 
 #figur for datasaet 1
+>>>>>>> 0ad5f5e03ab46de02464062268eb928de843a214
 plt.figure()
 plt.plot(range,s_mark_fit1, '--k', label='fit')
 plt.errorbar(s_inv1,s_markinv1,xerr = sds_inv_s,yerr = sds_inv_s ,fmt='ok',label="Datasaet 1")

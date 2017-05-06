@@ -47,7 +47,6 @@ def func(mu_fit):
 
 u_opt,u_cov = opt.curve_fit(grundFrekvens,xdata,ydata);
 freq_opt = grundFrekvens(F_range,u_opt);
-
 l=0.6;
 Dl = 5/1000;
 DF = 1;
@@ -103,5 +102,3 @@ plt.tight_layout();
 plt.savefig("frekvensMu.png", dpi = 199)
 plt.grid(1)
 plt.show()
-
-
