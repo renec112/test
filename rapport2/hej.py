@@ -30,7 +30,8 @@ s_mark2 = I_r2-lin2 # m - laengden s'
 
 
 #- - - - - - - - - - - - - - - - - - - - - - usikkerheden paa maalingerne
-
+usik_inv_x = 1/pm_x
+#ophobningsloven bruges for at finde usikkerheden på f
 
 
 # %% - - - - - - - - teoretisk fokuspunkter - - - - - - - -
