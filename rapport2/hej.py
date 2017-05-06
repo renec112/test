@@ -44,13 +44,15 @@ s_inv1 = 1/s1
 s_markinv1 = 1/s_mark1
 s_inv2 = 1/s2
 s_markinv2 = 1/s_mark2
-
+# figur med det raa data
 plt.figure()
-plt.title('Måledata')
-plt.plot(s_inv1,s_markinv1, 'ok', label="cake")
+plt.title('Maaledata')
+plt.plot(s1,s_mark1, 'bo', label="Datasaet 1")
+plt.plot(s2,s_mark2, 'ro', label="Datasaet 2")
 plt.legend()
 plt.xlabel("s")
 plt.ylabel("s'")
+plt.axis([0.08, 0.4, 0.05, 0.36])
 
 <<<<<<< HEAD
 # %% - - - - - - - - fit - - - - - - - - HEJ LAURITS
@@ -66,32 +68,39 @@ s_mark_fit = func_fit(xrange,f_opt)
 # %% - - - - - - - - fit - - - - - - - -
 def func_fit(s_inv,f):
     return 1/f - s_inv
+
 f_opt1,f_cov1 = opt.curve_fit(func_fit,s_inv1,s_markinv1)
 f_opt2,f_cov2 = opt.curve_fit(func_fit,s_inv2,s_markinv2)
 print(f_opt1)
 print(f_opt2)
 range = np.linspace(2,7,1000.)
 s_mark_fit1 = func_fit(range,f_opt1)
+<<<<<<< HEAD
 s_mark_fit2 = func_fit(range,f_opt2)
 #figur for datasæt 1
 >>>>>>> 78bfe63774006c023f51e10f95877c6fc46fe09a
+=======
+
+#figur for datasaet 1
+>>>>>>> 0ad5f5e03ab46de02464062268eb928de843a214
 plt.figure()
-plt.plot(range,s_mark_fit1)
+plt.plot(range,s_mark_fit1, '--k', label='fit')
 plt.plot(s_inv1,s_markinv1,'ok',label="Datasaet 1")
 plt.legend()
 plt.xlabel("1/s")
 plt.ylabel("1/s'")
-plt.show()
-#figur for datasæt 2
+plt.savefig(1.png)
+#figur for datasaet 2
+range2 = np.linspace(5.5,11,1000)
+s_mark_fit2 = func_fit(range2,f_opt2)
 plt.figure()
 
-plt.plot(range,s_mark_fit2)
+plt.plot(range2,s_mark_fit2, '--k', label='fit')
 plt.plot(s_inv2,s_markinv2,'ok',label="Datasaet 2")
 plt.legend()
-plt.plot(range,s_mark_fit)
-plt.plot(s_inv1,s_markinv1,'ok')
 plt.grid()
 plt.xlabel("1/s")
 plt.ylabel("1/s'")
+plt.savefig("2.png")
 plt.show()
 
