@@ -2,6 +2,8 @@ from scipy import optimize as opt
 import numpy as np
 import matplotlib.pyplot as plt
 plt.rcParams.update({'font.size': 16})
+plt.rc('text',usetex=True)
+
 numpoints = 1
 # %% Define funcion
 def grundFrekvens(F, u):
