@@ -38,6 +38,7 @@ s_markinv1 = 1/s_mark1
 
 
 plt.figure()
+plt.title('Måledata')
 plt.plot(s_inv1,s_markinv1, 'ok', label="cake")
 plt.legend()
 plt.xlabel("s")
@@ -54,6 +55,7 @@ s_mark_fit = func_fit(range,f_opt)
 plt.figure()
 plt.plot(range,s_mark_fit)
 plt.plot(s_inv1,s_markinv1,'ok')
+plt.grid()
 plt.xlabel("1/s")
 plt.ylabel("1/s'")
 plt.show()
