@@ -22,10 +22,10 @@ y_r = np.array([1.8,5.6,4.0,3.1,2.5,2.1,1.6,1.4,1.3,1.1,1.1])/100. # hoejden af 
 y_r2 = np.array([2.9,1.9,1.5,1.3])/100.                            # Kommenterer lidt mere
 
 #laengder
-s1 = lin1-I_0 #m - laengden s
-s_mark1 = I_r1-lin1 #m - laengden s'
-s2 = lin2-I_0 #m - laengden s
-s_mark2 = I_r2-lin2 #m - laengden s'
+s1 = lin1-I_0       # m - laengden s
+s_mark1 = I_r1-lin1 # m - laengden s'
+s2 = lin2-I_0       # m - laengden s
+s_mark2 = I_r2-lin2 # m - laengden s'
 
 # %% - - - - - - - - teoretisk fokuspunkter - - - - - - - -
 def focal(s,s_mark):
