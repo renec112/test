@@ -303,12 +303,16 @@ INPUT /usr/local/texlive/2016/texmf-dist/fonts/tfm/public/cm/cmti10.tfm
 INPUT /usr/local/texlive/2016/texmf-var/fonts/map/pdftex/updmap/pdftex.map
 INPUT D_Opstilling.tex
 INPUT D_Opstilling.tex
+INPUT opstilling.jpg
+INPUT ./opstilling.jpg
+INPUT ./opstilling.jpg
+INPUT /usr/local/texlive/2016/texmf-dist/fonts/tfm/public/cm/cmbx9.tfm
 INPUT E_Databehandling.tex
 INPUT E_Databehandling.tex
 INPUT frekvensSnorSpaending.png
 INPUT ./frekvensSnorSpaending.png
 INPUT ./frekvensSnorSpaending.png
-INPUT /usr/local/texlive/2016/texmf-dist/fonts/tfm/public/cm/cmbx9.tfm
+INPUT /usr/local/texlive/2016/texmf-dist/fonts/tfm/public/cm/cmsl10.tfm
 INPUT frekvensMu.png
 INPUT ./frekvensMu.png
 INPUT ./frekvensMu.png
@@ -316,7 +320,6 @@ INPUT F_Diskussion.tex
 INPUT F_Diskussion.tex
 INPUT G_Konklusion.tex
 INPUT G_Konklusion.tex
-INPUT /usr/local/texlive/2016/texmf-dist/fonts/tfm/public/cm/cmsl10.tfm
 INPUT A2_main.aux
 INPUT ./A2_main.out
 INPUT ./A2_main.out
