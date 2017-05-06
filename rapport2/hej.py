@@ -1,6 +1,7 @@
 # %%  - - - - - - - - Import  - - - - - - - -
 import numpy as np
 import matplotlib.pyplot as plt
+from scipy import optimize as opt
 
 #positioner paa ting
 I_0 = 15/100 #position for image 0
@@ -21,6 +22,35 @@ y_r = np.array([1.8,5.6,4.0,3.1,2.5,2.1,1.6,1.4,1.3,1.1,1.1])/100. # hoejden af 
 y_r2 = np.array([2.9,1.9,1.5,1.3])/100.
 
 #leangder
-s = lin1-I_0 #m - laengden s
-s_mark = I_0-lin1 #m - laengden s'
-print(s,s_mark)
+
+s1 = lin1-I_0 #m - laengden s
+s_mark1 = I_r1-lin1 #m - laengden s'
+s2 = lin2-I_0 #m - laengden s
+s_mark2 = I_r2-lin2 #m - laengden s'
+
+# %% - - - - - - - - teoretisk fokuspunkter - - - - - - - -
+def focal(s,s_mark):
+    return (s*s_mark)/(s+s_mark)
+focal_teo1 = focal(s1,s_mark1)
+print(focal_teo1)
+# %% - - - - - - - - plot - - - - - - - -
+plt.figure()
+plt.plot(s1,s_mark1, 'ok', label="cake")
+plt.legend()
+plt.xlabel("s")
+plt.ylabel("s'")
+plt.show()
+
+# %% - - - - - - - - fit - - - - - - - -
+def func_fit(s,f):
+    return (f*s)/(s-f)
+f_opt,f_cov = opt.curve_fit(func_fit,s1,s_mark1)
+
+xrange = np.linspace(0.1,0.35,1000)
+s_mark_fit = func_fit(xrange,f_opt)
+plt.figure()
+plt.plot(xrange,s_mark_fit)
+plt.plot(s1,s_mark1,'ok')
+plt.xlabel("s")
+plt.ylabel("s'")
+plt.show()
