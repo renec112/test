@@ -31,7 +31,9 @@ s_mark2 = I_r2-lin2 # m - laengden s'
 def focal(s,s_mark):
     return (s*s_mark)/(s+s_mark)
 focal_teo1 = focal(s1,s_mark1)
-print(focal_teo1)
+linspaced = np.linspace(30,55,100)-I_0
+
+
 # %% - - - - - - - - plot - - - - - - - -
 plt.figure()
 plt.plot(s1,s_mark1, 'ok', label="cake")
@@ -40,13 +42,14 @@ plt.xlabel("s")
 plt.ylabel("s'")
 plt.show()
 
-# %% - - - - - - - - fit - - - - - - - -
+# %% - - - - - - - - fit - - - - - - - - HEJ LAURITS
 def func_fit(s,f):
-    return (f*s)/(s-f)
-f_opt,f_cov = opt.curve_fit(func_fit,s1,s_mark1)
-
+    return (f*s)/(f-s)
+f_opt,f_cov = opt.curve_fit(func_fit,s_mark1,s1)
 xrange = np.linspace(0.1,0.35,1000)
 s_mark_fit = func_fit(xrange,f_opt)
+
+# %% - - - - - - - - PLot - - - - - - - -
 plt.figure()
 plt.plot(xrange,s_mark_fit)
 plt.plot(s1,s_mark1,'ok')
