@@ -10,7 +10,7 @@ y_0 = 2.5/100. # hoejden af image 0
 
 #usikkerheder
 pm_y = 0.1/100 # usikkerheder paa hoejde
-pm_x = 1/100# usikkerhed paa hvor fokus er. valgt til at vaere konstant 1 cm.
+pm_x = 1./100# usikkerhed paa hvor fokus er. valgt til at vaere konstant 1 cm.
 
 #linsers orden [+10],[+5]
 I_r1 = np.array([58.,64.,59.,57.5,57.,57.8,59.8,61.,62.6,63.9,66.])/100. # position for reelt image paa papir
@@ -30,8 +30,28 @@ s_mark2 = I_r2-lin2 # m - laengden s'
 
 
 #- - - - - - - - - - - - - - - - - - - - - - usikkerheden paa maalingerne
-usik_inv_x = 1/pm_x
-#ophobningsloven bruges for at finde usikkerheden på f
+sds_x = pm_x
+
+
+dfdx1 = np.log(s1)
+dfdx2 = np.log(s2)
+sum01 = np.sum(np.power(dfdx1,2)*np.power(sds_x,2))
+sum02 = np.sum(np.power(dfdx2,2)*np.power(sds_x,2))
+sds_inv_s = np.sqrt(sum01+sum02)
+
+#ophobningsloven bruges for at finde usikkerheden paa f
+dfds1 = s_mark1/np.power(s1+s_mark1,2)
+dfds2 = s_mark2/np.power(s2+s_mark2,2)
+dfds_mark1 = s1/np.power(s1+s_mark1,2)
+dfds_mark2 = s2/np.power(s2+s_mark2,2)
+
+
+
+sum1 = np.sum(np.power(dfds1,2)*np.power(sds_x,2))
+sum2 = np.sum(np.power(dfds2,2)*np.power(sds_x,2))
+sds_f1 = np.sqrt(sum1)
+sds_f2 = np.sqrt(sum2)
+print(sds_f1,sds_f2)
 
 
 # %% - - - - - - - - teoretisk fokuspunkter - - - - - - - -
@@ -39,7 +59,7 @@ def focal(s,s_mark):
     return (s*s_mark)/(s+s_mark)
 focal_teo1 = focal(s1,s_mark1)
 #print(focal_teo1)
-# %% - - - - - - - - plot - - - - - - - -
+# %% - - - - - - - - p.l.o.t - - - - - - - -
 s_inv1 = 1/s1
 s_markinv1 = 1/s_mark1
 s_inv2 = 1/s2
@@ -47,8 +67,8 @@ s_markinv2 = 1/s_mark2
 # figur med det raa data
 plt.figure()
 plt.title('Maaledata')
-plt.plot(s1,s_mark1, 'bo', label="Datasaet 1")
-plt.plot(s2,s_mark2, 'ro', label="Datasaet 2")
+plt.errorbar(s1,s_mark1,xerr = pm_x, yerr = pm_x, fmt='bo', label="Datasaet 1")
+plt.errorbar(s2,s_mark2,xerr = pm_x, yerr = pm_x, fmt='ro', label="Datasaet 2")
 plt.legend()
 plt.xlabel("s")
 plt.ylabel("s'")
@@ -69,7 +89,7 @@ s_mark_fit1 = func_fit(range,f_opt1)
 #figur for datasaet 1
 plt.figure()
 plt.plot(range,s_mark_fit1, '--k', label='fit')
-plt.plot(s_inv1,s_markinv1,'ok',label="Datasaet 1")
+plt.errorbar(s_inv1,s_markinv1,xerr = sds_inv_s,yerr = sds_inv_s ,fmt='ok',label="Datasaet 1")
 plt.legend()
 plt.xlabel("1/s")
 plt.ylabel("1/s'")
@@ -80,11 +100,22 @@ s_mark_fit2 = func_fit(range2,f_opt2)
 plt.figure()
 
 plt.plot(range2,s_mark_fit2, '--k', label='fit')
-plt.plot(s_inv2,s_markinv2,'ok',label="Datasaet 2")
+plt.errorbar(s_inv2,s_markinv2,xerr = sds_inv_s,yerr = sds_inv_s ,fmt='ok',label="Datasaet 2")
 plt.legend()
 plt.grid()
 plt.xlabel("1/s")
 plt.ylabel("1/s'")
 plt.savefig("2.png")
 plt.show()
+
+#indenfor et 95% konfidensinterval saa ligger de to indenfor foelgende
+konf_int_f10 = [f_opt1 - sds_f1,f_opt1 + sds_f1]
+konf_int_f5 = [f_opt2 - sds_f2,f_opt2 + sds_f2]
+print("f = 10")
+print(f_opt1)
+print(konf_int_f10)
+
+print("f=5")
+print(f_opt2)
+print(konf_int_f5)
 
