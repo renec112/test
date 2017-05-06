@@ -2,6 +2,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 from scipy import optimize as opt
+plt.rcParams['legend.numpoints']=1
 
 #positioner paa ting
 I_0 = 15/100. #position for image 0
@@ -35,7 +36,8 @@ focal_teo1 = focal(s1,s_mark1)
 # %% - - - - - - - - plot - - - - - - - -
 s_inv1 = 1/s1
 s_markinv1 = 1/s_mark1
-
+s_inv2 = 1/s2
+s_markinv2 = 1/s_mark2
 
 plt.figure()
 plt.plot(s_inv1,s_markinv1, 'ok', label="cake")
@@ -47,13 +49,27 @@ plt.ylabel("s'")
 # %% - - - - - - - - fit - - - - - - - -
 def func_fit(s_inv,f):
     return 1/f - s_inv
-f_opt,f_cov = opt.curve_fit(func_fit,s_inv1,s_markinv1)
-print(f_opt)
-range = np.linspace(-10,10,1000.)
-s_mark_fit = func_fit(range,f_opt)
+f_opt1,f_cov1 = opt.curve_fit(func_fit,s_inv1,s_markinv1)
+f_opt2,f_cov2 = opt.curve_fit(func_fit,s_inv2,s_markinv2)
+print(f_opt1)
+print(f_opt2)
+range = np.linspace(2,7,1000.)
+s_mark_fit1 = func_fit(range,f_opt1)
+s_mark_fit2 = func_fit(range,f_opt2)
+#figur for datasæt 1
 plt.figure()
-plt.plot(range,s_mark_fit)
-plt.plot(s_inv1,s_markinv1,'ok')
+plt.plot(range,s_mark_fit1)
+plt.plot(s_inv1,s_markinv1,'ok',label="Datasaet 1")
+plt.legend()
 plt.xlabel("1/s")
 plt.ylabel("1/s'")
 plt.show()
+#figur for datasæt 2
+plt.figure()
+plt.plot(range,s_mark_fit2)
+plt.plot(s_inv2,s_markinv2,'ok',label="Datasaet 2")
+plt.legend()
+plt.xlabel("1/s")
+plt.ylabel("1/s'")
+plt.show()
+
