@@ -28,6 +28,11 @@ s_mark1 = I_r1-lin1 # m - laengden s'
 s2 = lin2-I_0       # m - laengden s
 s_mark2 = I_r2-lin2 # m - laengden s'
 
+
+#- - - - - - - - - - - - - - - - - - - - - - usikkerheden paa maalingerne
+
+
+
 # %% - - - - - - - - teoretisk fokuspunkter - - - - - - - -
 def focal(s,s_mark):
     return (s*s_mark)/(s+s_mark)
@@ -67,7 +72,7 @@ plt.plot(s_inv1,s_markinv1,'ok',label="Datasaet 1")
 plt.legend()
 plt.xlabel("1/s")
 plt.ylabel("1/s'")
-plt.savefig(1.png)
+plt.savefig("1.png")
 #figur for datasaet 2
 range2 = np.linspace(5.5,11,1000)
 s_mark_fit2 = func_fit(range2,f_opt2)
