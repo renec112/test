@@ -1,0 +1,32 @@
+\documentclass[danish,a4paper,twocolumn, oneside]{memoir}
+\usepackage{A1_preamble}
+\usepackage{subfiles}
+\title{title}
+\author{Rene Czepluch\thanks{rene.czepluch@post.au.dk} og Laurits N. Stokholm\thanks{laurits.stokholm@post.au.dk}}
+\date
+
+\usepackage[backend=biber, style=authortitle, defernumbers=true, sorting=nty]{biblatex}
+\addbibresource{bib.bib}
+
+
+\begin{document}
+
+\maketitle
+\noindent
+
+\subfile{B_Introduktion}
+\subfile{C_Teori}
+\subfile{D_Opstilling}
+\subfile{E_Databehandling}
+\subfile{F_Diskussion}
+\subfile{G_Konklusion}
+
+
+
+
+
+
+
+
+
+\end{document}

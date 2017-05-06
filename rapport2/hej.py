@@ -40,6 +40,7 @@ s_inv2 = 1/s2
 s_markinv2 = 1/s_mark2
 
 plt.figure()
+plt.title('Måledata')
 plt.plot(s_inv1,s_markinv1, 'ok', label="cake")
 plt.legend()
 plt.xlabel("s")
@@ -66,9 +67,13 @@ plt.ylabel("1/s'")
 plt.show()
 #figur for datasæt 2
 plt.figure()
+
 plt.plot(range,s_mark_fit2)
 plt.plot(s_inv2,s_markinv2,'ok',label="Datasaet 2")
 plt.legend()
+plt.plot(range,s_mark_fit)
+plt.plot(s_inv1,s_markinv1,'ok')
+plt.grid()
 plt.xlabel("1/s")
 plt.ylabel("1/s'")
 plt.show()
