@@ -13,10 +13,10 @@ plt.rc('font',family='serif')
 I_0 = 15/100. #position for image 0
 y_0 = 2.5/100. # hoejden af image 0
 
+
 #usikkerheder
 pm_y = 0.1/100 # usikkerheder paa hoejde
-pm_x = 1./100# usikkerhed paa hvor fokus er. valgt til at vaere konstant 1 cm.
-
+pm_x = 1./100# usikkerhed paa hvor fokus er. valgt til at være konstant 1 cm.
 #linsers orden [+10],[+5]
 I_r1 = np.array([58.,64.,59.,57.5,57.,57.8,59.8,61.,62.6,63.9,66.])/100. # position for reelt image paa papir
 I_r2 = np.array([36.,36.6,37.9,39.2])/100.                               # En kommentar
@@ -27,11 +27,11 @@ lin2 = np.array([25,27,29,31])/100.                                      # Anden
 y_r = np.array([1.8,5.6,4.0,3.1,2.5,2.1,1.6,1.4,1.3,1.1,1.1])/100. # hoejden af image paa papir
 y_r2 = np.array([2.9,1.9,1.5,1.3])/100.                            # Kommenterer lidt mere
 
-#laengder
-s1 = lin1-I_0       # m - laengden s
-s_mark1 = I_r1-lin1 # m - laengden s'
-s2 = lin2-I_0       # m - laengden s
-s_mark2 = I_r2-lin2 # m - laengden s'
+#længder
+s1 = lin1-I_0       # m - længden s
+s_mark1 = I_r1-lin1 # m - længden s'
+s2 = lin2-I_0       # m - længden s
+s_mark2 = I_r2-lin2 # m - længden s'
 
 
 #- - - - - - - - - - - - - - - - - - - - - - usikkerheden paa maalingerne
@@ -89,88 +89,88 @@ plt.ylabel("s'",rotation=0)
 plt.tight_layout()
 plt.savefig("usikkerhed.png")
 plt.axis([0.08, 0.4, 0.05, 0.36])
-
-
-
-# %% - - - - - - - - fit - - - - - - - -
-def func_fit(s_inv,f):
-    return 1/f - s_inv
-
-f_opt1,f_cov1 = opt.curve_fit(func_fit,s_inv1,s_markinv1)
-f_opt2,f_cov2 = opt.curve_fit(func_fit,s_inv2,s_markinv2)
-print(f_opt1)
-print(f_opt2)
-range = np.linspace(2,7,1000.)
-s_mark_fit1 = func_fit(range,f_opt1)
-s_mark_fit2 = func_fit(range,f_opt2)
-
-
-
-#figur for datasaet 1
-
-plt.figure()
-plt.plot(range,s_mark_fit1, '--k', label='Fit')
-plt.errorbar(s_inv1,s_markinv1,xerr = sds_inv_s,yerr = sds_inv_s ,fmt='ok',label="Datasaet 1")
-plt.grid()
-plt.legend()
-plt.xlabel(r"$\frac{1}{s}$")
-plt.ylabel(r"$\frac{1}{s'}$",rotation=0)
-plt.tight_layout()
-plt.savefig("1.png")
-#figur for datasaet 2
-range2 = np.linspace(5.5,11,1000)
-s_mark_fit2 = func_fit(range2,f_opt2)
-plt.figure()
-
-plt.plot(range2,s_mark_fit2, '--k', label='Fit')
-plt.errorbar(s_inv2,s_markinv2,xerr = sds_inv_s,yerr = sds_inv_s ,fmt='ok',label="Datasaet 2")
-plt.legend()
-plt.grid()
-plt.xlabel(r"$\frac{1}{s}$")
-plt.ylabel(r"$\frac{1}{s'}",rotation=0)
-plt.tight_layout()
-plt.savefig("2.png")
-
-
-#indenfor et 95% konfidensinterval saa ligger de to indenfor foelgende
-konf_int_f10 = [f_opt1 - sds_f1,f_opt1 + sds_f1]
-konf_int_f5 = [f_opt2 - sds_f2,f_opt2 + sds_f2]
-print("f = 10")
-print(f_opt1)
-print(konf_int_f10)
-
-print("f=5")
-print(f_opt2)
-print(konf_int_f5)
-
-
-#for at tjekke om forholdet (34.17) gaelder plottes y'/y (-s'/s)
-#haeldningen skulle gerne vaere 1
-linje = np.linspace(0,3,1000)
-teo_linje = linje
-xdata_y = s_mark1/s1
-ydata_y = y_r/y_0
-
-dfdx_x = 1/s1
-dfdy_x = s_mark1 * np.log(s1)
-sum01_x = np.sum(np.power(dfdx_x,2)*np.power(sds_x,2))
-sum02_x = np.sum(np.power(dfdx_x,2)*np.power(sds_x,2))
-sds_xdata = np.sqrt(sum01+sum02)
-
-dfdx_y = 1/y_0
-dfdy_y = y_r * np.log(y_0)
-sum01_y = np.sum(np.power(dfdx_y,2)*np.power(pm_y,2))
-sum02_y = np.sum(np.power(dfdx_y,2)*np.power(pm_y,2))
-sds_xdata = np.sqrt(sum01_y)
-sds_ydata = np.sqrt(sum02_y)
-
-plt.figure()
-plt.errorbar(xdata_y,ydata_y,xerr=sds_xdata,yerr=sds_ydata,fmt='ok')
-plt.plot(linje,teo_linje,'--k',label='Teoretisk linje')
-plt.grid()
-plt.xlabel(r"$\frac{s'}{s}$")
-plt.ylabel(r"$\frac{y'}{y}$",rotation=0)
-plt.tight_layout()
-plt.legend(loc=2)
-plt.savefig("3.png")
 plt.show()
+
+
+## %% - - - - - - - - fit - - - - - - - -
+#def func_fit(s_inv,f):
+    #return 1/f - s_inv
+#
+#f_opt1,f_cov1 = opt.curve_fit(func_fit,s_inv1,s_markinv1)
+#f_opt2,f_cov2 = opt.curve_fit(func_fit,s_inv2,s_markinv2)
+#print(f_opt1)
+#print(f_opt2)
+#range = np.linspace(2,7,1000.)
+#s_mark_fit1 = func_fit(range,f_opt1)
+#s_mark_fit2 = func_fit(range,f_opt2)
+#
+#
+#
+##figur for datasæt 1
+#
+#plt.figure()
+#plt.plot(range,s_mark_fit1, '--k', label='Fit')
+#plt.errorbar(s_inv1,s_markinv1,xerr = sds_inv_s,yerr = sds_inv_s ,fmt='ok',label="Datasæt 1")
+#plt.grid()
+#plt.legend()
+#plt.xlabel(r"$\frac{1}{s}$")
+#plt.ylabel(r"$\frac{1}{s'}$",rotation=0)
+#plt.tight_layout()
+#plt.savefig("1.png")
+##figur for datasæt 2
+#range2 = np.linspace(5.5,11,1000)
+#s_mark_fit2 = func_fit(range2,f_opt2)
+#plt.figure()
+#
+#plt.plot(range2,s_mark_fit2, '--k', label='Fit')
+#plt.errorbar(s_inv2,s_markinv2,xerr = sds_inv_s,yerr = sds_inv_s ,fmt='ok',label="Datasæt 2")
+#plt.legend()
+#plt.grid()
+#plt.xlabel(r"$\frac{1}{s}$")
+#plt.ylabel(r"$\frac{1}{s'}",rotation=0)
+#plt.tight_layout()
+#plt.savefig("2.png")
+#
+#
+##indenfor et 95% konfidensinterval saa ligger de to indenfor foelgende
+#konf_int_f10 = [f_opt1 - sds_f1,f_opt1 + sds_f1]
+#konf_int_f5 = [f_opt2 - sds_f2,f_opt2 + sds_f2]
+#print("f = 10")
+#print(f_opt1)
+#print(konf_int_f10)
+#
+#print("f=5")
+#print(f_opt2)
+#print(konf_int_f5)
+#
+#
+##for at tjekke om forholdet (34.17) gælder plottes y'/y (-s'/s)
+##hældningen skulle gerne være 1
+#linje = np.linspace(0,3,1000)
+#teo_linje = linje
+#xdata_y = s_mark1/s1
+#ydata_y = y_r/y_0
+#
+#dfdx_x = 1/s1
+#dfdy_x = s_mark1 * np.log(s1)
+#sum01_x = np.sum(np.power(dfdx_x,2)*np.power(sds_x,2))
+#sum02_x = np.sum(np.power(dfdx_x,2)*np.power(sds_x,2))
+#sds_xdata = np.sqrt(sum01+sum02)
+#
+#dfdx_y = 1/y_0
+#dfdy_y = y_r * np.log(y_0)
+#sum01_y = np.sum(np.power(dfdx_y,2)*np.power(pm_y,2))
+#sum02_y = np.sum(np.power(dfdx_y,2)*np.power(pm_y,2))
+#sds_xdata = np.sqrt(sum01_y)
+#sds_ydata = np.sqrt(sum02_y)
+#
+#plt.figure()
+#plt.errorbar(xdata_y,ydata_y,xerr=sds_xdata,yerr=sds_ydata,fmt='ok')
+#plt.plot(linje,teo_linje,'--k',label='Teoretisk linje')
+#plt.grid()
+#plt.xlabel(r"$\frac{s'}{s}$")
+#plt.ylabel(r"$\frac{y'}{y}$",rotation=0)
+#plt.tight_layout()
+#plt.legend(loc=2)
+#plt.savefig("3.png")
+#plt.show()
