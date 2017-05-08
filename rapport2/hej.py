@@ -33,17 +33,16 @@ s_mark1 = I_r1-lin1 # m - laengden s'
 s2 = lin2-I_0       # m - laengden s
 s_mark2 = I_r2-lin2 # m - laengden s'
 # %% - - - - - - - -  - - - - - - - -
-#s1 = np.sort(s1)
-s_mark1 = np.sort(s_mark1)
-#s2 = np.sort(s2)
-s_mark2 = np.sort(s_mark2)
-plt.figure()
+
+
+plt.figure(1)
 plt.title(r"$f = 10$")
-plt.plot(s1,s_mark1, 'b--')
+plt.plot(s1,s_mark1, 'ok')
 plt.xlabel(r"$s [m]$");
+plt.grid(1)
 plt.ylabel(r"$s' [m]$");
 plt.tight_layout()
-# plt.savefig("res1.png")
+plt.savefig("res1.png")
 plt.show()
 # %% - - - - - - - -  - - - - - - - -
 
