@@ -32,8 +32,20 @@ s1 = lin1-I_0       # m - laengden s
 s_mark1 = I_r1-lin1 # m - laengden s'
 s2 = lin2-I_0       # m - laengden s
 s_mark2 = I_r2-lin2 # m - laengden s'
-
-
+# %% - - - - - - - -  - - - - - - - -
+s1 = np.sort(s1)
+# s_mark1 = np.sort(s_mark1)
+# s2 = np.sort(s2)
+# s_mark2 = np.sort(s_mark2)
+plt.figure()
+plt.title(r"$f = 10$")
+plt.plot(s1,s_mark1, 'b--')
+plt.xlabel(r"$s [m]$");
+plt.ylabel(r"$s' [m]$");
+plt.tight_layout()
+# plt.savefig("res1.png")
+plt.show()
+# %% - - - - - - - -  - - - - - - - -
 #- - - - - - - - - - - - - - - - - - - - - - usikkerheden paa maalingerne
 sds_x = pm_x
 
@@ -88,6 +100,7 @@ plt.grid()
 plt.xlabel("s")
 plt.ylabel("s'",rotation=0)
 plt.tight_layout()
+plt.savefig("usikkerhed.png")
 plt.axis([0.08, 0.4, 0.05, 0.36])
 
 import sys
@@ -110,7 +123,7 @@ s_mark_fit2 = func_fit(range,f_opt2)
 #figur for datasaet 1
 
 plt.figure()
-plt.plot(range,s_mark_fit1, '--k', label='fit')
+plt.plot(range,s_mark_fit1, '--k', label='Fit')
 plt.errorbar(s_inv1,s_markinv1,xerr = sds_inv_s,yerr = sds_inv_s ,fmt='ok',label="Datasaet 1")
 plt.grid()
 plt.legend()
@@ -123,7 +136,7 @@ range2 = np.linspace(5.5,11,1000)
 s_mark_fit2 = func_fit(range2,f_opt2)
 plt.figure()
 
-plt.plot(range2,s_mark_fit2, '--k', label='fit')
+plt.plot(range2,s_mark_fit2, '--k', label='Fit')
 plt.errorbar(s_inv2,s_markinv2,xerr = sds_inv_s,yerr = sds_inv_s ,fmt='ok',label="Datasaet 2")
 plt.legend()
 plt.grid()
@@ -167,7 +180,7 @@ sds_ydata = np.sqrt(sum02_y)
 
 plt.figure()
 plt.errorbar(xdata_y,ydata_y,xerr=sds_xdata,yerr=sds_ydata,fmt='ok')
-plt.plot(linje,teo_linje,'k',label='Teoretisk linje')
+plt.plot(linje,teo_linje,'--k',label='Teoretisk linje')
 plt.grid()
 plt.xlabel(r"$\frac{s'}{s}$")
 plt.ylabel(r"$\frac{y'}{y}$",rotation=0)
@@ -175,4 +188,3 @@ plt.tight_layout()
 plt.legend(loc=2)
 plt.savefig("3.png")
 plt.show()
-
