@@ -77,6 +77,7 @@ s_inv1 = 1/s1
 s_markinv1 = 1/s_mark1
 s_inv2 = 1/s2
 s_markinv2 = 1/s_mark2
+print(str(s_inv1) + "HEJ HEJ HEJ")
 # figur med det raa data
 plt.figure()
 plt.title('Maaledata')
@@ -89,7 +90,8 @@ plt.ylabel("s'",rotation=0)
 plt.tight_layout()
 plt.axis([0.08, 0.4, 0.05, 0.36])
 
-
+import sys
+print(sys.version)
 
 # %% - - - - - - - - fit - - - - - - - -
 def func_fit(s_inv,f):
