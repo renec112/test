@@ -43,7 +43,7 @@ plt.grid(1)
 plt.ylabel(r"$s' [m]$");
 plt.tight_layout()
 plt.savefig("res1.png")
-plt.show()
+
 # %% - - - - - - - -  - - - - - - - -
 
 #- - - - - - - - - - - - - - - - - - - - - - usikkerheden paa maalingerne
@@ -102,7 +102,6 @@ plt.ylabel("s'",rotation=0)
 plt.tight_layout()
 plt.savefig("usikkerhed.png")
 plt.axis([0.08, 0.4, 0.05, 0.36])
-plt.show()
 
 
 import sys
@@ -153,11 +152,11 @@ konf_int_f10 = [f_opt1 - sds_f1,f_opt1 + sds_f1]
 konf_int_f5 = [f_opt2 - sds_f2,f_opt2 + sds_f2]
 print("f = 10")
 print(f_opt1)
-print(konf_int_f10)
+print(sds_f1)
 
 print("f=5")
 print(f_opt2)
-print(konf_int_f5)
+print(sds_f2)
 
 
 #for at tjekke om forholdet (34.17) gaelder plottes y'/y (-s'/s)
