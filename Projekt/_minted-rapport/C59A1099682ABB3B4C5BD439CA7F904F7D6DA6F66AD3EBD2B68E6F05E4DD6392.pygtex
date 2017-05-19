@@ -1,0 +1,15 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c+c1}{\PYGZsh{} Parametre}
+\PYG{n}{n} \PYG{o}{=} \PYG{l+m+mf}{2.21}
+
+\PYG{c+c1}{\PYGZsh{} Data}
+
+
+\PYG{c+c1}{\PYGZsh{} Noter}
+\PYG{c+c1}{\PYGZsh{} Frekvensgeneratoren må ikke skrue op på højere end 5 dBm}
+
+\PYG{c+c1}{\PYGZsh{} Starter med at indstille setup \PYGZhy{} rykke på krystal / pap, men spejle/linser}
+\PYG{c+c1}{\PYGZsh{} var fastsat}
+
+\PYG{c+c1}{\PYGZsh{} Problemer med at få symmetriske lyspletter om 0 punktet \PYGZhy{} Vi var tilfredse med afstanden}
+\end{Verbatim}
