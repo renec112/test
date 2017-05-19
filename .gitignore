@@ -10,7 +10,6 @@
 *.synctex.gz
 
 #ikke sync pdf 
-*.pdf
 *.pdf.orig
 
 #skrald fra vim
