@@ -8,7 +8,6 @@ plt.rc('text',usetex=True)
 plt.rc('font',family='serif')
 
 
-
 #positioner paa ting
 I_0 = 15/100. #position for image 0
 y_0 = 2.5/100. # hoejden af image 0
