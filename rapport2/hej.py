@@ -8,15 +8,14 @@ plt.rc('text',usetex=True)
 plt.rc('font',family='serif')
 
 
-
 #positioner paa ting
 I_0 = 15/100. #position for image 0
 y_0 = 2.5/100. # hoejden af image 0
 
+
 #usikkerheder
 pm_y = 0.1/100 # usikkerheder paa hoejde
-pm_x = 1./100# usikkerhed paa hvor fokus er. valgt til at vaere konstant 1 cm.
-
+pm_x = 1./100# usikkerhed paa hvor fokus er. valgt til at være konstant 1 cm.
 #linsers orden [+10],[+5]
 I_r1 = np.array([58.,64.,59.,57.5,57.,57.8,59.8,61.,62.6,63.9,66.])/100. # position for reelt image paa papir
 I_r2 = np.array([36.,36.6,37.9,39.2])/100.                               # En kommentar
@@ -33,6 +32,8 @@ s_mark1 = I_r1-lin1 # m - laengden s'
 s2 = lin2-I_0       # m - laengden s
 s_mark2 = I_r2-lin2 # m - laengden s'
 # %% - - - - - - - -  - - - - - - - -
+
+
 plt.figure(1)
 plt.title(r"$f = 10$")
 plt.plot(s1,s_mark1, 'ok')
@@ -41,8 +42,9 @@ plt.grid(1)
 plt.ylabel(r"$s' [m]$");
 plt.tight_layout()
 plt.savefig("res1.png")
-plt.show()
+
 # %% - - - - - - - -  - - - - - - - -
+
 #- - - - - - - - - - - - - - - - - - - - - - usikkerheden paa maalingerne
 sds_x = pm_x
 
@@ -86,7 +88,7 @@ s_inv1 = 1/s1
 s_markinv1 = 1/s_mark1
 s_inv2 = 1/s2
 s_markinv2 = 1/s_mark2
-print(str(s_inv1) + "HEJ HEJ HEJ")
+
 # figur med det raa data
 plt.figure()
 plt.title('Maaledata')
@@ -99,6 +101,7 @@ plt.ylabel("s'",rotation=0)
 plt.tight_layout()
 plt.savefig("usikkerhed.png")
 plt.axis([0.08, 0.4, 0.05, 0.36])
+
 
 import sys
 print(sys.version)
@@ -148,11 +151,11 @@ konf_int_f10 = [f_opt1 - sds_f1,f_opt1 + sds_f1]
 konf_int_f5 = [f_opt2 - sds_f2,f_opt2 + sds_f2]
 print("f = 10")
 print(f_opt1)
-print(konf_int_f10)
+print(sds_f1)
 
 print("f=5")
 print(f_opt2)
-print(konf_int_f5)
+print(sds_f2)
 
 
 #for at tjekke om forholdet (34.17) gaelder plottes y'/y (-s'/s)
