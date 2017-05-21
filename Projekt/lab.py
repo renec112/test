@@ -2,6 +2,8 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
+from scipy.special import erf
+from scipy.special import erfc
 from scipy.optimize import curve_fit
 from scipy import optimize as opt
 from scipy import stats
@@ -25,14 +27,15 @@ plt.rc('font', **{'family' : "sans-serif"})
 plt.rcParams.update(params)
 
 # Faste parametre
-n_brydning = 2.21      # brydningsindeks
-lambda_l = 911*10**-9  # lysets bølgelængde (vakuum)
-L = 3.00 * 10**-2      # gitterets længde (måling)
-n = np.array([0, 1, 2, 3])
+n_brydning = 2.21            # brydningsindeks
+lambda_l   = 911*10**-9      # lysets bølgelængde (vakuum)
+L          = 3.00 * 10**-2   # gitterets længde (måling)
+n          = np.array([0, 1, 2, 3]) # Observarbare ordner
 
 # Målte data
 output = np.array([3.4]) # lydfrekvens
-l = 29.8               # længde mellem AOM og pap
+l      = 29.8 * 10**-2            # længde mellem AOM og pap
+sds_l  = 0.1 * 10**-2
 
 # Målte afstande mellem pletter
 # Afstand fra 0 til 2
@@ -51,7 +54,7 @@ def kvalitetsparameter(lambda_s, lambda_l, n, L):
 # Lydens hastighed
 def v_s(f_s, lambda_s):
     v_s = lambda_s * f_s
-    returN(v_s)
+    return(v_s)
 
 #v_s = v_s(f_s, lambda_s)
 #print(v_s)
@@ -96,21 +99,45 @@ def intensitet():
 # Første modul
 # Forsøg 1: Målte afstand til 1te orden (Rene, Rasmus og Laurits)
 d1 = np.array([0.7, 0.8, 0.9, 1.1, 1.1, 1.2, 1.3, 1.3, 1.4, 1.5, 1.5, 1.6, 1.7,
-    1.8, 1.8, 1.9, 2.0])
+    1.8, 1.8, 1.9, 2.0]) * 10**-2
 d2 = np.array([0.7, 0.8, 0.9, 0.9, 1.2, 1.2, 1.3, 1.4, 1.6, 1.6, 1.7, 1.8, 1.8,
-    1.9, 1.9, 2.0, 2.0])
+    1.9, 1.9, 2.0, 2.0]) * 10**-2
 d3 = np.array([0.7, 0.8, 0.9, 1.0, 1.1, 1.3, 1.3, 1.3, 1.4, 1.5, 1.6, 1.6, 1.7,
-    1.8, 1.9, 1.9, 2.0]) 
+    1.8, 1.9, 1.9, 2.0])  * 10**-2
+
+d4 = np.array([d1, d2, d3]).T
+d = (d1 + d2 + d3)/3
+
+theta_sep = d / l
+
+sds_d = np.zeros(np.size(d1))
+for i in range(0, np.size(d1)):
+    sds_d[i] = np.std(d4[i])
 
 # De justerede frekvenser af lyd
-f = np.array(np.linspace(120, 280, 17))
+fs = np.array(np.linspace(120, 280, 17)) * 10**6
+sds_fs = 0 # Indtil videre - spørg Andreas
+
+sds_theta_sep = np.sqrt((1/l**2) * sds_d**2 + (d/l**2)**2 * sds_l**2)
+
+sds_vs = np.sqrt((lambda_l/theta_sep)**2 * sds_fs**2 + (lambda_l*fs /
+    theta_sep**2)**2 * sds_theta_sep**2)
+
+def thetaFit(fs, k):
+    theta_sep = k*fs
+    return(theta_sep)
+
+p_opt, p_cov = opt.curve_fit(thetaFit, fs, theta_sep)
+print(p_opt)
+print((1/p_opt) * lambda_l)
+
 
 # Figur
 plt.figure()
 plt.title("Afstand til forste orden per frekvens")
-plt.plot(f, d1, 'ro', label='d1')
-plt.plot(f, d2, 'bo', label='d2')
-plt.plot(f, d3, 'go', label='d3')
+plt.plot(fs, d1, 'ro', label='d1')
+plt.plot(fs, d2, 'bo', label='d2')
+plt.plot(fs, d3, 'go', label='d3')
 plt.ylabel("Observeret afstand")
 plt.xlabel("Fast frekvens")
 plt.legend()
@@ -147,7 +174,7 @@ plt.grid()
 
 
 
-plt.show()
+#plt.show()
 
 
 # Noter
@@ -167,8 +194,108 @@ plt.show()
 
 
 
+# Noter:
+
+# Krystallens bredde og højde (mm)
+B = 0.5
+L = 2.00 
+
+
+Intensitet  = np.array([502.9, 502.1, 500.3, 496.4, 491.1, 487.3, 478.0, 471.3,
+    460.8, 444.7, 428.6, 406.2, 382.5, 354.2, 322.1, 290.3, 251.7, 218.1,
+    187.3, 152.4, 123.5, 101.0, 76.51, 57.61, 45.21, 31.18, 24.81, 17.28,
+    14.03, 10.02, 6.982, 5.421])
+    #])# mikrowatt
+
+print(Intensitet)
+
+a = np.size(Intensitet) * 0.1
+x = np.arange(3.20, 3.20 + a, 0.1)
+print(x)
+
+print(np.size(x))
+print(np.size(Intensitet))
+
+# MAX INTENSITET
+#495
+# 84 = 3.405 # mm
+# 16 = 3.618
+
+# 84 = 4.585
+# 16 = 4.705 
+
+d = 4.705 - 4.585
+k = 3.618 - 3.405
+print(d)
+print(k)
+
+maxi = 417
+mini = 10
+deltay = maxi - mini
+
+print(deltay*0.9-mini)
+print(deltay*0.1+mini)
+
+# Fit
+def Errorfunction(x, w0):
+    indmad = (x*np.sqrt(2)/w0)
+    y = erf(indmad)
+    return(y)
+
+p_opt, p_cov = opt.curve_fit(Errorfunction, x, Intensitet)#, bounds=(0.05, 0.50))
+w0 = p_opt
+print(w0)
+
+estimat = Intensitet*Errorfunction(x, w0)
+
+plt.figure()
+plt.grid()
+plt.plot(x, Intensitet, 'ro', label='Data')
+plt.plot(x, estimat, 'b-', label='Fit')
+plt.legend()
+
+plt.show()
 
 
 
 
+# w0 
+Imax = 435 # mikrowatt
+I = np.array([0.84*Imax, 0.16*Imax])
+kniv = np.array([3.51, 3.60 ])*10**-3
+#print(0.84*Imax)
+#print(0.16*Imax)
+#Imin = 
+#Hoej = 
 
+w0 = kniv[1] - kniv[0]
+
+def lydhastighed(risetime, w0):
+    vs = 0.64*(2*w0/ risetime)
+    return(vs)
+
+risetime = np.array([112, 200]) * 10 **-9
+
+i = np.ones(np.size(risetime))* w0# * 0.2 * 10**-3
+
+vs = lydhastighed(risetime, i) 
+print(vs)
+
+
+# 50 OHM VED OSCILLOSKOP
+# 16 OG 84 til w0
+# 90 OG 10 til risetime
+
+
+# Eksperimentel opstilling
+EkspOps = """
+Signal generator , switch, forstærker, power kobler, AOM, men lille bid af
+signal skal ud og over i oscilloskop, også dæmpet på 50 dB (på den sikre side).
+11.5 db power kobling.
+
+forbundet til 50 ohm, for at se det gule signal. tidsskala er hurtig, græn er
+langsom, aom giver 200 mhz, grøn (langsom) .
+
+Grønne kanal - detektor,""" 
+
+print(EkspOps)
