@@ -11,7 +11,7 @@ from scipy.stats import t
 # t0 = t.ppf(alpha, f)
 # tcdf = d.cdf(|t|m f)
 
-# MatploLib kører TeX
+# MatploLib koerer TeX
 params = {'legend.fontsize': '20',
           'axes.labelsize':  '20',
           'axes.titlesize':  '20',
@@ -28,16 +28,16 @@ plt.rcParams.update(params)
 
 # Faste parametre
 n_brydning = 2.21            # brydningsindeks
-lambda_l   = 911*10**-9      # lysets bølgelængde (vakuum)
-L          = 3.00 * 10**-2   # gitterets længde (måling)
+lambda_l   = 911*10**-9      # lysets boelgelaengde (vakuum)
+L          = 3.00 * 10**-2   # gitterets laengde (maaling)
 n          = np.array([0, 1, 2, 3]) # Observarbare ordner
 
-# Målte data
+# Maalte data
 output = np.array([3.4]) # lydfrekvens
-l      = 29.8 * 10**-2            # længde mellem AOM og pap
+l      = 29.8 * 10**-2            # laengde mellem AOM og pap
 sds_l  = 0.1 * 10**-2
 
-# Målte afstande mellem pletter
+# Maalte afstande mellem pletter
 # Afstand fra 0 til 2
 f_lyd = np.array([2.0, ]) * 10**8
 a = np.array([2.8 ]) + np.array([0.1])
@@ -64,7 +64,7 @@ def f_n(f, n, f_s):
     f_n = f + n*f_s
     return(f_n)
 
-# Bølgekonstanten
+# Boelgekonstanten
 def k_s(lambda_s):
     #k_s = 2*np.pi/lambda_s
     2*k*np.sin(theta_B)
@@ -81,7 +81,7 @@ def Bragg(lambda_l, f_s, n_brydning, v_s):
 
 #theta_B = Bragg(lambda_l, f_s, n_brydning, v_s)
 
-# Lydens bølgelængde
+# Lydens boelgelaengde
 def lambda_s(lambda_l, theta_B):
     lambda_s = lambda_l / (2*np.sin(theta_B))
     return(lambda_s)
@@ -96,8 +96,8 @@ def intensitet():
     return(I_1)
 
 # Data
-# Første modul
-# Forsøg 1: Målte afstand til 1te orden (Rene, Rasmus og Laurits)
+# Foerste modul
+# Forsoeg 1: Maalte afstand til 1te orden (Rene, Rasmus og Laurits)
 d1 = np.array([0.7, 0.8, 0.9, 1.1, 1.1, 1.2, 1.3, 1.3, 1.4, 1.5, 1.5, 1.6, 1.7,
     1.8, 1.8, 1.9, 2.0]) * 10**-2
 d2 = np.array([0.7, 0.8, 0.9, 0.9, 1.2, 1.2, 1.3, 1.4, 1.6, 1.6, 1.7, 1.8, 1.8,
@@ -116,7 +116,7 @@ for i in range(0, np.size(d1)):
 
 # De justerede frekvenser af lyd
 fs = np.array(np.linspace(120, 280, 17)) * 10**6
-sds_fs = 0 # Indtil videre - spørg Andreas
+sds_fs = 0 # Indtil videre - spoerg Andreas
 
 sds_theta_sep = np.sqrt((1/l**2) * sds_d**2 + (d/l**2)**2 * sds_l**2)
 
@@ -143,7 +143,7 @@ plt.xlabel("Fast frekvens")
 plt.legend()
 plt.grid()
 
-# Forsøg 2: Intensitet
+# Forsoeg 2: Intensitet
 data = np.array([ [3.0, 2.8, 2.6, 2.4, 2.2, 2.0, 1.8, 1.6, 1.4, 1.2, 1.0, 0.8,
     0.6, 0.4, 0.2, 0.0, -0.2, -0.4, -0.6, -0.8, -1.0, -1.2, -1.4, -1.6, -1.8,
     -2.0, -2.5, -3.0, -3.5, -4.0, -4.5, -5.0, -6.0, -7.0, -8.0, -9.0, -10.0,
@@ -160,7 +160,7 @@ P = data[1]
 dBm2 = np.power(10, dBm)/10
 
 # Figur
-# Plottede regulær dBm - fejlagtigt
+# Plottede regulaer dBm - fejlagtigt
 #plt.plot(dBm, P, 'ko', label='Plot')
 
 plt.figure()
@@ -178,13 +178,13 @@ plt.grid()
 
 
 # Noter
-# Første modul
-# Frekvensgeneratoren må ikke skrue op på højere end 5 dBm
+# Foerste modul
+# Frekvensgeneratoren maa ikke skrue op paa hoejere end 5 dBm
 
-# Starter med at indstille setup - rykke på krystal / pap, men spejle/linser
+# Starter med at indstille setup - rykke paa krystal / pap, men spejle/linser
 # var fastsat
 
-# Problemer med at få symmetriske lyspletter om 0 punktet - Vi var tilfredse med afstanden
+# Problemer med at faa symmetriske lyspletter om 0 punktet - Vi var tilfredse med afstanden
 
 # Andet moduk
 
@@ -196,7 +196,7 @@ plt.grid()
 
 # Noter:
 
-# Krystallens bredde og højde (mm)
+# Krystallens bredde og hoejde (mm)
 B = 0.5
 L = 2.00 
 
@@ -289,13 +289,13 @@ print(vs)
 
 # Eksperimentel opstilling
 EkspOps = """
-Signal generator , switch, forstærker, power kobler, AOM, men lille bid af
-signal skal ud og over i oscilloskop, også dæmpet på 50 dB (på den sikre side).
+Signal generator , switch, forstaerker, power kobler, AOM, men lille bid af
+signal skal ud og over i oscilloskop, ogsaa daempet paa 50 dB (paa den sikre side).
 11.5 db power kobling.
 
-forbundet til 50 ohm, for at se det gule signal. tidsskala er hurtig, græn er
-langsom, aom giver 200 mhz, grøn (langsom) .
+forbundet til 50 ohm, for at se det gule signal. tidsskala er hurtig, graen er
+langsom, aom giver 200 mhz, groen (langsom) .
 
-Grønne kanal - detektor,""" 
+Groenne kanal - detektor,""" 
 
 print(EkspOps)
