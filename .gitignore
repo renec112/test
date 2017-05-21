@@ -1,4 +1,4 @@
-#skrald fra latex 
+#skrald fra latex
 *.aux
 *.bcf
 *.bbl
@@ -9,8 +9,8 @@
 *.synctex.gz.orig
 *.synctex.gz
 
-#ikke sync pdf 
+#ikke sync pdf
 *.pdf.orig
-
+*.pdf
 #skrald fra vim
 *.swp
