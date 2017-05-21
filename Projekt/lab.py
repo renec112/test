@@ -151,17 +151,16 @@ plt.legend(loc = 2)
 plt.axis(limits_dplt)
 plt.grid()
 
-t_color = fs
-y_color = np.cos(t_color)
+farve = 'grey'
 plt.figure()
 plt.title("Usikkerhedsplot med gennemsnitlig d")
-# plt.errorbar(fs,d,xerr=0,yerr=sds_d,fmt='ok',label = "Datapunkter")
-special.errorfill(fs, d, sds_d, label='Datapunkter', label_fill='Standardafvigelse')
+plt.plot(fs,d,'ko')
+special.errorfill(fs, d, sds_d,alpha_fill=0.1,color=farve)
 plt.ylabel("Observeret afstand")
 plt.xlabel("Fast frekvens")
-plt.legend(loc = 2)
+plt.legend(['Datapunkter','Standardafvigelse'],loc = 2)
 plt.axis(limits_dplt)
-plt.grid()
+# plt.grid()
 
 # Forsoeg 2: Intensitet
 data = np.array([ [3.0, 2.8, 2.6, 2.4, 2.2, 2.0, 1.8, 1.6, 1.4, 1.2, 1.0, 0.8,
@@ -190,7 +189,7 @@ plt.grid()
 
 # Andet modul
 
-    
+
 
 
 
@@ -218,7 +217,7 @@ plt.grid()
 
 # Krystallens bredde og hoejde (mm)
 B = 0.5
-L = 2.00 
+L = 2.00
 
 
 Intensitet  = np.array([502.9, 502.1, 500.3, 496.4, 491.1, 487.3, 478.0, 471.3,
@@ -242,7 +241,7 @@ print(np.size(Intensitet))
 # 16 = 3.618
 
 # 84 = 4.585
-# 16 = 4.705 
+# 16 = 4.705
 
 d = 4.705 - 4.585
 k = 3.618 - 3.405
@@ -279,14 +278,14 @@ plt.legend()
 
 
 
-# w0 
+# w0
 Imax = 435 # mikrowatt
 I = np.array([0.84*Imax, 0.16*Imax])
 kniv = np.array([3.51, 3.60 ])*10**-3
 #print(0.84*Imax)
 #print(0.16*Imax)
-#Imin = 
-#Hoej = 
+#Imin =
+#Hoej =
 
 w0 = kniv[1] - kniv[0]
 
@@ -298,7 +297,7 @@ risetime = np.array([112, 200]) * 10 **-9
 
 i = np.ones(np.size(risetime))* w0# * 0.2 * 10**-3
 
-vs = lydhastighed(risetime, i) 
+vs = lydhastighed(risetime, i)
 print(vs)
 
 
@@ -316,7 +315,7 @@ signal skal ud og over i oscilloskop, ogsaa daempet paa 50 dB (paa den sikre sid
 forbundet til 50 ohm, for at se det gule signal. tidsskala er hurtig, graen er
 langsom, aom giver 200 mhz, groen (langsom) .
 
-Groenne kanal - detektor,""" 
+Groenne kanal - detektor,"""
 
 print(EkspOps)
 
