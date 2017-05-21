@@ -61,7 +61,7 @@
 	{\large \bfseries \filcenter}                                       % format
 	{\arabic{section}.\arabic{subsection}}                              % label
 	{5pt}             			                                        % sep
-	{\large}           			                                        % before-code         			
+	{\large}           			                                        % before-code
 %Margen
 \usepackage[top=3cm, bottom=3cm, left=2.5cm, right=2.5cm]{geometry}
 \pagestyle{plain}
@@ -107,16 +107,16 @@
 
 %Smarte referancer
 \usepackage[danish]{cleveref}
-	\crefname{figure}{figur}{figurerne} % {Type af referance}{Ental}{Flertal}	
+	\crefname{figure}{figur}{figurerne} % {Type af referance}{Ental}{Flertal}
 										% Ændrer hvad der skrives
 	\crefname{equation}{ligning}{ligningerne}
-	
+
 	\crefname{table}{tabel}{tabellerne}
-	
+
 	\crefname{appendix}{bilag}{bilagene}
-	
+
 	\crefname{rea}{reaktion}{reaktionerne}
-	
+
 	\creflabelformat{equation}{#2#1#3} %Ligningsnumre uden parentes omkring
 
 %Smarte citater.
@@ -124,10 +124,10 @@
 		danish 		= guillemets, %guillemets el. quotes
 		autostyle	= true,
 	]{csquotes}
-		
+
 %FIXme notes
 	\usepackage[draft]{fixme}
-	
+
 %Margen til FIXme Notes
 	%\setlength{\marginparwidth}{50pt}
 
@@ -148,7 +148,7 @@
 		\DeclareSIUnit[number-unit-product = {}]\opsym{~\g\per\SI{100}{\milli\liter}}
 		\DeclareSIUnit[number-unit-product = {}]\opfrac{~\frac{\g}{\SI{100}{\milli\liter}}}
 		\DeclareSIUnit[number-unit-product = {}]\opreci{~\g \ \SI{100}{\per\milli\liter}}
-		
+
 		\DeclareSIUnit[number-unit-product = {}]\opomre{~\frac{\liter}{\SI{100}{\milli\liter}}}
 
 
@@ -169,7 +169,7 @@
 %	\newcommand{\Kpeq}{K_\mathrm{p}}
 %	\newcommand{\Kc}{$K_\mathrm{c}$}
 %	\newcommand{\Kceq}{K_\mathrm{c}}
-	
+
 %Dashed streger i tabeller. : istedet for |.
 %\usepackage{arydshln}
 
@@ -206,7 +206,7 @@
 			\if@restonecol\twocolumn\fi
 		}
 	\makeatother
-	
+
 	\makeatletter
 		\renewcommand\listoffigures{%
 			\if@twocolumn
@@ -221,7 +221,7 @@
 			\if@restonecol\twocolumn\fi
 		}
 	\makeatother
-	
+
 	\makeatletter
 		\renewcommand\listoftables{%
 			\if@twocolumn
@@ -236,7 +236,7 @@
 			\if@restonecol\twocolumn\fi
 		}
 	\makeatother
-	
+
 \parindent = 0pt
 \usepackage{float}
 \graphicspath{{./Grafik/}}
