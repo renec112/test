@@ -1,7 +1,7 @@
 ## Preamble
 import numpy as np
 import matplotlib.pyplot as plt
-
+from mpltools import special
 from scipy.special import erf
 from scipy.special import erfc
 from scipy.optimize import curve_fit
@@ -25,6 +25,9 @@ params = {'legend.fontsize': '20',
 plt.rc('text',usetex=True)
 plt.rc('font', **{'family' : "sans-serif"})
 plt.rcParams.update(params)
+
+
+
 
 # Faste parametre
 n_brydning = 2.21            # brydningsindeks
@@ -114,6 +117,10 @@ sds_d = np.zeros(np.size(d1))
 for i in range(0, np.size(d1)):
     sds_d[i] = np.std(d4[i])
 
+#Nu har vi standardafvigelse men der er ogsaa en usikkerhed i at bruge en lineal
+#altsaa skal sds_d_samlet vaere de to sammenlagt
+sds_maaling = 1./1000 # usikkerhed paa maaling 1 mm
+sds_d = sds_d + sds_maaling
 # De justerede frekvenser af lyd
 fs = np.array(np.linspace(120, 280, 17)) * 10**6
 sds_fs = 0 # Indtil videre - spoerg Andreas
@@ -131,7 +138,7 @@ p_opt, p_cov = opt.curve_fit(thetaFit, fs, theta_sep)
 print(p_opt)
 print((1/p_opt) * lambda_l)
 
-
+limits_dplt = [fs[0]-0.2*10**8,fs[-1]+0.2*10**8,d[0]-0.002,d[-1]+0.002] #graenser til plot nedenfor
 # Figur
 plt.figure()
 plt.title("Afstand til forste orden per frekvens")
@@ -140,7 +147,20 @@ plt.plot(fs, d2, 'bo', label='d2')
 plt.plot(fs, d3, 'go', label='d3')
 plt.ylabel("Observeret afstand")
 plt.xlabel("Fast frekvens")
-plt.legend()
+plt.legend(loc = 2)
+plt.axis(limits_dplt)
+plt.grid()
+
+t_color = fs
+y_color = np.cos(t_color)
+plt.figure()
+plt.title("Usikkerhedsplot med gennemsnitlig d")
+# plt.errorbar(fs,d,xerr=0,yerr=sds_d,fmt='ok',label = "Datapunkter")
+special.errorfill(fs, d, sds_d, label='Datapunkter', label_fill='Standardafvigelse')
+plt.ylabel("Observeret afstand")
+plt.xlabel("Fast frekvens")
+plt.legend(loc = 2)
+plt.axis(limits_dplt)
 plt.grid()
 
 # Forsoeg 2: Intensitet
@@ -254,7 +274,7 @@ plt.plot(x, Intensitet, 'ro', label='Data')
 plt.plot(x, estimat, 'b-', label='Fit')
 plt.legend()
 
-plt.show()
+
 
 
 
@@ -299,3 +319,8 @@ langsom, aom giver 200 mhz, groen (langsom) .
 Groenne kanal - detektor,""" 
 
 print(EkspOps)
+
+
+
+
+plt.show()
