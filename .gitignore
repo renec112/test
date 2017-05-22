@@ -11,5 +11,6 @@
 
 #ikke sync pdf
 *.pdf.orig
+*.pdf
 #skrald fra vim
 *.swp
