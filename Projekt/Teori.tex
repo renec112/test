@@ -2,11 +2,31 @@
 \begin{document}
 \section{Teori}
 \subsection{Diffraktion  af lysbølge}
-Når en bølge af lys eller lyd propagerer igennem snævre åbninger på størrelse med bølgelængden, vil bølgen spredes i mønstre bestemt ud fra bølgeegenskaber som destruktiv og konstruktiv interferens. Dette bølgefænomen kaldes diffraktion, og er grundlæggende for denne rapport.
+Når en bølge af lys eller lyd propagerer igennem snævre åbninger på størrelse med bølgelængden, vil bølgen spredes i mønstre bestemt ud fra bølgeegenskaber som destruktiv og konstruktiv interferens. Dette bølgefænomen kaldes diffraktion, og er grundlæggende for denne rapport. Ved 
 
 
 \subsection{Akusto-Optisk Modulator}
-En akusto-optisk modulator, består af en piezo elektrish transducer (PZT), et gennemsnigtig krystal og en akustisk absorber. PZT'en generer trykbølger igennem krystallet, der giver anledning til en varierende brydningsindeks. 
+En akusto-optisk modulator, består af en Piezo Elektrish Transducer (PZT), en gennemsigtig krystal og en akustisk absorber. Fra PZT'en genereres mekaniske vibrationer som propagerer longitudinelt op gennem krystallen som en lydbølge. Derfor vil der i krystallen være en tidsafhængig tæthedsfunktion (fra trykbølgen), og som konsekvens et moduleret brydningsindeks givet ved,
+\begin{equation}
+    n(x,t) = n_0 + \Delta n \cos(k_s x - \omega t).
+    \label{eq: brydningsindeks}
+\end{equation}
+Resultatet af en lydbølge i et transparent medie er denne tæthedsfunktion, hvor $n_0$ er den uforstyrret brydningsindekset, $\omega$ er vinkelfrekvensen, $k=\frac{2\pi}{\lambda}$ er bølgetallet for lydbølgen og $\Delta n$ er variationen af amplituden i det brydningsindekset, genereret af lydbølgen.
+
+Det er denne rejsende variation i krystallets tæthed, som skal fungere som diffraktionsgitter for den indkommende laser. Sidstnævnte absorber har til formål at absorbere størstedelen af lydbølgen, så der ikke vil reflekteres energi tilbage i krystallen. 
+
+Den genererede brydningsindeks giver anledning til et diffraktionsgitter som rejser med lydens hastighed i krystallet som medie. Lys som propagerer igennem det transparente materiale vil diffraktere grundet denne genererede brydningsindeks. Derfor forventes et diffraktionsmønster såfremt man stiller en skærm i en vis afstand fra AOM'en.
+
+Her gælder de konventionele formler for konstruktiv interferens ved vinkler
+\begin{equation}
+    d\sin\theta_m = m\lambda,
+    \label{eq:konstruktiv}
+\end{equation}
+
+
+
+
+
 
 
 \end{document}
