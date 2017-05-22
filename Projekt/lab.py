@@ -151,18 +151,19 @@ plt.legend(loc = 2)
 plt.axis(limits_dplt)
 plt.grid()
 
-t_color = fs
-y_color = np.cos(t_color)
+farve = 'grey'
 plt.figure()
 plt.title("Usikkerhedsplot med gennemsnitlig d")
-# plt.errorbar(fs,d,xerr=0,yerr=sds_d,fmt='ok',label = "Datapunkter")
-special.errorfill(fs, d, sds_d, label='Datapunkter', label_fill='Standardafvigelse')
+plt.plot(fs,d,'ko')
+special.errorfill(fs, d, sds_d,alpha_fill=0.1,color=farve)
 plt.ylabel("Observeret afstand")
 plt.xlabel("Fast frekvens")
-plt.legend(loc = 2)
+plt.legend(['Datapunkter','Standardafvigelse'],loc = 2)
 plt.axis(limits_dplt)
-plt.grid()
-#%%
+
+# plt.grid()
+
+>>>>>>> 439603a60128ffd9f095138058911ee9af56d8d7
 # Forsoeg 2: Intensitet
 data = np.array([ [3.0, 2.8, 2.6, 2.4, 2.2, 2.0, 1.8, 1.6, 1.4, 1.2, 1.0, 0.8,
     0.6, 0.4, 0.2, 0.0, -0.2, -0.4, -0.6, -0.8, -1.0, -1.2, -1.4, -1.6, -1.8,
