@@ -114,7 +114,7 @@ theta_sep = d / l
 sds_d = np.zeros(np.size(d1))
 for i in range(0, np.size(d1)):
     sds_d[i] = np.std(d4[i])
-
+#%%
 #Nu har vi standardafvigelse men der er ogsaa en usikkerhed i at bruge en lineal
 #altsaa skal sds_d_samlet vaere de to sammenlagt
 sds_maaling = 1./1000 # usikkerhed paa maaling 1 mm
@@ -139,7 +139,7 @@ x_lin = np.linspace(fs[0], fs[-1], 1000)
 theta_fit = thetaFit(x_lin, p_opt)
 
 limits_dplt = [fs[0]-0.2*10**8,fs[-1]+0.2*10**8,d[0]-0.002,d[-1]+0.002] #graenser til plot nedenfor
-
+print(np.size(fs),np.size(d))
 # %% fit
 farve = 'red'
 alpha_fill = 0.2
@@ -147,8 +147,8 @@ alpha_fill = 0.2
 plt.figure()
 plt.title("Usikkerhedsplot med gennemsnitlig d")
 plt.plot(fs,d,'ko')
-plt.plot(x_lin,theta_fit, '--b')
-special.errorfill(fs, d, sds_d,alpha_fill=alpha_fill,color=farve)
+plt.plot(x_lin,theta_fit, '--b', label="fit")
+# special.errorfill(fs, d, sds_d,alpha_fill=alpha_fill,color=farve)
 plt.ylabel("Observeret afstand")
 plt.xlabel("Fast frekvens")
 plt.legend(['Datapunkter','Standardafvigelse'],loc = 2)
