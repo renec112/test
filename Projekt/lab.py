@@ -114,7 +114,7 @@ theta_sep = d / l
 sds_d = np.zeros(np.size(d1))
 for i in range(0, np.size(d1)):
     sds_d[i] = np.std(d4[i])
-
+#%%
 #Nu har vi standardafvigelse men der er ogsaa en usikkerhed i at bruge en lineal
 #altsaa skal sds_d_samlet vaere de to sammenlagt
 sds_maaling = 1./1000 # usikkerhed paa maaling 1 mm
@@ -137,17 +137,9 @@ p_opt, p_cov = opt.curve_fit(thetaFit, fs, theta_sep)
 
 
 limits_dplt = [fs[0]-0.2*10**8,fs[-1]+0.2*10**8,d[0]-0.002,d[-1]+0.002] #graenser til plot nedenfor
-# Figur
-plt.figure()
-plt.title("Afstand til forste orden per frekvens")
-plt.plot(fs, d1, 'ro', label='d1')
-plt.plot(fs, d2, 'bo', label='d2')
-plt.plot(fs, d3, 'go', label='d3')
-plt.ylabel("Observeret afstand")
-plt.xlabel("Fast frekvens")
-plt.legend(loc = 2)
-plt.axis(limits_dplt)
-plt.grid()
+
+print(np.size(fs),np.size(d))
+# %% fit
 
 farve = 'red'
 alpha_fill = 0.2
@@ -155,7 +147,9 @@ alpha_fill = 0.2
 plt.figure()
 plt.title("Usikkerhedsplot med gennemsnitlig d")
 plt.plot(fs,d,'ko')
-special.errorfill(fs, d, sds_d,alpha_fill=alpha_fill,color=farve)
+
+plt.plot(x_lin,theta_fit, '--b', label="fit")
+# special.errorfill(fs, d, sds_d,alpha_fill=alpha_fill,color=farve)
 plt.ylabel("Observeret afstand")
 plt.xlabel("Fast frekvens")
 plt.legend(['Datapunkter','Standardafvigelse'],loc = 2)
