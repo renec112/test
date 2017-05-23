@@ -128,17 +128,27 @@ sds_theta_sep = np.sqrt((1/l**2) * sds_d**2 + (d/l**2)**2 * sds_l**2)
 sds_vs = np.sqrt((lambda_l/theta_sep)**2 * sds_fs**2 + (lambda_l*fs /
     theta_sep**2)**2 * sds_theta_sep**2)
 
-def thetaFit(fs, k):
-    theta_sep = k*fs
+def thetaFit(fs, k, c):
+    theta_sep = k*fs+c
     return(theta_sep)
 
 p_opt, p_cov = opt.curve_fit(thetaFit, fs, theta_sep)
+<<<<<<< HEAD
 
 
 
 limits_dplt = [fs[0]-0.2*10**8,fs[-1]+0.2*10**8,d[0]-0.002,d[-1]+0.002] #graenser til plot nedenfor
 
 print(np.size(fs),np.size(d))
+=======
+print(p_opt[1])
+v_s = lambda_l/p_opt[0]
+
+x_lin = np.linspace(fs[0], fs[-1], 100)
+theta_fit = thetaFit(x_lin, *p_opt)
+
+limits_dplt = [fs[0]-0.2*10**8,fs[-1]+0.2*10**8,d[0]-0.002,d[-1]+0.002] #graenser til plot nedenfor
+>>>>>>> 38d34429b61f51513f9b5f0c00ff5a3bb2ed4728
 # %% fit
 
 farve = 'red'
@@ -149,12 +159,21 @@ plt.title("Usikkerhedsplot med gennemsnitlig d")
 plt.plot(fs,d,'ko')
 
 plt.plot(x_lin,theta_fit, '--b', label="fit")
+<<<<<<< HEAD
 special.errorfill(fs, d, sds_d,alpha_fill=alpha_fill,color=farve)
 plt.ylabel("Observeret afstand")
 plt.xlabel("Fast frekvens")
 plt.legend(['Datapunkter','Standardafvigelse'],loc = 2)
 plt.axis(limits_dplt)
 
+=======
+plt.ylabel("Observeret afstand")
+plt.xlabel("Fast frekvens")
+plt.legend(['Datapunkter','Fit'],loc = 2)
+# plt.axis(limits_dplt)
+plt.show()
+# %%
+>>>>>>> 38d34429b61f51513f9b5f0c00ff5a3bb2ed4728
 # plt.grid()
 
 
