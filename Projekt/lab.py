@@ -169,6 +169,7 @@ plt.xlabel(r"$f_s \ \left[ \si{\mega\hertz}\right]$")
 plt.legend(['Datapunkter','Fit'],loc   = 2)
 
 plt.axis(limits_dplt)
+plt.savefig('tegninger/graf1.png')
 # %%
 # plt.grid()
 
@@ -211,6 +212,7 @@ plt.xlabel(r'$P \left[ \si{\milli\watt}\right]$')
 plt.ylabel(r'$I_1 \ \left[ \si{\micro\watt}\right]$')
 plt.legend()
 plt.grid()
+plt.savefig('tegninger/graf2.png')
 
 # Andet modul
 
@@ -290,9 +292,10 @@ plt.figure()
 plt.grid()
 plt.plot(x, Intensitet, 'ro', label='Data')
 plt.plot(x, estimat, 'b-', label='Fit')
-plt.xlabel(r'$x \ \si{\milli\meter}$')
-plt.ylabel(r'$I \ \si{\micro\watt}$')
+plt.xlabel(r'$x \ \left[\si{\milli\meter}\right]$')
+plt.ylabel(r'$I \ \left[\si{\micro\watt}\right]$')
 plt.legend()
+plt.savefig('tegninger/graf3.png')
 
 
 
@@ -340,7 +343,7 @@ Groenne kanal - detektor,"""
 
 
 
-print(v_s)
+# print(v_s)
 # print(p_opt)
 # print((1/p_opt) * lambda_l)
 # print(Intensitet)
@@ -357,6 +360,10 @@ print(v_s)
 # print(vs)
 # print(EkspOps)
 
-
+a = 0
+count = 0
+while a == 0:
+    print(count,'Hej Rene')
+    count = count + 1
 
 plt.show()
