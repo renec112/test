@@ -1,4 +1,4 @@
-## Preamble
+# Preamble
 import numpy as np
 import matplotlib.pyplot as plt
 from mpltools import special
@@ -10,6 +10,9 @@ from scipy import stats
 from scipy.stats import t
 # t0 = t.ppf(alpha, f)
 # tcdf = d.cdf(|t|m f)
+#
+
+
 
 # MatploLib koerer TeX
 params = {'legend.fontsize': '20',
@@ -19,11 +22,19 @@ params = {'legend.fontsize': '20',
           'ytick.labelsize': '20',
           'legend.numpoints': 1,
           'text.latex.preamble' : [r'\usepackage{siunitx}',
-                                   r'\usepackage{amsmath}']
+                                   r'\usepackage{amsmath}'],
+          'axes.spines.right': False,
+          'axes.spines.top': False,
+          'figure.figsize' : [8.5, 6.375]
           }
+# plt.rc().spines['right'].set_color('none')
+# plt.rc(plt.gca().spines['top'].set_color('None'))
+
 
 plt.rc('text',usetex=True)
 plt.rc('font', **{'family' : "sans-serif"})
+
+
 plt.rcParams.update(params)
 
 
@@ -133,12 +144,12 @@ def thetaFit(fs, k, c):
     return(theta_sep)
 
 p_opt, p_cov = opt.curve_fit(thetaFit, fs, theta_sep)
+k,c = [p_opt[0],p_opt[1]]
 
-print(p_opt[1])
-v_s = lambda_l/p_opt[0]
+v_s = lambda_l/k
 
 x_lin = np.linspace(fs[0], fs[-1], 100)
-theta_fit = thetaFit(x_lin, *p_opt)
+theta_fit = thetaFit(x_lin,k,c)
 
 limits_dplt = [fs[0]-0.2*10**8,fs[-1]+0.2*10**8,d[0]-0.002,d[-1]+0.002] #graenser til plot nedenfor
 
@@ -149,14 +160,14 @@ alpha_fill = 0.2
 
 plt.figure()
 plt.title("Usikkerhedsplot med gennemsnitlig d")
-plt.plot(fs,d,'ko')
+plt.errorbar(fs,theta_sep,fmt = 'ko', xerr = sds_fs, yerr = sds_theta_sep)
 
 plt.plot(x_lin,theta_fit, '--b', label="fit")
-plt.ylabel("Observeret afstand")
+plt.ylabel("Observeret vinkel")
 plt.xlabel("Fast frekvens")
 plt.legend(['Datapunkter','Fit'],loc = 2)
+
 # plt.axis(limits_dplt)
-plt.show()
 # %%
 # plt.grid()
 
