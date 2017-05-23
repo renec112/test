@@ -15,25 +15,24 @@ from scipy.stats import t
 
 
 # MatploLib koerer TeX
-params = {'legend.fontsize': '20',
-          'axes.labelsize':  '20',
-          'axes.titlesize':  '20',
-          'xtick.labelsize': '20',
-          'ytick.labelsize': '20',
-          'legend.numpoints': 1,
+params = {'legend.fontsize'     : '20',
+          'axes.labelsize'      : '20',
+          'axes.titlesize'      : '20',
+          'xtick.labelsize'     : '20',
+          'ytick.labelsize'     : '20',
+          'legend.numpoints'    : 1,
           'text.latex.preamble' : [r'\usepackage{siunitx}',
                                    r'\usepackage{amsmath}'],
-          'axes.spines.right': False,
-          'axes.spines.top': False,
-          'figure.figsize' : [8.5, 6.375]
+          'axes.spines.right'   : False,
+          'axes.spines.top'     : False,
+          'figure.figsize'      : [8.5, 6.375],
+          'legend.frameon'      : False
           }
-# plt.rc().spines['right'].set_color('none')
-# plt.rc(plt.gca().spines['top'].set_color('None'))
 
 
-plt.rc('text',usetex=True)
+
+plt.rc('text',usetex =True)
 plt.rc('font', **{'family' : "sans-serif"})
-
 
 plt.rcParams.update(params)
 
@@ -53,7 +52,7 @@ sds_l  = 0.1 * 10**-2
 # Maalte afstande mellem pletter
 # Afstand fra 0 til 2
 f_lyd = np.array([2.0, ]) * 10**8
-a = np.array([2.8 ]) + np.array([0.1])
+a     = np.array([2.8 ]) + np.array([0.1])
 
 # Funktioner
 # Kvalitetsparameter Q (>> 1 for Bragg og <<1 for Kaman Nalk)
@@ -101,11 +100,7 @@ def lambda_s(lambda_l, theta_B):
 
 # Effektivitet
 I_0 = np.array([3.0])# dBm
-def intensitet():
-    p_0 = (lambda_l**2 / (2*n_xxx)) * (H/L)
-    eta = (np.pi**2 / 4) * p/p_0
-    I_1 = I_0*(np.sin(np.sqrt(eta)))**2
-    return(I_1)
+
 
 # Data
 # Foerste modul
@@ -118,56 +113,62 @@ d3 = np.array([0.7, 0.8, 0.9, 1.0, 1.1, 1.3, 1.3, 1.3, 1.4, 1.5, 1.6, 1.6, 1.7,
     1.8, 1.9, 1.9, 2.0])  * 10**-2
 
 d4 = np.array([d1, d2, d3]).T
-d = (d1 + d2 + d3)/3
+d  = (d1 + d2 + d3)/3
 
 theta_sep = d / l
 
 sds_d = np.zeros(np.size(d1))
+
 for i in range(0, np.size(d1)):
     sds_d[i] = np.std(d4[i])
 #%%
 #Nu har vi standardafvigelse men der er ogsaa en usikkerhed i at bruge en lineal
 #altsaa skal sds_d_samlet vaere de to sammenlagt
 sds_maaling = 1./1000 # usikkerhed paa maaling 1 mm
-sds_d = sds_d + sds_maaling
+sds_d       = sds_d + sds_maaling
 # De justerede frekvenser af lyd
-fs = np.array(np.linspace(120, 280, 17)) * 10**6
+fs     = np.array(np.linspace(120, 280, 17)) * 10**6
 sds_fs = 0 # Indtil videre - spoerg Andreas
 
 sds_theta_sep = np.sqrt((1/l**2) * sds_d**2 + (d/l**2)**2 * sds_l**2)
 
-sds_vs = np.sqrt((lambda_l/theta_sep)**2 * sds_fs**2 + (lambda_l*fs /
+sds_vs        = np.sqrt((lambda_l/theta_sep)**2 * sds_fs**2 + (lambda_l*fs /
     theta_sep**2)**2 * sds_theta_sep**2)
 
-def thetaFit(fs, k, c):
+def thetaFit(fs, k,c):
     theta_sep = k*fs+c
     return(theta_sep)
 
 p_opt, p_cov = opt.curve_fit(thetaFit, fs, theta_sep)
-k,c = [p_opt[0],p_opt[1]]
+k            = p_opt[0]
+c            = p_opt[1]
+v_s          = lambda_l/k
 
-v_s = lambda_l/k
+x_lin        = np.linspace(-0.2*10**8, fs[-1]+2*10**8, 100)
+theta_fit    = thetaFit(x_lin,k,c)
 
-x_lin = np.linspace(fs[0], fs[-1], 100)
-theta_fit = thetaFit(x_lin,k,c)
 
-limits_dplt = [fs[0]-0.2*10**8,fs[-1]+0.2*10**8,d[0]-0.002,d[-1]+0.002] #graenser til plot nedenfor
 
 # %% fit
+fs_plt = fs/10**6
+x_lin_plt = x_lin/10**6
+
 
 farve = 'red'
 alpha_fill = 0.2
 
+limits_dplt  = [-10, 295, -0.005, 0.075] #graenser til plot nedenfor
+
 plt.figure()
-plt.title("Usikkerhedsplot med gennemsnitlig d")
-plt.errorbar(fs,theta_sep,fmt = 'ko', xerr = sds_fs, yerr = sds_theta_sep)
+plt.title(r"Plot af $\theta_{sep}$ som funktion af $f_s$")
+plt.errorbar(fs_plt,theta_sep,fmt          = 'ko', xerr = sds_fs, yerr = sds_theta_sep)
 
-plt.plot(x_lin,theta_fit, '--b', label="fit")
-plt.ylabel("Observeret vinkel")
-plt.xlabel("Fast frekvens")
-plt.legend(['Datapunkter','Fit'],loc = 2)
+plt.plot(x_lin_plt,theta_fit, '--b', label ="fit")
+plt.ylabel(r"$\theta_{sep} \ \left[ \si{\radian}\right]$")
+plt.xlabel(r"$f_s \ \left[ \si{\mega\hertz}\right]$")
+plt.legend(['Datapunkter','Fit'],loc   = 2)
 
-# plt.axis(limits_dplt)
+plt.axis(limits_dplt)
 # %%
 # plt.grid()
 
@@ -184,18 +185,30 @@ data = np.array([ [3.0, 2.8, 2.6, 2.4, 2.2, 2.0, 1.8, 1.6, 1.4, 1.2, 1.0, 0.8,
         2.94, 2.43, 2.03, 1.71, 1.46, 26.78, 27.83, 29.15, 30.02, 31.46, 32.61,
         33.81, 35.20, 36.51, 38.14]])
 
-dBm = data[0] #power i vibrator
-P = data[1] #intensitet i uW
-dBm2 = np.power(10, dBm)/10
-sds_P = 5 #TODO find ud af hvad usikkerhed er på denne måling
+# Krystallens bredde og hoejde (mm)
+B = 0.5 * 10**(-3)
+L = 2.00 * 10**(-3)
+
+
+
+
+dBm     = data[0] #power i vibrator
+P       = data[1] #intensitet i uW
+dBm2    = np.power(10, dBm/10.)
+sds_P   = 0.5 #TODO find ud af hvad usikkerhed er på denne måling
 sds_dbm = 0
-P_sorted = np.sort(P)
-dBm_sorted = np.sort(dBm)
+
+
+
+P_sorted   = np.sort(P)
+dBm_sorted = np.sort(dBm2)
 
 
 plt.figure()
 plt.plot(dBm_sorted,P_sorted,'rx',label='Datapunkter')
 special.errorfill(dBm_sorted,P_sorted,sds_P,alpha_fill = alpha_fill,color = farve)
+plt.xlabel(r'$P \left[ \si{\milli\watt}\right]$')
+plt.ylabel(r'$I_1 \ \left[ \si{\micro\watt}\right]$')
 plt.legend()
 plt.grid()
 
@@ -223,9 +236,7 @@ plt.grid()
 
 # Noter:
 
-# Krystallens bredde og hoejde (mm)
-B = 0.5
-L = 2.00
+
 
 
 Intensitet  = np.array([502.9, 502.1, 500.3, 496.4, 491.1, 487.3, 478.0, 471.3,
@@ -256,8 +267,8 @@ k = 3.618 - 3.405
 
 
 
-maxi = 417
-mini = 10
+maxi   = 417
+mini   = 10
 deltay = maxi - mini
 
 
@@ -279,6 +290,8 @@ plt.figure()
 plt.grid()
 plt.plot(x, Intensitet, 'ro', label='Data')
 plt.plot(x, estimat, 'b-', label='Fit')
+plt.xlabel(r'$x \ \si{\milli\meter}$')
+plt.ylabel(r'$I \ \si{\micro\watt}$')
 plt.legend()
 
 
@@ -288,7 +301,7 @@ plt.legend()
 
 # w0
 Imax = 435 # mikrowatt
-I = np.array([0.84*Imax, 0.16*Imax])
+I    = np.array([0.84*Imax, 0.16*Imax])
 kniv = np.array([3.51, 3.60 ])*10**-3
 #
 #
@@ -303,7 +316,7 @@ def lydhastighed(risetime, w0):
 
 risetime = np.array([112, 200]) * 10 **-9
 
-i = np.ones(np.size(risetime))* w0# * 0.2 * 10**-3
+i  = np.ones(np.size(risetime))* w0# * 0.2 * 10**-3
 
 vs = lydhastighed(risetime, i)
 
@@ -327,7 +340,7 @@ Groenne kanal - detektor,"""
 
 
 
-# print(v_s)
+print(v_s)
 # print(p_opt)
 # print((1/p_opt) * lambda_l)
 # print(Intensitet)
