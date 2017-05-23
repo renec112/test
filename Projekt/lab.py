@@ -29,12 +29,12 @@ params = {'legend.fontsize'     : '20',
           'legend.frameon'      : False
           }
 
-
+plt.rcParams.update(params)
 
 plt.rc('text',usetex =True)
 plt.rc('font', **{'family' : "sans-serif"})
 
-plt.rcParams.update(params)
+
 
 
 
@@ -196,7 +196,7 @@ L = 2.00 * 10**(-3)
 dBm     = data[0] #power i vibrator
 P       = data[1] #intensitet i uW
 dBm2    = np.power(10, dBm/10.)
-sds_P   = 0.5 #TODO find ud af hvad usikkerhed er på denne måling
+sds_P   = 3 #TODO find ud af hvad usikkerhed er på denne måling
 sds_dbm = 0
 
 
@@ -206,11 +206,11 @@ dBm_sorted = np.sort(dBm2)
 
 
 plt.figure()
-plt.plot(dBm_sorted,P_sorted,'rx',label='Datapunkter')
+plt.plot(dBm_sorted,P_sorted,'rx')
 special.errorfill(dBm_sorted,P_sorted,sds_P,alpha_fill = alpha_fill,color = farve)
 plt.xlabel(r'$P \left[ \si{\milli\watt}\right]$')
 plt.ylabel(r'$I_1 \ \left[ \si{\micro\watt}\right]$')
-plt.legend()
+plt.legend(['Datapunkter' ,'Linje genne punkter','Usikkerheder'])
 plt.grid()
 plt.savefig('tegninger/graf2.png')
 
