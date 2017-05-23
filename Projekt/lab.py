@@ -149,7 +149,7 @@ plt.title("Usikkerhedsplot med gennemsnitlig d")
 plt.plot(fs,d,'ko')
 
 plt.plot(x_lin,theta_fit, '--b', label="fit")
-# special.errorfill(fs, d, sds_d,alpha_fill=alpha_fill,color=farve)
+special.errorfill(fs, d, sds_d,alpha_fill=alpha_fill,color=farve)
 plt.ylabel("Observeret afstand")
 plt.xlabel("Fast frekvens")
 plt.legend(['Datapunkter','Standardafvigelse'],loc = 2)
