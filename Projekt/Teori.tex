@@ -9,7 +9,7 @@ Når en bølge af lys eller lyd propagerer igennem snævre åbninger på større
 En akusto-optisk modulator, består af en Piezo Elektrish Transducer (PZT), en gennemsigtig krystal og en akustisk absorber. Fra PZT'en genereres mekaniske vibrationer som propagerer longitudinelt op gennem krystallen som en lydbølge. Derfor vil der i krystallen være en tidsafhængig tæthedsfunktion (fra trykbølgen), og som konsekvens et moduleret brydningsindeks givet ved,
 \begin{equation}
     n(x,t) = n_0 + \Delta n \cos(k_s x - \omega t).
-    \label{eq: brydningsindeks}
+    \label{eq:brydningsindeks}
 \end{equation}
 Resultatet af en lydbølge i et transparent medie er denne tæthedsfunktion, hvor $n_0$ er den uforstyrret brydningsindekset, $\omega$ er vinkelfrekvensen, $k=\frac{2\pi}{\lambda}$ er bølgetallet for lydbølgen og $\Delta n$ er variationen af amplituden i det brydningsindekset, genereret af lydbølgen.
 
@@ -22,6 +22,32 @@ Her gælder de konventionele formler for konstruktiv interferens ved vinkler
     d\sin\theta_m = m\lambda,
     \label{eq:konstruktiv}
 \end{equation}
+
+\begin{equation}
+    f_n = f_0 \pm nf_s, \qquad n=0, \pm1, \pm2, \cdots
+    \label{eq:frequence}
+\end{equation}
+hvor $f_0$ er den upåvirkede frekvens, $f_s$ er lydens frekvens og $n$ er den valgte orden. 
+
+\subsection{Regimer}
+Når lys diffrakteres af en lydbølge med en enkelt frekvens, vil der være to diffraktionstyper. Raman-Nath og Bragg Diffraktion.
+
+Raman-Nath diffraktion observeres ved lave lydfrekvenser (omkring $\SI{10}{\mega\hertz}$ og smal bredde for den akusto-optiske interaktioner (bredden af krystallen). Denne type sker for vilkårlige indfaldsvinkler.
+
+    Bragg diffraktion vil modsat være ved høj lydfrekvens (omkring $\SI{100}{\mega\hertz}$). For Bragg diffraktion vil der primært være to diffraktions maksima, nulte og første orden.
+
+    For at skelne de to regimer bruges betingelsesværdien $Q>>1$ og $Q<<1$ respektivt for hhv. Bragg og Raman-Nath. Her er $Q$ Klein-Cook parameteren givet ved
+    \begin{equation}
+    Q = \frac{2\pi\lambda L f^2}{nv^2}=\frac{2\pi\lambda L}{n{\lambda_s}^2}
+        \label{eq:KleinCook}
+    \end{equation}
+I forsøget vil det primært bruges første orden $n=1$, hvorfor Bragg-regimet er ønsket, da der her er mindst effekt-tab i laserstrålen. Bragg-diffraktion præger dog forsøget med sine betingelser for en specifik vidde af frekvenser, og dermed også lydens hastighed.
+
+
+\subsection{Effektivitet}
+I forsøget vil 
+
+
 
 
 
