@@ -30,7 +30,7 @@ plt.rcParams.update(params)
 
 # Faste parametre
 n_brydning = 2.21            # brydningsindeks
-lambda_l   = 911*10**-9      # lysets boelgelaengde (vakuum)
+lambda_l   = 911.*10**-9      # lysets boelgelaengde (vakuum)
 L          = 3.00 * 10**-2   # gitterets laengde (maaling)
 n          = np.array([0, 1, 2, 3]) # Observarbare ordner
 
@@ -133,34 +133,28 @@ def thetaFit(fs, k):
     return(theta_sep)
 
 p_opt, p_cov = opt.curve_fit(thetaFit, fs, theta_sep)
+v_s = lambda_l/p_opt
 
-
+x_lin = np.linspace(fs[0], fs[-1], 1000)
+theta_fit = thetaFit(x_lin, p_opt)
 
 limits_dplt = [fs[0]-0.2*10**8,fs[-1]+0.2*10**8,d[0]-0.002,d[-1]+0.002] #graenser til plot nedenfor
-# Figur
-plt.figure()
-plt.title("Afstand til forste orden per frekvens")
-plt.plot(fs, d1, 'ro', label='d1')
-plt.plot(fs, d2, 'bo', label='d2')
-plt.plot(fs, d3, 'go', label='d3')
-plt.ylabel("Observeret afstand")
-plt.xlabel("Fast frekvens")
-plt.legend(loc = 2)
-plt.axis(limits_dplt)
-plt.grid()
 
+# %% fit
 farve = 'red'
 alpha_fill = 0.2
 
 plt.figure()
 plt.title("Usikkerhedsplot med gennemsnitlig d")
 plt.plot(fs,d,'ko')
+plt.plot(x_lin,theta_fit, '--b')
 special.errorfill(fs, d, sds_d,alpha_fill=alpha_fill,color=farve)
 plt.ylabel("Observeret afstand")
 plt.xlabel("Fast frekvens")
 plt.legend(['Datapunkter','Standardafvigelse'],loc = 2)
 plt.axis(limits_dplt)
-
+plt.show()
+# %%
 # plt.grid()
 
 
