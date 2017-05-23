@@ -166,7 +166,7 @@ plt.errorbar(fs_plt,theta_sep,fmt          = 'ko', xerr = sds_fs, yerr = sds_the
 plt.plot(x_lin_plt,theta_fit, '--b', label ="fit")
 plt.ylabel(r"$\theta_{sep} \ \left[ \si{\radian}\right]$")
 plt.xlabel(r"$f_s \ \left[ \si{\mega\hertz}\right]$")
-plt.legend(['Datapunkter','Fit'],loc   = 2)
+plt.legend(['Fit','Datapunkter'],loc   = 2)
 
 plt.axis(limits_dplt)
 plt.savefig('tegninger/graf1.png')
@@ -360,10 +360,5 @@ Groenne kanal - detektor,"""
 # print(vs)
 # print(EkspOps)
 
-a = 0
-count = 0
-while a == 0:
-    print(count,'Hej Rene')
-    count = count + 1
 
 plt.show()
