@@ -1,0 +1,93 @@
+%
+% This preamble is written by Laurits Stokholm with inspiration from Amalie Stokholm and help from Lars 'daleif' Madsens Introduction to LaTeX
+
+
+% Mathematics
+% Mathematical characters
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{textcomp}
+\usepackage{mathtools} % Daleif, \nuparrow, \xrightarrow[under]{over}
+
+
+% Multi-Character Vectors
+\usepackage{esvect} %\vv{arg}
+
+% SI-enheder
+\usepackage{siunitx}
+\sisetup{output-decimal-marker = {,},
+         separate-uncertainty=true,
+         multi-part-units=single,
+         exponent-product = {\cdot},
+         per-mode = fraction}
+
+% Typesetting, design and layout
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+
+% Fonts and microtype
+\usepackage[danish]{babel}
+\usepackage{lmodern}
+\usepackage[final]{microtype} % fikser badbox problemer. Kun kompatibel med pdflatex.
+
+% Daleif siger:
+% Orddeling og ordentligt mellemrum efter forkortelser
+\renewcommand{\danishhyphenmins}{22} % bedre orddeling
+\frenchspacing  % Sørger for ordentligt mellemrum efter forkortelser (e.g.)
+
+
+% Margins
+\setlxvchars
+\setulmargins{*}{*}{1.618}
+\setlrmargins{*}{*}{1}
+\checkandfixthelayout[nearest] % Necessary for memoir to compile the settings correctly
+
+\usepackage{graphicx}
+\usepackage{enumerate} % Tillader argumenter i enumerate env.
+\usepackage{url}
+\usepackage{lipsum}
+
+\usepackage[tableposition=top]{caption}
+\newcolumntype{L}{>{$}{l}<{$}}
+\newcolumntype{R}{>{$}{r}<{$}}
+\newcolumntype{C}{>{$}{c}<{$}}
+%\usepackage{captionof} % TESTER
+
+% Referencer
+\usepackage[draft]{fixme}
+
+% Sektioner er højest prioriteret
+ \usepackage{chngcntr}
+     \counterwithout{section}{chapter}
+     \counterwithout{figure}{section}
+     \counterwithout{figure}{chapter}
+     \counterwithout{table}{chapter}
+     \counterwithout{equation}{chapter}
+
+% Figurer & Tabeller samme side som Indholdsfotegnelse
+\usepackage{tocloft}
+
+% TOC går til subsection (Benytter nu istedet 'chapter' til sections og 'section' til subsections)
+\setcounter{tocdepth}{0}
+
+\usepackage{varioref} % Brug \vrec, til referencer i nærområdet.
+% Hyperlinks i TOC, etc.
+\usepackage[colorlinks=true, allcolors=black]{hyperref}
+\usepackage{hypcap} 
+
+% Smarte referancer
+\usepackage[danish]{cleveref}
+
+% Makroer
+% Matematik
+% Partiel Differential
+\newcommand\diff[3][\partial]%
+{\frac{#1 #2}{#1 #3}}
+%\diff{f}{x}\diff[d]{x}{t}
+
+%Facit-komando
+\newcommand{\facit}[1]{\underline{\underline{#1}}}
+% \facit{a=b}
+
+

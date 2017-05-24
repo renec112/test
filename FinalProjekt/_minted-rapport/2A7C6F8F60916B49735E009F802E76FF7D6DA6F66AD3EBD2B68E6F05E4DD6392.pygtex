@@ -1,0 +1,303 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c+c1}{\PYGZsh{}\PYGZsh{} Preamble}
+\PYG{k+kn}{import} \PYG{n+nn}{numpy} \PYG{k+kn}{as} \PYG{n+nn}{np}
+\PYG{k+kn}{import} \PYG{n+nn}{matplotlib.pyplot} \PYG{k+kn}{as} \PYG{n+nn}{plt}
+
+\PYG{k+kn}{from} \PYG{n+nn}{scipy.special} \PYG{k+kn}{import} \PYG{n}{erf}
+\PYG{k+kn}{from} \PYG{n+nn}{scipy.special} \PYG{k+kn}{import} \PYG{n}{erfc}
+\PYG{k+kn}{from} \PYG{n+nn}{scipy.optimize} \PYG{k+kn}{import} \PYG{n}{curve\PYGZus{}fit}
+\PYG{k+kn}{from} \PYG{n+nn}{scipy} \PYG{k+kn}{import} \PYG{n}{optimize} \PYG{k}{as} \PYG{n}{opt}
+\PYG{k+kn}{from} \PYG{n+nn}{scipy} \PYG{k+kn}{import} \PYG{n}{stats}
+\PYG{k+kn}{from} \PYG{n+nn}{scipy.stats} \PYG{k+kn}{import} \PYG{n}{t}
+\PYG{c+c1}{\PYGZsh{} t0 = t.ppf(alpha, f)}
+\PYG{c+c1}{\PYGZsh{} tcdf = d.cdf(|t|m f)}
+
+\PYG{c+c1}{\PYGZsh{} MatploLib kører TeX}
+\PYG{n}{params} \PYG{o}{=} \PYG{p}{\PYGZob{}}\PYG{l+s+s1}{\PYGZsq{}legend.fontsize\PYGZsq{}}\PYG{p}{:} \PYG{l+s+s1}{\PYGZsq{}20\PYGZsq{}}\PYG{p}{,}
+          \PYG{l+s+s1}{\PYGZsq{}axes.labelsize\PYGZsq{}}\PYG{p}{:}  \PYG{l+s+s1}{\PYGZsq{}20\PYGZsq{}}\PYG{p}{,}
+          \PYG{l+s+s1}{\PYGZsq{}axes.titlesize\PYGZsq{}}\PYG{p}{:}  \PYG{l+s+s1}{\PYGZsq{}20\PYGZsq{}}\PYG{p}{,}
+          \PYG{l+s+s1}{\PYGZsq{}xtick.labelsize\PYGZsq{}}\PYG{p}{:} \PYG{l+s+s1}{\PYGZsq{}20\PYGZsq{}}\PYG{p}{,}
+          \PYG{l+s+s1}{\PYGZsq{}ytick.labelsize\PYGZsq{}}\PYG{p}{:} \PYG{l+s+s1}{\PYGZsq{}20\PYGZsq{}}\PYG{p}{,}
+          \PYG{l+s+s1}{\PYGZsq{}legend.numpoints\PYGZsq{}}\PYG{p}{:} \PYG{l+m+mi}{1}\PYG{p}{,}
+          \PYG{l+s+s1}{\PYGZsq{}text.latex.preamble\PYGZsq{}} \PYG{p}{:} \PYG{p}{[}\PYG{l+s+s1}{r\PYGZsq{}\PYGZbs{}usepackage\PYGZob{}siunitx\PYGZcb{}\PYGZsq{}}\PYG{p}{,}
+                                   \PYG{l+s+s1}{r\PYGZsq{}\PYGZbs{}usepackage\PYGZob{}amsmath\PYGZcb{}\PYGZsq{}}\PYG{p}{]}
+          \PYG{p}{\PYGZcb{}}
+
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{rc}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}text\PYGZsq{}}\PYG{p}{,}\PYG{n}{usetex}\PYG{o}{=}\PYG{n+nb+bp}{True}\PYG{p}{)}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{rc}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}font\PYGZsq{}}\PYG{p}{,} \PYG{o}{**}\PYG{p}{\PYGZob{}}\PYG{l+s+s1}{\PYGZsq{}family\PYGZsq{}} \PYG{p}{:} \PYG{l+s+s2}{\PYGZdq{}sans\PYGZhy{}serif\PYGZdq{}}\PYG{p}{\PYGZcb{})}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{rcParams}\PYG{o}{.}\PYG{n}{update}\PYG{p}{(}\PYG{n}{params}\PYG{p}{)}
+
+\PYG{c+c1}{\PYGZsh{} Faste parametre}
+\PYG{n}{n\PYGZus{}brydning} \PYG{o}{=} \PYG{l+m+mf}{2.21}            \PYG{c+c1}{\PYGZsh{} brydningsindeks}
+\PYG{n}{lambda\PYGZus{}l}   \PYG{o}{=} \PYG{l+m+mi}{911}\PYG{o}{*}\PYG{l+m+mi}{10}\PYG{o}{**\PYGZhy{}}\PYG{l+m+mi}{9}      \PYG{c+c1}{\PYGZsh{} lysets bølgelængde (vakuum)}
+\PYG{n}{L}          \PYG{o}{=} \PYG{l+m+mf}{3.00} \PYG{o}{*} \PYG{l+m+mi}{10}\PYG{o}{**\PYGZhy{}}\PYG{l+m+mi}{2}   \PYG{c+c1}{\PYGZsh{} gitterets længde (måling)}
+\PYG{n}{n}          \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{array}\PYG{p}{([}\PYG{l+m+mi}{0}\PYG{p}{,} \PYG{l+m+mi}{1}\PYG{p}{,} \PYG{l+m+mi}{2}\PYG{p}{,} \PYG{l+m+mi}{3}\PYG{p}{])} \PYG{c+c1}{\PYGZsh{} Observarbare ordner}
+
+\PYG{c+c1}{\PYGZsh{} Målte data}
+\PYG{n}{output} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{array}\PYG{p}{([}\PYG{l+m+mf}{3.4}\PYG{p}{])} \PYG{c+c1}{\PYGZsh{} lydfrekvens}
+\PYG{n}{l}      \PYG{o}{=} \PYG{l+m+mf}{29.8} \PYG{o}{*} \PYG{l+m+mi}{10}\PYG{o}{**\PYGZhy{}}\PYG{l+m+mi}{2}            \PYG{c+c1}{\PYGZsh{} længde mellem AOM og pap}
+\PYG{n}{sds\PYGZus{}l}  \PYG{o}{=} \PYG{l+m+mf}{0.1} \PYG{o}{*} \PYG{l+m+mi}{10}\PYG{o}{**\PYGZhy{}}\PYG{l+m+mi}{2}
+
+\PYG{c+c1}{\PYGZsh{} Målte afstande mellem pletter}
+\PYG{c+c1}{\PYGZsh{} Afstand fra 0 til 2}
+\PYG{n}{f\PYGZus{}lyd} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{array}\PYG{p}{([}\PYG{l+m+mf}{2.0}\PYG{p}{,} \PYG{p}{])} \PYG{o}{*} \PYG{l+m+mi}{10}\PYG{o}{**}\PYG{l+m+mi}{8}
+\PYG{n}{a} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{array}\PYG{p}{([}\PYG{l+m+mf}{2.8} \PYG{p}{])} \PYG{o}{+} \PYG{n}{np}\PYG{o}{.}\PYG{n}{array}\PYG{p}{([}\PYG{l+m+mf}{0.1}\PYG{p}{])}
+
+
+\PYG{c+c1}{\PYGZsh{} Funktioner}
+\PYG{c+c1}{\PYGZsh{} Kvalitetsparameter Q (\PYGZgt{}\PYGZgt{} 1 for Bragg og \PYGZlt{}\PYGZlt{}1 for Kaman Nalk)}
+\PYG{k}{def} \PYG{n+nf}{kvalitetsparameter}\PYG{p}{(}\PYG{n}{lambda\PYGZus{}s}\PYG{p}{,} \PYG{n}{lambda\PYGZus{}l}\PYG{p}{,} \PYG{n}{n}\PYG{p}{,} \PYG{n}{L}\PYG{p}{):}
+    \PYG{n}{Q} \PYG{o}{=} \PYG{l+m+mi}{2}\PYG{o}{*}\PYG{n}{np}\PYG{o}{.}\PYG{n}{pi}\PYG{o}{*}\PYG{n}{lambda\PYGZus{}l}\PYG{o}{*}\PYG{n}{L} \PYG{o}{/} \PYG{p}{(}\PYG{n}{n}\PYG{o}{*}\PYG{n}{lambda\PYGZus{}s}\PYG{o}{**}\PYG{l+m+mi}{2}\PYG{p}{)}
+    \PYG{k}{return}\PYG{p}{(}\PYG{n}{Q}\PYG{p}{)}
+\PYG{c+c1}{\PYGZsh{}Q = kvalitetsparameter(lambda\PYGZus{}s, lambda\PYGZus{}l, n, L)}
+\PYG{c+c1}{\PYGZsh{}print(Q)}
+
+\PYG{c+c1}{\PYGZsh{} Lydens hastighed}
+\PYG{k}{def} \PYG{n+nf}{v\PYGZus{}s}\PYG{p}{(}\PYG{n}{f\PYGZus{}s}\PYG{p}{,} \PYG{n}{lambda\PYGZus{}s}\PYG{p}{):}
+    \PYG{n}{v\PYGZus{}s} \PYG{o}{=} \PYG{n}{lambda\PYGZus{}s} \PYG{o}{*} \PYG{n}{f\PYGZus{}s}
+    \PYG{k}{return}\PYG{p}{(}\PYG{n}{v\PYGZus{}s}\PYG{p}{)}
+
+\PYG{c+c1}{\PYGZsh{}v\PYGZus{}s = v\PYGZus{}s(f\PYGZus{}s, lambda\PYGZus{}s)}
+\PYG{c+c1}{\PYGZsh{}print(v\PYGZus{}s)}
+
+\PYG{c+c1}{\PYGZsh{} Lys n\PYGZsq{}te ordens frekvens}
+\PYG{k}{def} \PYG{n+nf}{f\PYGZus{}n}\PYG{p}{(}\PYG{n}{f}\PYG{p}{,} \PYG{n}{n}\PYG{p}{,} \PYG{n}{f\PYGZus{}s}\PYG{p}{):}
+    \PYG{n}{f\PYGZus{}n} \PYG{o}{=} \PYG{n}{f} \PYG{o}{+} \PYG{n}{n}\PYG{o}{*}\PYG{n}{f\PYGZus{}s}
+    \PYG{k}{return}\PYG{p}{(}\PYG{n}{f\PYGZus{}n}\PYG{p}{)}
+
+\PYG{c+c1}{\PYGZsh{} Bølgekonstanten}
+\PYG{k}{def} \PYG{n+nf}{k\PYGZus{}s}\PYG{p}{(}\PYG{n}{lambda\PYGZus{}s}\PYG{p}{):}
+    \PYG{c+c1}{\PYGZsh{}k\PYGZus{}s = 2*np.pi/lambda\PYGZus{}s}
+    \PYG{l+m+mi}{2}\PYG{o}{*}\PYG{n}{k}\PYG{o}{*}\PYG{n}{np}\PYG{o}{.}\PYG{n}{sin}\PYG{p}{(}\PYG{n}{theta\PYGZus{}B}\PYG{p}{)}
+    \PYG{k}{return}\PYG{p}{(}\PYG{n}{k\PYGZus{}s}\PYG{p}{)}
+
+
+\PYG{c+c1}{\PYGZsh{} Braggs betingelse (Q\PYGZgt{}\PYGZgt{}1)}
+\PYG{c+c1}{\PYGZsh{} Kun en orden}
+\PYG{k}{def} \PYG{n+nf}{Bragg}\PYG{p}{(}\PYG{n}{lambda\PYGZus{}l}\PYG{p}{,} \PYG{n}{f\PYGZus{}s}\PYG{p}{,} \PYG{n}{n\PYGZus{}brydning}\PYG{p}{,} \PYG{n}{v\PYGZus{}s}\PYG{p}{):}
+    \PYG{c+c1}{\PYGZsh{} sin(theta) approx theta}
+    \PYG{n}{theta\PYGZus{}B} \PYG{o}{=} \PYG{n}{lambda\PYGZus{}l} \PYG{o}{*} \PYG{n}{f\PYGZus{}s} \PYG{o}{/} \PYG{p}{(}\PYG{l+m+mi}{2}\PYG{o}{*}\PYG{n}{n\PYGZus{}brydning}\PYG{o}{*}\PYG{n}{v\PYGZus{}s}\PYG{p}{)}
+    \PYG{n}{theta\PYGZus{}sep} \PYG{o}{=} \PYG{l+m+mi}{2}\PYG{o}{*}\PYG{n}{theta\PYGZus{}B}
+    \PYG{k}{return}\PYG{p}{(}\PYG{n}{theta\PYGZus{}B}\PYG{p}{,} \PYG{n}{theta\PYGZus{}sep}\PYG{p}{)}
+
+\PYG{c+c1}{\PYGZsh{}theta\PYGZus{}B = Bragg(lambda\PYGZus{}l, f\PYGZus{}s, n\PYGZus{}brydning, v\PYGZus{}s)}
+
+\PYG{c+c1}{\PYGZsh{} Lydens bølgelængde}
+\PYG{k}{def} \PYG{n+nf}{lambda\PYGZus{}s}\PYG{p}{(}\PYG{n}{lambda\PYGZus{}l}\PYG{p}{,} \PYG{n}{theta\PYGZus{}B}\PYG{p}{):}
+    \PYG{n}{lambda\PYGZus{}s} \PYG{o}{=} \PYG{n}{lambda\PYGZus{}l} \PYG{o}{/} \PYG{p}{(}\PYG{l+m+mi}{2}\PYG{o}{*}\PYG{n}{np}\PYG{o}{.}\PYG{n}{sin}\PYG{p}{(}\PYG{n}{theta\PYGZus{}B}\PYG{p}{))}
+    \PYG{k}{return}\PYG{p}{(}\PYG{n}{lambda\PYGZus{}s}\PYG{p}{)}
+\PYG{c+c1}{\PYGZsh{}\PYGZsh{}lambda\PYGZus{}s(theta\PYGZus{}B)}
+
+\PYG{c+c1}{\PYGZsh{} Effektivitet}
+\PYG{n}{I\PYGZus{}0} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{array}\PYG{p}{([}\PYG{l+m+mf}{3.0}\PYG{p}{])}\PYG{c+c1}{\PYGZsh{} dBm}
+\PYG{k}{def} \PYG{n+nf}{intensitet}\PYG{p}{():}
+    \PYG{n}{p\PYGZus{}0} \PYG{o}{=} \PYG{p}{(}\PYG{n}{lambda\PYGZus{}l}\PYG{o}{**}\PYG{l+m+mi}{2} \PYG{o}{/} \PYG{p}{(}\PYG{l+m+mi}{2}\PYG{o}{*}\PYG{n}{n\PYGZus{}xxx}\PYG{p}{))} \PYG{o}{*} \PYG{p}{(}\PYG{n}{H}\PYG{o}{/}\PYG{n}{L}\PYG{p}{)}
+    \PYG{n}{eta} \PYG{o}{=} \PYG{p}{(}\PYG{n}{np}\PYG{o}{.}\PYG{n}{pi}\PYG{o}{**}\PYG{l+m+mi}{2} \PYG{o}{/} \PYG{l+m+mi}{4}\PYG{p}{)} \PYG{o}{*} \PYG{n}{p}\PYG{o}{/}\PYG{n}{p\PYGZus{}0}
+    \PYG{n}{I\PYGZus{}1} \PYG{o}{=} \PYG{n}{I\PYGZus{}0}\PYG{o}{*}\PYG{p}{(}\PYG{n}{np}\PYG{o}{.}\PYG{n}{sin}\PYG{p}{(}\PYG{n}{np}\PYG{o}{.}\PYG{n}{sqrt}\PYG{p}{(}\PYG{n}{eta}\PYG{p}{)))}\PYG{o}{**}\PYG{l+m+mi}{2}
+    \PYG{k}{return}\PYG{p}{(}\PYG{n}{I\PYGZus{}1}\PYG{p}{)}
+
+\PYG{c+c1}{\PYGZsh{} Data}
+\PYG{c+c1}{\PYGZsh{} Første modul}
+\PYG{c+c1}{\PYGZsh{} Forsøg 1: Målte afstand til 1te orden (Rene, Rasmus og Laurits)}
+\PYG{n}{d1} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{array}\PYG{p}{([}\PYG{l+m+mf}{0.7}\PYG{p}{,} \PYG{l+m+mf}{0.8}\PYG{p}{,} \PYG{l+m+mf}{0.9}\PYG{p}{,} \PYG{l+m+mf}{1.1}\PYG{p}{,} \PYG{l+m+mf}{1.1}\PYG{p}{,} \PYG{l+m+mf}{1.2}\PYG{p}{,} \PYG{l+m+mf}{1.3}\PYG{p}{,} \PYG{l+m+mf}{1.3}\PYG{p}{,} \PYG{l+m+mf}{1.4}\PYG{p}{,} \PYG{l+m+mf}{1.5}\PYG{p}{,} \PYG{l+m+mf}{1.5}\PYG{p}{,} \PYG{l+m+mf}{1.6}\PYG{p}{,} \PYG{l+m+mf}{1.7}\PYG{p}{,}
+    \PYG{l+m+mf}{1.8}\PYG{p}{,} \PYG{l+m+mf}{1.8}\PYG{p}{,} \PYG{l+m+mf}{1.9}\PYG{p}{,} \PYG{l+m+mf}{2.0}\PYG{p}{])} \PYG{o}{*} \PYG{l+m+mi}{10}\PYG{o}{**\PYGZhy{}}\PYG{l+m+mi}{2}
+\PYG{n}{d2} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{array}\PYG{p}{([}\PYG{l+m+mf}{0.7}\PYG{p}{,} \PYG{l+m+mf}{0.8}\PYG{p}{,} \PYG{l+m+mf}{0.9}\PYG{p}{,} \PYG{l+m+mf}{0.9}\PYG{p}{,} \PYG{l+m+mf}{1.2}\PYG{p}{,} \PYG{l+m+mf}{1.2}\PYG{p}{,} \PYG{l+m+mf}{1.3}\PYG{p}{,} \PYG{l+m+mf}{1.4}\PYG{p}{,} \PYG{l+m+mf}{1.6}\PYG{p}{,} \PYG{l+m+mf}{1.6}\PYG{p}{,} \PYG{l+m+mf}{1.7}\PYG{p}{,} \PYG{l+m+mf}{1.8}\PYG{p}{,} \PYG{l+m+mf}{1.8}\PYG{p}{,}
+    \PYG{l+m+mf}{1.9}\PYG{p}{,} \PYG{l+m+mf}{1.9}\PYG{p}{,} \PYG{l+m+mf}{2.0}\PYG{p}{,} \PYG{l+m+mf}{2.0}\PYG{p}{])} \PYG{o}{*} \PYG{l+m+mi}{10}\PYG{o}{**\PYGZhy{}}\PYG{l+m+mi}{2}
+\PYG{n}{d3} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{array}\PYG{p}{([}\PYG{l+m+mf}{0.7}\PYG{p}{,} \PYG{l+m+mf}{0.8}\PYG{p}{,} \PYG{l+m+mf}{0.9}\PYG{p}{,} \PYG{l+m+mf}{1.0}\PYG{p}{,} \PYG{l+m+mf}{1.1}\PYG{p}{,} \PYG{l+m+mf}{1.3}\PYG{p}{,} \PYG{l+m+mf}{1.3}\PYG{p}{,} \PYG{l+m+mf}{1.3}\PYG{p}{,} \PYG{l+m+mf}{1.4}\PYG{p}{,} \PYG{l+m+mf}{1.5}\PYG{p}{,} \PYG{l+m+mf}{1.6}\PYG{p}{,} \PYG{l+m+mf}{1.6}\PYG{p}{,} \PYG{l+m+mf}{1.7}\PYG{p}{,}
+    \PYG{l+m+mf}{1.8}\PYG{p}{,} \PYG{l+m+mf}{1.9}\PYG{p}{,} \PYG{l+m+mf}{1.9}\PYG{p}{,} \PYG{l+m+mf}{2.0}\PYG{p}{])}  \PYG{o}{*} \PYG{l+m+mi}{10}\PYG{o}{**\PYGZhy{}}\PYG{l+m+mi}{2}
+
+\PYG{n}{d4} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{array}\PYG{p}{([}\PYG{n}{d1}\PYG{p}{,} \PYG{n}{d2}\PYG{p}{,} \PYG{n}{d3}\PYG{p}{])}\PYG{o}{.}\PYG{n}{T}
+\PYG{n}{d} \PYG{o}{=} \PYG{p}{(}\PYG{n}{d1} \PYG{o}{+} \PYG{n}{d2} \PYG{o}{+} \PYG{n}{d3}\PYG{p}{)}\PYG{o}{/}\PYG{l+m+mi}{3}
+
+\PYG{n}{theta\PYGZus{}sep} \PYG{o}{=} \PYG{n}{d} \PYG{o}{/} \PYG{n}{l}
+
+\PYG{n}{sds\PYGZus{}d} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{zeros}\PYG{p}{(}\PYG{n}{np}\PYG{o}{.}\PYG{n}{size}\PYG{p}{(}\PYG{n}{d1}\PYG{p}{))}
+\PYG{k}{for} \PYG{n}{i} \PYG{o+ow}{in} \PYG{n+nb}{range}\PYG{p}{(}\PYG{l+m+mi}{0}\PYG{p}{,} \PYG{n}{np}\PYG{o}{.}\PYG{n}{size}\PYG{p}{(}\PYG{n}{d1}\PYG{p}{)):}
+    \PYG{n}{sds\PYGZus{}d}\PYG{p}{[}\PYG{n}{i}\PYG{p}{]} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{std}\PYG{p}{(}\PYG{n}{d4}\PYG{p}{[}\PYG{n}{i}\PYG{p}{])}
+
+\PYG{c+c1}{\PYGZsh{} De justerede frekvenser af lyd}
+\PYG{n}{fs} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{array}\PYG{p}{(}\PYG{n}{np}\PYG{o}{.}\PYG{n}{linspace}\PYG{p}{(}\PYG{l+m+mi}{120}\PYG{p}{,} \PYG{l+m+mi}{280}\PYG{p}{,} \PYG{l+m+mi}{17}\PYG{p}{))} \PYG{o}{*} \PYG{l+m+mi}{10}\PYG{o}{**}\PYG{l+m+mi}{6}
+\PYG{n}{sds\PYGZus{}fs} \PYG{o}{=} \PYG{l+m+mi}{0} \PYG{c+c1}{\PYGZsh{} Indtil videre \PYGZhy{} spørg Andreas}
+
+\PYG{n}{sds\PYGZus{}theta\PYGZus{}sep} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{sqrt}\PYG{p}{((}\PYG{l+m+mi}{1}\PYG{o}{/}\PYG{n}{l}\PYG{o}{**}\PYG{l+m+mi}{2}\PYG{p}{)} \PYG{o}{*} \PYG{n}{sds\PYGZus{}d}\PYG{o}{**}\PYG{l+m+mi}{2} \PYG{o}{+} \PYG{p}{(}\PYG{n}{d}\PYG{o}{/}\PYG{n}{l}\PYG{o}{**}\PYG{l+m+mi}{2}\PYG{p}{)}\PYG{o}{**}\PYG{l+m+mi}{2} \PYG{o}{*} \PYG{n}{sds\PYGZus{}l}\PYG{o}{**}\PYG{l+m+mi}{2}\PYG{p}{)}
+
+\PYG{n}{sds\PYGZus{}vs} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{sqrt}\PYG{p}{((}\PYG{n}{lambda\PYGZus{}l}\PYG{o}{/}\PYG{n}{theta\PYGZus{}sep}\PYG{p}{)}\PYG{o}{**}\PYG{l+m+mi}{2} \PYG{o}{*} \PYG{n}{sds\PYGZus{}fs}\PYG{o}{**}\PYG{l+m+mi}{2} \PYG{o}{+} \PYG{p}{(}\PYG{n}{lambda\PYGZus{}l}\PYG{o}{*}\PYG{n}{fs} \PYG{o}{/}
+    \PYG{n}{theta\PYGZus{}sep}\PYG{o}{**}\PYG{l+m+mi}{2}\PYG{p}{)}\PYG{o}{**}\PYG{l+m+mi}{2} \PYG{o}{*} \PYG{n}{sds\PYGZus{}theta\PYGZus{}sep}\PYG{o}{**}\PYG{l+m+mi}{2}\PYG{p}{)}
+
+\PYG{k}{def} \PYG{n+nf}{thetaFit}\PYG{p}{(}\PYG{n}{fs}\PYG{p}{,} \PYG{n}{k}\PYG{p}{):}
+    \PYG{n}{theta\PYGZus{}sep} \PYG{o}{=} \PYG{n}{k}\PYG{o}{*}\PYG{n}{fs}
+    \PYG{k}{return}\PYG{p}{(}\PYG{n}{theta\PYGZus{}sep}\PYG{p}{)}
+
+\PYG{n}{p\PYGZus{}opt}\PYG{p}{,} \PYG{n}{p\PYGZus{}cov} \PYG{o}{=} \PYG{n}{opt}\PYG{o}{.}\PYG{n}{curve\PYGZus{}fit}\PYG{p}{(}\PYG{n}{thetaFit}\PYG{p}{,} \PYG{n}{fs}\PYG{p}{,} \PYG{n}{theta\PYGZus{}sep}\PYG{p}{)}
+\PYG{k}{print}\PYG{p}{(}\PYG{n}{p\PYGZus{}opt}\PYG{p}{)}
+\PYG{k}{print}\PYG{p}{((}\PYG{l+m+mi}{1}\PYG{o}{/}\PYG{n}{p\PYGZus{}opt}\PYG{p}{)} \PYG{o}{*} \PYG{n}{lambda\PYGZus{}l}\PYG{p}{)}
+
+
+\PYG{c+c1}{\PYGZsh{} Figur}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{figure}\PYG{p}{()}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{title}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}Afstand til forste orden per frekvens\PYGZdq{}}\PYG{p}{)}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{plot}\PYG{p}{(}\PYG{n}{fs}\PYG{p}{,} \PYG{n}{d1}\PYG{p}{,} \PYG{l+s+s1}{\PYGZsq{}ro\PYGZsq{}}\PYG{p}{,} \PYG{n}{label}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}d1\PYGZsq{}}\PYG{p}{)}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{plot}\PYG{p}{(}\PYG{n}{fs}\PYG{p}{,} \PYG{n}{d2}\PYG{p}{,} \PYG{l+s+s1}{\PYGZsq{}bo\PYGZsq{}}\PYG{p}{,} \PYG{n}{label}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}d2\PYGZsq{}}\PYG{p}{)}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{plot}\PYG{p}{(}\PYG{n}{fs}\PYG{p}{,} \PYG{n}{d3}\PYG{p}{,} \PYG{l+s+s1}{\PYGZsq{}go\PYGZsq{}}\PYG{p}{,} \PYG{n}{label}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}d3\PYGZsq{}}\PYG{p}{)}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{ylabel}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}Observeret afstand\PYGZdq{}}\PYG{p}{)}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{xlabel}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}Fast frekvens\PYGZdq{}}\PYG{p}{)}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{legend}\PYG{p}{()}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{grid}\PYG{p}{()}
+
+\PYG{c+c1}{\PYGZsh{} Forsøg 2: Intensitet}
+\PYG{n}{data} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{array}\PYG{p}{([} \PYG{p}{[}\PYG{l+m+mf}{3.0}\PYG{p}{,} \PYG{l+m+mf}{2.8}\PYG{p}{,} \PYG{l+m+mf}{2.6}\PYG{p}{,} \PYG{l+m+mf}{2.4}\PYG{p}{,} \PYG{l+m+mf}{2.2}\PYG{p}{,} \PYG{l+m+mf}{2.0}\PYG{p}{,} \PYG{l+m+mf}{1.8}\PYG{p}{,} \PYG{l+m+mf}{1.6}\PYG{p}{,} \PYG{l+m+mf}{1.4}\PYG{p}{,} \PYG{l+m+mf}{1.2}\PYG{p}{,} \PYG{l+m+mf}{1.0}\PYG{p}{,} \PYG{l+m+mf}{0.8}\PYG{p}{,}
+    \PYG{l+m+mf}{0.6}\PYG{p}{,} \PYG{l+m+mf}{0.4}\PYG{p}{,} \PYG{l+m+mf}{0.2}\PYG{p}{,} \PYG{l+m+mf}{0.0}\PYG{p}{,} \PYG{o}{\PYGZhy{}}\PYG{l+m+mf}{0.2}\PYG{p}{,} \PYG{o}{\PYGZhy{}}\PYG{l+m+mf}{0.4}\PYG{p}{,} \PYG{o}{\PYGZhy{}}\PYG{l+m+mf}{0.6}\PYG{p}{,} \PYG{o}{\PYGZhy{}}\PYG{l+m+mf}{0.8}\PYG{p}{,} \PYG{o}{\PYGZhy{}}\PYG{l+m+mf}{1.0}\PYG{p}{,} \PYG{o}{\PYGZhy{}}\PYG{l+m+mf}{1.2}\PYG{p}{,} \PYG{o}{\PYGZhy{}}\PYG{l+m+mf}{1.4}\PYG{p}{,} \PYG{o}{\PYGZhy{}}\PYG{l+m+mf}{1.6}\PYG{p}{,} \PYG{o}{\PYGZhy{}}\PYG{l+m+mf}{1.8}\PYG{p}{,}
+    \PYG{o}{\PYGZhy{}}\PYG{l+m+mf}{2.0}\PYG{p}{,} \PYG{o}{\PYGZhy{}}\PYG{l+m+mf}{2.5}\PYG{p}{,} \PYG{o}{\PYGZhy{}}\PYG{l+m+mf}{3.0}\PYG{p}{,} \PYG{o}{\PYGZhy{}}\PYG{l+m+mf}{3.5}\PYG{p}{,} \PYG{o}{\PYGZhy{}}\PYG{l+m+mf}{4.0}\PYG{p}{,} \PYG{o}{\PYGZhy{}}\PYG{l+m+mf}{4.5}\PYG{p}{,} \PYG{o}{\PYGZhy{}}\PYG{l+m+mf}{5.0}\PYG{p}{,} \PYG{o}{\PYGZhy{}}\PYG{l+m+mf}{6.0}\PYG{p}{,} \PYG{o}{\PYGZhy{}}\PYG{l+m+mf}{7.0}\PYG{p}{,} \PYG{o}{\PYGZhy{}}\PYG{l+m+mf}{8.0}\PYG{p}{,} \PYG{o}{\PYGZhy{}}\PYG{l+m+mf}{9.0}\PYG{p}{,} \PYG{o}{\PYGZhy{}}\PYG{l+m+mf}{10.0}\PYG{p}{,}
+    \PYG{l+m+mf}{3.2}\PYG{p}{,} \PYG{l+m+mf}{3.4}\PYG{p}{,} \PYG{l+m+mf}{3.6}\PYG{p}{,} \PYG{l+m+mf}{3.8}\PYG{p}{,} \PYG{l+m+mf}{4.0}\PYG{p}{,} \PYG{l+m+mf}{4.2}\PYG{p}{,} \PYG{l+m+mf}{4.4}\PYG{p}{,} \PYG{l+m+mf}{4.6}\PYG{p}{,} \PYG{l+m+mf}{4.8}\PYG{p}{,} \PYG{l+m+mf}{5.0}\PYG{p}{],}
+
+    \PYG{p}{[}\PYG{l+m+mf}{25.34}\PYG{p}{,} \PYG{l+m+mf}{24.38}\PYG{p}{,} \PYG{l+m+mf}{23.45}\PYG{p}{,} \PYG{l+m+mf}{22.21}\PYG{p}{,} \PYG{l+m+mf}{21.30}\PYG{p}{,} \PYG{l+m+mf}{20.27}\PYG{p}{,} \PYG{l+m+mf}{19.17}\PYG{p}{,} \PYG{l+m+mf}{18.32}\PYG{p}{,} \PYG{l+m+mf}{17.20}\PYG{p}{,} \PYG{l+m+mf}{16.46}\PYG{p}{,}
+        \PYG{l+m+mf}{15.51}\PYG{p}{,} \PYG{l+m+mf}{14.78}\PYG{p}{,} \PYG{l+m+mf}{13.92}\PYG{p}{,} \PYG{l+m+mf}{13.18}\PYG{p}{,} \PYG{l+m+mf}{12.62}\PYG{p}{,} \PYG{l+m+mf}{12.16}\PYG{p}{,} \PYG{l+m+mf}{11.55}\PYG{p}{,} \PYG{l+m+mf}{11.07}\PYG{p}{,} \PYG{l+m+mf}{10.52}\PYG{p}{,} \PYG{l+m+mf}{10.06}\PYG{p}{,}
+        \PYG{l+m+mf}{9.52}\PYG{p}{,} \PYG{l+m+mf}{9.09}\PYG{p}{,} \PYG{l+m+mf}{8.57}\PYG{p}{,} \PYG{l+m+mf}{8.11}\PYG{p}{,} \PYG{l+m+mf}{7.52}\PYG{p}{,} \PYG{l+m+mf}{7.34}\PYG{p}{,} \PYG{l+m+mf}{6.56}\PYG{p}{,} \PYG{l+m+mf}{5.81}\PYG{p}{,} \PYG{l+m+mf}{5.13}\PYG{p}{,} \PYG{l+m+mf}{4.58}\PYG{p}{,} \PYG{l+m+mf}{4.05}\PYG{p}{,} \PYG{l+m+mf}{3.06}\PYG{p}{,}
+        \PYG{l+m+mf}{2.94}\PYG{p}{,} \PYG{l+m+mf}{2.43}\PYG{p}{,} \PYG{l+m+mf}{2.03}\PYG{p}{,} \PYG{l+m+mf}{1.71}\PYG{p}{,} \PYG{l+m+mf}{1.46}\PYG{p}{,} \PYG{l+m+mf}{26.78}\PYG{p}{,} \PYG{l+m+mf}{27.83}\PYG{p}{,} \PYG{l+m+mf}{29.15}\PYG{p}{,} \PYG{l+m+mf}{30.02}\PYG{p}{,} \PYG{l+m+mf}{31.46}\PYG{p}{,} \PYG{l+m+mf}{32.61}\PYG{p}{,}
+        \PYG{l+m+mf}{33.81}\PYG{p}{,} \PYG{l+m+mf}{35.20}\PYG{p}{,} \PYG{l+m+mf}{36.51}\PYG{p}{,} \PYG{l+m+mf}{38.14}\PYG{p}{]])}
+
+\PYG{n}{dBm} \PYG{o}{=} \PYG{n}{data}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{]}
+\PYG{n}{P} \PYG{o}{=} \PYG{n}{data}\PYG{p}{[}\PYG{l+m+mi}{1}\PYG{p}{]}
+\PYG{n}{dBm2} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{power}\PYG{p}{(}\PYG{l+m+mi}{10}\PYG{p}{,} \PYG{n}{dBm}\PYG{p}{)}\PYG{o}{/}\PYG{l+m+mi}{10}
+
+\PYG{c+c1}{\PYGZsh{} Figur}
+\PYG{c+c1}{\PYGZsh{} Plottede regulær dBm \PYGZhy{} fejlagtigt}
+\PYG{c+c1}{\PYGZsh{}plt.plot(dBm, P, \PYGZsq{}ko\PYGZsq{}, label=\PYGZsq{}Plot\PYGZsq{})}
+
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{figure}\PYG{p}{()}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{plot}\PYG{p}{(}\PYG{n}{dBm2}\PYG{p}{,} \PYG{n}{P}\PYG{p}{,} \PYG{l+s+s1}{\PYGZsq{}ro\PYGZsq{}}\PYG{p}{,} \PYG{n}{label}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}Plot2\PYGZsq{}}\PYG{p}{)}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{legend}\PYG{p}{()}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{grid}\PYG{p}{()}
+
+\PYG{c+c1}{\PYGZsh{} Andet modul}
+
+    
+
+
+
+\PYG{c+c1}{\PYGZsh{}plt.show()}
+
+
+\PYG{c+c1}{\PYGZsh{} Noter}
+\PYG{c+c1}{\PYGZsh{} Første modul}
+\PYG{c+c1}{\PYGZsh{} Frekvensgeneratoren må ikke skrue op på højere end 5 dBm}
+
+\PYG{c+c1}{\PYGZsh{} Starter med at indstille setup \PYGZhy{} rykke på krystal / pap, men spejle/linser}
+\PYG{c+c1}{\PYGZsh{} var fastsat}
+
+\PYG{c+c1}{\PYGZsh{} Problemer med at få symmetriske lyspletter om 0 punktet \PYGZhy{} Vi var tilfredse med afstanden}
+
+\PYG{c+c1}{\PYGZsh{} Andet moduk}
+
+
+
+
+
+
+
+\PYG{c+c1}{\PYGZsh{} Noter:}
+
+\PYG{c+c1}{\PYGZsh{} Krystallens bredde og højde (mm)}
+\PYG{n}{B} \PYG{o}{=} \PYG{l+m+mf}{0.5}
+\PYG{n}{L} \PYG{o}{=} \PYG{l+m+mf}{2.00} 
+
+
+\PYG{n}{Intensitet}  \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{array}\PYG{p}{([}\PYG{l+m+mf}{502.9}\PYG{p}{,} \PYG{l+m+mf}{502.1}\PYG{p}{,} \PYG{l+m+mf}{500.3}\PYG{p}{,} \PYG{l+m+mf}{496.4}\PYG{p}{,} \PYG{l+m+mf}{491.1}\PYG{p}{,} \PYG{l+m+mf}{487.3}\PYG{p}{,} \PYG{l+m+mf}{478.0}\PYG{p}{,} \PYG{l+m+mf}{471.3}\PYG{p}{,}
+    \PYG{l+m+mf}{460.8}\PYG{p}{,} \PYG{l+m+mf}{444.7}\PYG{p}{,} \PYG{l+m+mf}{428.6}\PYG{p}{,} \PYG{l+m+mf}{406.2}\PYG{p}{,} \PYG{l+m+mf}{382.5}\PYG{p}{,} \PYG{l+m+mf}{354.2}\PYG{p}{,} \PYG{l+m+mf}{322.1}\PYG{p}{,} \PYG{l+m+mf}{290.3}\PYG{p}{,} \PYG{l+m+mf}{251.7}\PYG{p}{,} \PYG{l+m+mf}{218.1}\PYG{p}{,}
+    \PYG{l+m+mf}{187.3}\PYG{p}{,} \PYG{l+m+mf}{152.4}\PYG{p}{,} \PYG{l+m+mf}{123.5}\PYG{p}{,} \PYG{l+m+mf}{101.0}\PYG{p}{,} \PYG{l+m+mf}{76.51}\PYG{p}{,} \PYG{l+m+mf}{57.61}\PYG{p}{,} \PYG{l+m+mf}{45.21}\PYG{p}{,} \PYG{l+m+mf}{31.18}\PYG{p}{,} \PYG{l+m+mf}{24.81}\PYG{p}{,} \PYG{l+m+mf}{17.28}\PYG{p}{,}
+    \PYG{l+m+mf}{14.03}\PYG{p}{,} \PYG{l+m+mf}{10.02}\PYG{p}{,} \PYG{l+m+mf}{6.982}\PYG{p}{,} \PYG{l+m+mf}{5.421}\PYG{p}{])}
+    \PYG{c+c1}{\PYGZsh{}])\PYGZsh{} mikrowatt}
+
+\PYG{k}{print}\PYG{p}{(}\PYG{n}{Intensitet}\PYG{p}{)}
+
+\PYG{n}{a} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{size}\PYG{p}{(}\PYG{n}{Intensitet}\PYG{p}{)} \PYG{o}{*} \PYG{l+m+mf}{0.1}
+\PYG{n}{x} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{arange}\PYG{p}{(}\PYG{l+m+mf}{3.20}\PYG{p}{,} \PYG{l+m+mf}{3.20} \PYG{o}{+} \PYG{n}{a}\PYG{p}{,} \PYG{l+m+mf}{0.1}\PYG{p}{)}
+\PYG{k}{print}\PYG{p}{(}\PYG{n}{x}\PYG{p}{)}
+
+\PYG{k}{print}\PYG{p}{(}\PYG{n}{np}\PYG{o}{.}\PYG{n}{size}\PYG{p}{(}\PYG{n}{x}\PYG{p}{))}
+\PYG{k}{print}\PYG{p}{(}\PYG{n}{np}\PYG{o}{.}\PYG{n}{size}\PYG{p}{(}\PYG{n}{Intensitet}\PYG{p}{))}
+
+\PYG{c+c1}{\PYGZsh{} MAX INTENSITET}
+\PYG{c+c1}{\PYGZsh{}495}
+\PYG{c+c1}{\PYGZsh{} 84 = 3.405 \PYGZsh{} mm}
+\PYG{c+c1}{\PYGZsh{} 16 = 3.618}
+
+\PYG{c+c1}{\PYGZsh{} 84 = 4.585}
+\PYG{c+c1}{\PYGZsh{} 16 = 4.705 }
+
+\PYG{n}{d} \PYG{o}{=} \PYG{l+m+mf}{4.705} \PYG{o}{\PYGZhy{}} \PYG{l+m+mf}{4.585}
+\PYG{n}{k} \PYG{o}{=} \PYG{l+m+mf}{3.618} \PYG{o}{\PYGZhy{}} \PYG{l+m+mf}{3.405}
+\PYG{k}{print}\PYG{p}{(}\PYG{n}{d}\PYG{p}{)}
+\PYG{k}{print}\PYG{p}{(}\PYG{n}{k}\PYG{p}{)}
+
+\PYG{n}{maxi} \PYG{o}{=} \PYG{l+m+mi}{417}
+\PYG{n}{mini} \PYG{o}{=} \PYG{l+m+mi}{10}
+\PYG{n}{deltay} \PYG{o}{=} \PYG{n}{maxi} \PYG{o}{\PYGZhy{}} \PYG{n}{mini}
+
+\PYG{k}{print}\PYG{p}{(}\PYG{n}{deltay}\PYG{o}{*}\PYG{l+m+mf}{0.9}\PYG{o}{\PYGZhy{}}\PYG{n}{mini}\PYG{p}{)}
+\PYG{k}{print}\PYG{p}{(}\PYG{n}{deltay}\PYG{o}{*}\PYG{l+m+mf}{0.1}\PYG{o}{+}\PYG{n}{mini}\PYG{p}{)}
+
+\PYG{c+c1}{\PYGZsh{} Fit}
+\PYG{k}{def} \PYG{n+nf}{Errorfunction}\PYG{p}{(}\PYG{n}{x}\PYG{p}{,} \PYG{n}{w0}\PYG{p}{):}
+    \PYG{n}{indmad} \PYG{o}{=} \PYG{p}{(}\PYG{n}{x}\PYG{o}{*}\PYG{n}{np}\PYG{o}{.}\PYG{n}{sqrt}\PYG{p}{(}\PYG{l+m+mi}{2}\PYG{p}{)}\PYG{o}{/}\PYG{n}{w0}\PYG{p}{)}
+    \PYG{n}{y} \PYG{o}{=} \PYG{n}{erf}\PYG{p}{(}\PYG{n}{indmad}\PYG{p}{)}
+    \PYG{k}{return}\PYG{p}{(}\PYG{n}{y}\PYG{p}{)}
+
+\PYG{n}{p\PYGZus{}opt}\PYG{p}{,} \PYG{n}{p\PYGZus{}cov} \PYG{o}{=} \PYG{n}{opt}\PYG{o}{.}\PYG{n}{curve\PYGZus{}fit}\PYG{p}{(}\PYG{n}{Errorfunction}\PYG{p}{,} \PYG{n}{x}\PYG{p}{,} \PYG{n}{Intensitet}\PYG{p}{)}\PYG{c+c1}{\PYGZsh{}, bounds=(0.05, 0.50))}
+\PYG{n}{w0} \PYG{o}{=} \PYG{n}{p\PYGZus{}opt}
+\PYG{k}{print}\PYG{p}{(}\PYG{n}{w0}\PYG{p}{)}
+
+\PYG{n}{estimat} \PYG{o}{=} \PYG{n}{Intensitet}\PYG{o}{*}\PYG{n}{Errorfunction}\PYG{p}{(}\PYG{n}{x}\PYG{p}{,} \PYG{n}{w0}\PYG{p}{)}
+
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{figure}\PYG{p}{()}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{grid}\PYG{p}{()}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{plot}\PYG{p}{(}\PYG{n}{x}\PYG{p}{,} \PYG{n}{Intensitet}\PYG{p}{,} \PYG{l+s+s1}{\PYGZsq{}ro\PYGZsq{}}\PYG{p}{,} \PYG{n}{label}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}Data\PYGZsq{}}\PYG{p}{)}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{plot}\PYG{p}{(}\PYG{n}{x}\PYG{p}{,} \PYG{n}{estimat}\PYG{p}{,} \PYG{l+s+s1}{\PYGZsq{}b\PYGZhy{}\PYGZsq{}}\PYG{p}{,} \PYG{n}{label}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}Fit\PYGZsq{}}\PYG{p}{)}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{legend}\PYG{p}{()}
+
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{show}\PYG{p}{()}
+
+
+
+
+\PYG{c+c1}{\PYGZsh{} w0 }
+\PYG{n}{Imax} \PYG{o}{=} \PYG{l+m+mi}{435} \PYG{c+c1}{\PYGZsh{} mikrowatt}
+\PYG{n}{I} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{array}\PYG{p}{([}\PYG{l+m+mf}{0.84}\PYG{o}{*}\PYG{n}{Imax}\PYG{p}{,} \PYG{l+m+mf}{0.16}\PYG{o}{*}\PYG{n}{Imax}\PYG{p}{])}
+\PYG{n}{kniv} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{array}\PYG{p}{([}\PYG{l+m+mf}{3.51}\PYG{p}{,} \PYG{l+m+mf}{3.60} \PYG{p}{])}\PYG{o}{*}\PYG{l+m+mi}{10}\PYG{o}{**\PYGZhy{}}\PYG{l+m+mi}{3}
+\PYG{c+c1}{\PYGZsh{}print(0.84*Imax)}
+\PYG{c+c1}{\PYGZsh{}print(0.16*Imax)}
+\PYG{c+c1}{\PYGZsh{}Imin = }
+\PYG{c+c1}{\PYGZsh{}Hoej = }
+
+\PYG{n}{w0} \PYG{o}{=} \PYG{n}{kniv}\PYG{p}{[}\PYG{l+m+mi}{1}\PYG{p}{]} \PYG{o}{\PYGZhy{}} \PYG{n}{kniv}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{]}
+
+\PYG{k}{def} \PYG{n+nf}{lydhastighed}\PYG{p}{(}\PYG{n}{risetime}\PYG{p}{,} \PYG{n}{w0}\PYG{p}{):}
+    \PYG{n}{vs} \PYG{o}{=} \PYG{l+m+mf}{0.64}\PYG{o}{*}\PYG{p}{(}\PYG{l+m+mi}{2}\PYG{o}{*}\PYG{n}{w0}\PYG{o}{/} \PYG{n}{risetime}\PYG{p}{)}
+    \PYG{k}{return}\PYG{p}{(}\PYG{n}{vs}\PYG{p}{)}
+
+\PYG{n}{risetime} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{array}\PYG{p}{([}\PYG{l+m+mi}{112}\PYG{p}{,} \PYG{l+m+mi}{200}\PYG{p}{])} \PYG{o}{*} \PYG{l+m+mi}{10} \PYG{o}{**\PYGZhy{}}\PYG{l+m+mi}{9}
+
+\PYG{n}{i} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{ones}\PYG{p}{(}\PYG{n}{np}\PYG{o}{.}\PYG{n}{size}\PYG{p}{(}\PYG{n}{risetime}\PYG{p}{))}\PYG{o}{*} \PYG{n}{w0}\PYG{c+c1}{\PYGZsh{} * 0.2 * 10**\PYGZhy{}3}
+
+\PYG{n}{vs} \PYG{o}{=} \PYG{n}{lydhastighed}\PYG{p}{(}\PYG{n}{risetime}\PYG{p}{,} \PYG{n}{i}\PYG{p}{)} 
+\PYG{k}{print}\PYG{p}{(}\PYG{n}{vs}\PYG{p}{)}
+
+
+\PYG{c+c1}{\PYGZsh{} 50 OHM VED OSCILLOSKOP}
+\PYG{c+c1}{\PYGZsh{} 16 OG 84 til w0}
+\PYG{c+c1}{\PYGZsh{} 90 OG 10 til risetime}
+
+
+\PYG{c+c1}{\PYGZsh{} Eksperimentel opstilling}
+\PYG{n}{EkspOps} \PYG{o}{=} \PYG{l+s+s2}{\PYGZdq{}\PYGZdq{}\PYGZdq{}}
+\PYG{l+s+s2}{Signal generator , switch, forstærker, power kobler, AOM, men lille bid af}
+\PYG{l+s+s2}{signal skal ud og over i oscilloskop, også dæmpet på 50 dB (på den sikre side).}
+\PYG{l+s+s2}{11.5 db power kobling.}
+
+\PYG{l+s+s2}{forbundet til 50 ohm, for at se det gule signal. tidsskala er hurtig, græn er}
+\PYG{l+s+s2}{langsom, aom giver 200 mhz, grøn (langsom) .}
+
+\PYG{l+s+s2}{Grønne kanal \PYGZhy{} detektor,\PYGZdq{}\PYGZdq{}\PYGZdq{}} 
+
+\PYG{k}{print}\PYG{p}{(}\PYG{n}{EkspOps}\PYG{p}{)}
+\end{Verbatim}

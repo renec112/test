@@ -1,0 +1,31 @@
+\documentclass[danish,a4paper,twocolumn, oneside]{memoir}
+\usepackage{preamble}
+\usepackage{subfiles}
+\usepackage{float}
+\usepackage{csquotes}
+
+\title{Akusto Optisk Modulator}
+\author{Rene Czepluch\thanks{rene.czepluch@post.au.dk}, Laurits N. Stokholm\thanks{laurits.stokholm@post.au.dk} og Rasmus Klitgaard\thanks{rasmus.klitgaard@post.au.dk}}
+\date{\today}
+
+\usepackage[backend=biber, style=authortitle, defernumbers=true, sorting=nty]{biblatex}
+\addbibresource{bib.bib}
+
+\begin{document}
+
+\twocolumn[
+    \maketitle
+\begin{onecolabstract}
+\subfile{Abstract}
+\end{onecolabstract}
+]
+
+\subfile{Introduktion}
+\subfile{Teori}
+\subfile{Opstilling}
+\subfile{Databehandling_modul1}
+\subfile{Databehandling_modul2}
+\subfile{Diskussion}
+\subfile{Konklusion}
+
+\end{document}
