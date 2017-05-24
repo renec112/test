@@ -1,4 +1,4 @@
-# Preamble
+# %% Import
 import numpy as np
 import matplotlib.pyplot as plt
 from mpltools import special
@@ -38,23 +38,23 @@ plt.rc('font', **{'family' : "sans-serif"})
 
 
 
-# Faste parametre
+# %% Faste parametre
 n_brydning = 2.21            # brydningsindeks
 lambda_l   = 911*10**-9      # lysets boelgelaengde (vakuum)
 L          = 3.00 * 10**-2   # gitterets laengde (maaling)
 n          = np.array([0, 1, 2, 3]) # Observarbare ordner
 
-# Maalte data
+# %% Maalte data
 output = np.array([3.4]) # lydfrekvens
 l      = 29.8 * 10**-2            # laengde mellem AOM og pap
 sds_l  = 0.1 * 10**-2
 
-# Maalte afstande mellem pletter
+# %% Maalte afstande mellem pletter
 # Afstand fra 0 til 2
 f_lyd = np.array([2.0, ]) * 10**8
 a     = np.array([2.8 ]) + np.array([0.1])
 
-# Funktioner
+# %% Funktioner
 # Kvalitetsparameter Q (>> 1 for Bragg og <<1 for Kaman Nalk)
 def kvalitetsparameter(lambda_s, lambda_l, n, L):
     Q = 2*np.pi*lambda_l*L / (n*lambda_s**2)
@@ -62,7 +62,7 @@ def kvalitetsparameter(lambda_s, lambda_l, n, L):
 #Q = kvalitetsparameter(lambda_s, lambda_l, n, L)
 #
 
-# Lydens hastighed
+# %% Lydens hastighed
 def v_s(f_s, lambda_s):
     v_s = lambda_s * f_s
     return(v_s)
@@ -70,19 +70,19 @@ def v_s(f_s, lambda_s):
 #v_s = v_s(f_s, lambda_s)
 #
 
-# Lys n'te ordens frekvens
+# %%  Lys n'te ordens frekvens
 def f_n(f, n, f_s):
     f_n = f + n*f_s
     return(f_n)
 
-# Boelgekonstanten
+# %% Boelgekonstanten
 def k_s(lambda_s):
     #k_s = 2*np.pi/lambda_s
     2*k*np.sin(theta_B)
     return(k_s)
 
 
-# Braggs betingelse (Q>>1)
+# %% Braggs betingelse (Q>>1)
 # Kun en orden
 def Bragg(lambda_l, f_s, n_brydning, v_s):
     # sin(theta) approx theta
@@ -92,13 +92,13 @@ def Bragg(lambda_l, f_s, n_brydning, v_s):
 
 #theta_B = Bragg(lambda_l, f_s, n_brydning, v_s)
 
-# Lydens boelgelaengde
+# %% Lydens boelgelaengde
 def lambda_s(lambda_l, theta_B):
     lambda_s = lambda_l / (2*np.sin(theta_B))
     return(lambda_s)
 ##lambda_s(theta_B)
 
-# Effektivitet
+# %% Effektivitet
 I_0 = np.array([3.0])# dBm
 
 
@@ -121,7 +121,7 @@ sds_d = np.zeros(np.size(d1))
 
 for i in range(0, np.size(d1)):
     sds_d[i] = np.std(d4[i])
-#%%
+# %%
 #Nu har vi standardafvigelse men der er ogsaa en usikkerhed i at bruge en lineal
 #altsaa skal sds_d_samlet vaere de to sammenlagt
 sds_maaling = 1./1000 # usikkerhed paa maaling 1 mm
@@ -153,10 +153,6 @@ theta_fit    = thetaFit(x_lin,k,c)
 fs_plt = fs/10**6
 x_lin_plt = x_lin/10**6
 
-
-farve = 'red'
-alpha_fill = 0.2
-
 limits_dplt  = [-10, 295, -0.005, 0.075] #graenser til plot nedenfor
 
 plt.figure()
@@ -169,7 +165,8 @@ plt.xlabel(r"$f_s \ \left[ \si{\mega\hertz}\right]$")
 plt.legend(['Fit','Datapunkter'],loc   = 2)
 
 plt.axis(limits_dplt)
-plt.savefig('tegninger/graf1.png')
+# plt.savefig('tegninger/graf1.png')
+
 # %%
 # plt.grid()
 
@@ -204,15 +201,15 @@ sds_dbm = 0
 P_sorted   = np.sort(P)
 dBm_sorted = np.sort(dBm2)
 
-
+# %% plot
 plt.figure()
 plt.plot(dBm_sorted,P_sorted,'rx')
-special.errorfill(dBm_sorted,P_sorted,sds_P,alpha_fill = alpha_fill,color = farve)
+special.errorfill(dBm_sorted,P_sorted,sds_P,alpha_fill = 0.2,color = 'red')
 plt.xlabel(r'$P \left[ \si{\milli\watt}\right]$')
 plt.ylabel(r'$I_1 \ \left[ \si{\micro\watt}\right]$')
 plt.legend(['Datapunkter' ,'Linje genne punkter','Usikkerheder'])
 plt.grid()
-plt.savefig('tegninger/graf2.png')
+# plt.savefig('tegninger/graf2.png')
 
 # Andet modul
 
@@ -287,7 +284,7 @@ w0 = p_opt
 
 
 estimat = Intensitet*Errorfunction(x, w0)
-
+# %% plot
 plt.figure()
 plt.grid()
 plt.plot(x, Intensitet, 'ro', label='Data')
@@ -295,14 +292,15 @@ plt.plot(x, estimat, 'b-', label='Fit')
 plt.xlabel(r'$x \ \left[\si{\milli\meter}\right]$')
 plt.ylabel(r'$I \ \left[\si{\micro\watt}\right]$')
 plt.legend()
-plt.savefig('tegninger/graf3.png')
+# plt.savefig('tegninger/graf3.png')
 
 
 
 
 
 
-# w0
+
+# %% w0
 Imax = 435 # mikrowatt
 I    = np.array([0.84*Imax, 0.16*Imax])
 kniv = np.array([3.51, 3.60 ])*10**-3
