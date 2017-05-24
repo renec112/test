@@ -39,71 +39,22 @@ plt.rc('font', **{'family' : "sans-serif"})
 
 
 # %% Faste parametre
-n_brydning = 2.21            # brydningsindeks
-lambda_l   = 911*10**-9      # lysets boelgelaengde (vakuum)
-L          = 3.00 * 10**-2   # gitterets laengde (maaling)
+n_brydning = 2.21                   # brydningsindeks
+lambda_l   = 911*10**-9             # lysets boelgelaengde (vakuum)
+L          = 3.00 * 10**-2          # gitterets laengde (maaling)
 n          = np.array([0, 1, 2, 3]) # Observarbare ordner
 
-# %% Maalte data
-output = np.array([3.4]) # lydfrekvens
-l      = 29.8 * 10**-2            # laengde mellem AOM og pap
-sds_l  = 0.1 * 10**-2
-
-# %% Maalte afstande mellem pletter
-# Afstand fra 0 til 2
-f_lyd = np.array([2.0, ]) * 10**8
-a     = np.array([2.8 ]) + np.array([0.1])
-
-# %% Funktioner
-# Kvalitetsparameter Q (>> 1 for Bragg og <<1 for Kaman Nalk)
-def kvalitetsparameter(lambda_s, lambda_l, n, L):
-    Q = 2*np.pi*lambda_l*L / (n*lambda_s**2)
-    return(Q)
-#Q = kvalitetsparameter(lambda_s, lambda_l, n, L)
-#
-
-# %% Lydens hastighed
-def v_s(f_s, lambda_s):
-    v_s = lambda_s * f_s
-    return(v_s)
-
-#v_s = v_s(f_s, lambda_s)
-#
-
-# %%  Lys n'te ordens frekvens
-def f_n(f, n, f_s):
-    f_n = f + n*f_s
-    return(f_n)
-
-# %% Boelgekonstanten
-def k_s(lambda_s):
-    #k_s = 2*np.pi/lambda_s
-    2*k*np.sin(theta_B)
-    return(k_s)
 
 
-# %% Braggs betingelse (Q>>1)
-# Kun en orden
-def Bragg(lambda_l, f_s, n_brydning, v_s):
-    # sin(theta) approx theta
-    theta_B = lambda_l * f_s / (2*n_brydning*v_s)
-    theta_sep = 2*theta_B
-    return(theta_B, theta_sep)
-
-#theta_B = Bragg(lambda_l, f_s, n_brydning, v_s)
-
-# %% Lydens boelgelaengde
-def lambda_s(lambda_l, theta_B):
-    lambda_s = lambda_l / (2*np.sin(theta_B))
-    return(lambda_s)
-##lambda_s(theta_B)
-
-# %% Effektivitet
-I_0 = np.array([3.0])# dBm
 
 
-# Data
-# Foerste modul
+
+
+
+# - - - - - - - - - - - - - MODUL 1 - - - - - - - - - - - - - -
+# Når vi ikke skruede på noget så stod: dBm = 3.0
+
+
 # Forsoeg 1: Maalte afstand til 1te orden (Rene, Rasmus og Laurits)
 d1 = np.array([0.7, 0.8, 0.9, 1.1, 1.1, 1.2, 1.3, 1.3, 1.4, 1.5, 1.5, 1.6, 1.7,
     1.8, 1.8, 1.9, 2.0]) * 10**-2
@@ -112,44 +63,52 @@ d2 = np.array([0.7, 0.8, 0.9, 0.9, 1.2, 1.2, 1.3, 1.4, 1.6, 1.6, 1.7, 1.8, 1.8,
 d3 = np.array([0.7, 0.8, 0.9, 1.0, 1.1, 1.3, 1.3, 1.3, 1.4, 1.5, 1.6, 1.6, 1.7,
     1.8, 1.9, 1.9, 2.0])  * 10**-2
 
+# Definerer en gennemsnitlig afstand
 d4 = np.array([d1, d2, d3]).T
 d  = (d1 + d2 + d3)/3
 
-theta_sep = d / l
+theta_sep = d / l # Skøn over theta_sep -- array
 
-sds_d = np.zeros(np.size(d1))
+
+# Nu skal vi finde usikkerhed på d, derfor defineres en masse 0'er.
+# Bagefter looper vi over d1,d2,d3 sådan at når vi tager standardafvigelsen så
+# får vi standardafvigelsen for de tre i'te indgange i d1,d2,d3.
+sds_d = np.zeros(np.size(d1)) #
 
 for i in range(0, np.size(d1)):
     sds_d[i] = np.std(d4[i])
 # %%
 #Nu har vi standardafvigelse men der er ogsaa en usikkerhed i at bruge en lineal
 #altsaa skal sds_d_samlet vaere de to sammenlagt
-sds_maaling = 1./1000 # usikkerhed paa maaling 1 mm
-sds_d       = sds_d + sds_maaling
-# De justerede frekvenser af lyd
-fs     = np.array(np.linspace(120, 280, 17)) * 10**6
+sds_maaling = 1./1000             # usikkerhed paa maaling 1 mm pga. lineal
+sds_d       = sds_d + sds_maaling #SAMLET usikkerhed på d
+
+
+# frekvenser for Frekvensgeneratoren i forsøget hvor vi varierede disse
+fs     = np.array(np.linspace(120, 280, 17)) * 10**6 # går fra 120 MHz til 280 MHz
 sds_fs = 0 # Indtil videre - spoerg Andreas
 
+# usikkerhed på theta_sep, fundet vha. ophobningsloven.
 sds_theta_sep = np.sqrt((1/l**2) * sds_d**2 + (d/l**2)**2 * sds_l**2)
-
+# usikkerhed på lydhastighed, fundet vha. ophobningsloven, bemærk at det første led er 0 da sds_fs = 0
 sds_vs        = np.sqrt((lambda_l/theta_sep)**2 * sds_fs**2 + (lambda_l*fs /
     theta_sep**2)**2 * sds_theta_sep**2)
-
+# - - - - - - - - - - - - - FIT hvor vi vil have lydhastighed - - - - - - - -
 def thetaFit(fs, k,c):
-    theta_sep = k*fs+c
+    theta_sep = k*fs+c  # k = lambda/v_s, c er et konstant led for at ramme data bedre
     return(theta_sep)
-
+#fitter data ved funktion thetaFit, med xdata fs og ydata theta_sep
 p_opt, p_cov = opt.curve_fit(thetaFit, fs, theta_sep)
-k            = p_opt[0]
-c            = p_opt[1]
-v_s          = lambda_l/k
+k            = p_opt[0] # 0'te indgang i p_opt pga. funktionen
+c            = p_opt[1] # 1'te indgang i p_opt pga. funktionen
+v_s          = lambda_l/k # lydhastighed fundet vha. fit ovenfor
 
-x_lin        = np.linspace(-0.2*10**8, fs[-1]+2*10**8, 100)
+x_lin        = np.linspace(-0.2*10**8, fs[-1]+2*10**8, 100) # en linspace for at kunne plotte den fittede kurve med theta som funktion af fs
 theta_fit    = thetaFit(x_lin,k,c)
 
 
 
-# %% fit
+# $$ - - - - - - - - - - - - - Plot - - - - - - - - - - - - - -
 fs_plt = fs/10**6
 x_lin_plt = x_lin/10**6
 
@@ -187,9 +146,6 @@ data = np.array([ [3.0, 2.8, 2.6, 2.4, 2.2, 2.0, 1.8, 1.6, 1.4, 1.2, 1.0, 0.8,
 B = 0.5 * 10**(-3)
 L = 2.00 * 10**(-3)
 
-
-
-
 dBm     = data[0] #power i vibrator
 P       = data[1] #intensitet i uW
 dBm2    = np.power(10, dBm/10.)
@@ -197,11 +153,9 @@ sds_P   = 3 #TODO find ud af hvad usikkerhed er på denne måling
 sds_dbm = 0
 
 
-
+# - - - - - - - - - - - - - plot - - - - - - - - - - - - - -
 P_sorted   = np.sort(P)
 dBm_sorted = np.sort(dBm2)
-
-# %% plot
 plt.figure()
 plt.plot(dBm_sorted,P_sorted,'rx')
 special.errorfill(dBm_sorted,P_sorted,sds_P,alpha_fill = 0.2,color = 'red')
@@ -212,9 +166,6 @@ plt.grid()
 # plt.savefig('tegninger/graf2.png')
 
 # Andet modul
-
-#plt.show()
-
 
 # Noter
 # Foerste modul
@@ -338,25 +289,5 @@ forbundet til 50 ohm, for at se det gule signal. tidsskala er hurtig, graen er
 langsom, aom giver 200 mhz, groen (langsom) .
 
 Groenne kanal - detektor,"""
-
-
-
-# print(v_s)
-# print(p_opt)
-# print((1/p_opt) * lambda_l)
-# print(Intensitet)
-# print(x)
-# print(np.size(x))
-# print(np.size(Intensitet))
-# print(d)
-# print(k)
-# print(deltay*0.9-mini)
-# print(deltay*0.1+mini)
-# print(w0)
-# print(0.84*Imax)
-# print(0.16*Imax)
-# print(vs)
-# print(EkspOps)
-
 
 plt.show()
