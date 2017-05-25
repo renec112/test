@@ -94,17 +94,26 @@ sds_fs = 0 # Indtil videre - spoerg Andreas
 # usikkerhed på theta_sep, fundet vha. ophobningsloven.
 sds_theta_sep = np.sqrt((1/l**2) * sds_d**2 + (d/l**2)**2 * sds_l**2)
 # usikkerhed på lydhastighed, fundet vha. ophobningsloven, bemærk at det første led er 0 da sds_fs = 0
-sds_vs        = np.sqrt((lambda_l/theta_sep)**2 * sds_fs**2 + (lambda_l*fs /
-    theta_sep**2)**2 * sds_theta_sep**2)
+
 # - - - - - - - - - - - - - FIT hvor vi vil have lydhastighed - - - - - - - -
 def thetaFit(fs, k,c):
     theta_sep = k*fs+c  # k = lambda/v_s, c er et konstant led for at ramme data bedre
     return(theta_sep)
 #fitter data ved funktion thetaFit, med xdata fs og ydata theta_sep
-p_opt, p_cov = opt.curve_fit(thetaFit, fs, theta_sep)
-k            = p_opt[0] # 0'te indgang i p_opt pga. funktionen
-c            = p_opt[1] # 1'te indgang i p_opt pga. funktionen
+# p_opt, p_cov = opt.curve_fit(thetaFit, fs, theta_sep)
+
+k, c, r_value, p_value, sds_k = stats.linregress(fs, theta_sep)
+
+# k            = p_opt[0] # 0'te indgang i p_opt pga. funktionen
+# c            = p_opt[1] # 1'te indgang i p_opt pga. funktionen
 v_s_1          = lambda_l/k # lydhastighed fundet vha. fit ovenfor
+
+sds_v = np.sqrt( ((lambda_l/k**2)**2) * (sds_k**2 ) )
+
+
+n = len(fs)
+
+
 
 x_lin        = np.linspace(-0.2*10**8, fs[-1]+2*10**8, 100) # en linspace for at kunne plotte den fittede kurve med theta som funktion af fs
 theta_fit    = thetaFit(x_lin,k,c)
@@ -168,13 +177,13 @@ sds_dbm = 0 # TODO Diskuter den er sat til nul
 P_sorted   = np.sort(P)
 dBm_sorted = np.sort(dBm2)
 plt.figure()
-plt.plot(dBm_sorted,P_sorted,'rx')
+plt.plot(dBm_sorted,P_sorted,'ok')
 special.errorfill(dBm_sorted,P_sorted,sds_P,alpha_fill = 0.1,color = 'black')
 plt.xlabel(r'$P \left[ \si{\milli\watt}\right]$')
 plt.ylabel(r'$I_1 \ \left[ \si{\micro\watt}\right]$')
 plt.legend(['Datapunkter' ,'Linje genne punkter','Usikkerheder'])
-plt.grid()
-# plt.savefig('tegninger/graf2.png')
+# plt.grid()
+plt.savefig('tegninger/graf2.png')
 
 # Andet modul
 
@@ -224,7 +233,7 @@ x = np.arange(3.20, 3.20 + a, 0.1) # målinger med kniv foran stråle
 # 16 = 4.705
 
 d = 4.705 - 4.585
-k = 3.618 - 3.405
+k_what = 3.618 - 3.405
 
 
 
@@ -303,5 +312,22 @@ Groenne kanal - detektor,"""
 
 plt.show()
 
-print(k)
-print(v_s_1)
+
+print('k',k)
+print('Lydens hastighed = ',v_s_1)
+print('sds_v = ', sds_v)
+
+
+
+
+# sr = np.sqrt(  1/(n-1)*np.sum(   (theta_sep-(c+k*fs)**2   )      ))
+# SSD_t = np.sum((fs-np.mean(fs))**2)
+# konf_int_beta_pm=2 * sr/np.sqrt(SSD_t)
+#
+# konf_int_beta_bund = k - konf_int_beta_pm
+# konf_int_beta_top = k + konf_int_beta_pm
+#
+# v_bund = lambda_l / konf_int_beta_bund
+# v_top = lambda_l / konf_int_beta_top
+#
+# konf_int_v = [v_bund, v_top]
