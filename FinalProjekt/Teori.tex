@@ -53,13 +53,13 @@ For at skelne de to regimer bruges betingelsesværdien for Bragg og Raman-Nath a
     Q = \frac{2\pi\lambda_L L {f_{S}}^2}{n{v}_{S}^2}=\frac{2\pi\lambda_L L}{n{\lambda_S}^2}
 \label{eq:KleinCook}
 \end{equation}
-Her er $L$ interaktionslængden mellem akustisk og optisk bølge.
+Her er $L$ interaktionslængden mellem den akustiske og optiske bølge.
 
-I forsøget vil der være primært være interesse i første orden $n=1$, hvorfor Bragg-regimet er ønsket, da der her er mindst effekt-tab i laserstrålen. Bragg-diffraktion præger dog forsøget med sine betingelser for lydfrekvensen og dermed også lydens hastighed.
+I forsøget vil der være primært interesse i første orden $n=1$, hvorfor Bragg-regimet er ønsket, da der her er mindst effekt-tab i laserstrålen. Bragg-diffraktion præger dog forsøget med sine betingelser for lydfrekvensen og dermed også lydens hastighed.
 
 Når lyset spredes gælder det, at vinklen mellem nulte og første orden er givet ved
 \begin{equation}
-    \theta_{sep} = 2 \theta_B = \frac{\lambda_L f_s}{v_s},
+    \theta_{sep} = 2 \theta_B = \frac{\lambda_L f_S}{v_S},
     \label{eq:sep}
 \end{equation}
 hvor $\theta_B$ er Bragg vinklen.
@@ -69,25 +69,29 @@ En anden måde at tolke denne interaktion mellem lyd og lys er ved at betragte d
 \subsection{Effektivitet}
 I forsøget vil forholdet mellem lydbølgernes amplitude og laserens intensitet undersøges. Der gælder at intensiteten for $n=1$ er
 \begin{equation}
-    I_1 = I_0 \sin^2\left( \sqrt{\eta} \right)
+    I_1 = I_0 \sin^2\left(\sqrt{\eta}\right)
     \label{eq:Intensitet}
 \end{equation}
-hvor $\eta = \frac{\pi^2}{4}\frac{P}{P_0}$, og $P_0 = \frac{\lambda^2}{2 n_2}\frac{H}{L}$. Her er $P$ effekten af laserstrålen, og desuden introduceres $n_2$ nu som den akusto-optiske koefficient. Den sidste brøk er ren geometrisk, hvor $H$ er højden af lydbølgen, og $L$ er den førnævnte interaktions længde (krystallens længde).
+hvor $\eta = \frac{\pi^2}{4}\frac{P_1}{P_0}$, og $P_0 = \frac{\lambda^2}{2 n_2}\frac{H}{L}$. Her er $P$ effekten af laserstrålen i hhv. nulte og første orden, og desuden introduceres $n_2$ nu som den akusto-optiske koefficient. Den sidste brøk er ren geometrisk, hvor $H$ er højden af lydbølgen, og $L$ er den førnævnte interaktions længde (krystallens længde).
 
-Når det plotts, forventes et peak ved en bestemt $P=P_0$.
-
-\subsection{Hastighed for switch af lys}
-Så længe lydbølgen opretholdes af PZT'en, vil der være diffraktion. Vil man måle hastigheden for at tænde / slukke for lyset, kan man slukke for PZT'en. Lydens tøven har den virkning, at det vil tage noget tid for sidste lydbølge at passere target, og denne tid må være proportional med lydenshastighed samt targets størrelse.
-\begin{equation}
-    T_R \propto \frac{A}{v_s}
-    \label{eq:risetime}
-\end{equation}
-Fra geometrisk optik vil lys fokuseres til et punkt ved at propagerere gennem en konkav linse. Dette punkt kaldes fokalpunktet.
-Der vil nu bruges en anden model, som beskrive dette punkt som en minimal afstand, og ikke et samlepunkt. Den minimale afstand kaldes for strålens \emph{waist}.
+Når det plotts, kan det forventes et peak ved en bestemt $P=P_0$.
 
 \subsection{Gaussisk Stråle}
-I forsøget bruges til en god approksimation en monokromatisk laserstråle. Den kan tilnærme sig en Gaussisk stråle, da dens tranversale magnetiske-- og elektriske felt bølges amplitude kan beskrives ved en Gauss funktion. Den fundamentale tranversale gaussiske tilstand ($TEM_{00}$) beskriver
+Fra geometrisk optik vil lys fokuseres til et punkt ved at propagerere gennem en konkav linse. Dette punkt kaldes fokalpunktet.
+Der vil nu bruges en anden model, som beskrive dette punkt som en minimal afstand, og ikke et samlepunkt. Den minimale afstand kaldes for strålens \emph{waist} og betegnes $w_0$.
 
-De elektriske og magnetiske feltbølgers amplitude profiler er bestemt af en parameter, den førhen nævnte \emph{waist}, $w_0$.
+I forsøget bruges til en god approksimation en monokromatisk laserstråle. Den kan tilnærme sig en Gaussisk stråle, da dens tranversale magnetiske-- og elektriske feltbølgers amplitude kan beskrives ved en Gauss funktion. Den fundamentale tranversale gaussiske tilstand ($TEM_{00}$) beskriver mange lasere\footnote{\url{https://en.wikipedia.org/wiki/Gaussian_beam}}. For en given bølgelængde $\lambda$ beskrives en gaussisk stråle af én parameter $w_0$ kaldet laserens \emph{waist}. Strålens waist er et mål for strålens størrelse ved fokalpunktet ($z=0$). Her er strålens bredde minimal, og intensiteten er størst. Bredden er en funktion af $z$, hvor $z$ er afstanden relativt til fokalpunktet. 
+
+\subsection{Hastighed for switch af lys}
+Så længe lydbølgen opretholdes af PZT'en, vil der være diffraktion. Vil man måle hastigheden for at tænde / slukke for lyset, kan man slukke for PZT'en. I det lyden tøver vil der være en responstid fra at lyden slukkes til sidste bølgetop passerer target, og denne tid må være proportional med lydens hastighed samt targets størrelse. 
+\begin{equation}
+    T_R \propto \frac{A}{v_S}.
+\end{equation}
+Der er interesse i tiden det tager for at intensiteten stiger fra $10\%$ til $90\%$. Hertil bruges
+\begin{equation}
+    T_R = 0.64 \frac{2w_0}{v_S}.
+    \label{eq:risetime}
+\end{equation}
+
 
 \end{document}
