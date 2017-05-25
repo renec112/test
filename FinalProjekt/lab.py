@@ -246,15 +246,17 @@ deltay = maxi - mini
 
 # Fit
 def Errorfunction(x, w0):
-    indmad = (x*np.sqrt(2)/w0)
-    y = erf(indmad)
+    indmad = (x/1000*np.sqrt(2.)/w0)
+    y = erf(indmad*1.)
     return(y)
 
 p_opt, p_cov = opt.curve_fit(Errorfunction, x, Intensitet)#, bounds=(0.05, 0.50))
 w0 = p_opt
 
+w02 = Intensitet[0]/1000000 * w0
+print('HEJE', w02)
 
-estimat = Intensitet*Errorfunction(x, w0)
+estimat = Intensitet * Errorfunction(x, w0)
 # %% plot
 plt.figure()
 plt.grid()
