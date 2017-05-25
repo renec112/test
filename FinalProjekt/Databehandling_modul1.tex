@@ -3,7 +3,7 @@
 \begin{document}
 \section{Databehandling}
 \subsection{Modul et}
-Som benævnt i \cref{dataopsamling1} er der opsamlet data med afstanden $d$ som funktion af $f_s$. Der er taget tre målinger af afstanden $d$, pr. frekvens som varieres fra $120$ til $280 \ \si{\mega\hertz}$ med spring af 10 $\si{\mega\hertz}$ mellem hver måling. Grunden til de tre målinger pr. frekvens er for at komme tættere på en sand værdi med usikkerheder for hvert punkt, som her er valgt til at være standardafvigelsen på de tre målinger, altså således at $sds_{std} = \text{std}$. Målingspunkterne som ses på \cref{fig:rawdata_modul1} har centrum i gennemsnitsværdien af de tre målinger. Ydermere er tillagt en usikkerhed i målinger med lineal på
+Som benævnt i \cref{dataopsamling1} er der opsamlet data med afstanden $d$ som funktion af $f_s$. Der er taget tre målinger af afstanden $d$, pr. frekvens som varieres fra $120$ til $280 \ \si{\mega\hertz}$ med spring af $10$ $\si{\mega\hertz}$ mellem hver måling. Grunden til de tre målinger pr. frekvens er for at komme tættere på en sand værdi med usikkerheder for hvert punkt, som her er valgt til at være standardafvigelsen på de tre målinger, altså således at $sds_{std} = \text{std}$. Målingspunkterne som ses på \cref{fig:rawdata_modul1} har centrum i gennemsnitsværdien af de tre målinger. Ydermere er tillagt en usikkerhed i målinger med lineal på
 $ sds_{lin} = 1 \si{\milli\meter} $ . Altså er de endelige usikkerheder som ses på \cref{fig:rawdata_modul1}:  $ sds_{tot} = sds_{std} + sds_{lin} $.
 \begin{figure}[H]
     \centering
@@ -22,11 +22,16 @@ På figur \cref{fig:graf1} ses $\theta_{sep}$ plottet som funktion af $f_s$, med
     \label{fig:graf1}
 \end{figure}
 Det ses på \cref{fig:graf1} at den fittede kurve ikke skærer i $(0,0)$, hvilket den burde grundet udtrykket i \cref{eq:THETA = LAMBDA*FS/V_S}.%TODO indsæt formel i teori og cref her
-hældning
-Ydermere ses det at linjen skærer datapunkterne indenfor deres usikkerhedsfaner.Det ses fra \cref{eq:sep} at hældningen, $k_{gradient}$ på linjen bliver $ k_{gradient} = \frac{\lambda_L}{v_S}$, og da $k_{gradient} = \SI{0,213}{\second}$ kan finde lydens hastighed i krystallen til at være:
+
+Ydermere ses det at linjen skærer datapunkterne indenfor deres usikkerhedsfaner. Det ses fra \cref{eq:sep} at hældningen, $k_{gradient}$ på linjen bliver $ k_{gradient} = \frac{\lambda_L}{v_S}$, og da $k_{gradient} = \SI{0,213}{\second}$ kan finde lydens hastighed i krystallen til at være:
 \begin{equation}
   \nonumber v_S = \frac{\lambda_L}{k_{gradient}} = 3377 \pm \ 89 \si{\meter\per\second}
 \end{equation}
+Usikkerheden på lydhastigheden er fundet ud fra spredningen på parametren $k_{gradient}$ ud fra fitte kommandoen \textsl{scipy.stats.linregress} som er en funktion fra python pakken \textsl{scipy}. Funktionen benytter mindste kvadraters metode. Ud fra spredningen på $k_{gradient}$ findes da usikkerheden på lydhastigheden, $v_S$ som:
+\begin{equation}
+  \nonumber sds(v_S) = \sqrt{\left(\frac{\lambda_L}{k_{gradient}^2}\right)^2 \cdot sds(k_{gradient})^2} = \SI{89}{\meter\per\second}
+\end{equation}
+Heri er det antaget at usikkerheden på bølgelængden af laseren er konstant, hvilket er grundet manglende informationer omkring laseren. Ydermere vil laseren sandsynligvis bidrage med en neglibel usikkerhed ift. usikkerheden som skyldes vores dataopsamling.
 
 
 %TODO Lav statistik her
