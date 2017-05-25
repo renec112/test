@@ -43,7 +43,8 @@ n_brydning = 2.21                   # brydningsindeks
 lambda_l   = 911*10**-9             # lysets boelgelaengde (vakuum)
 L          = 3.00 * 10**-2          # gitterets laengde (maaling)
 n          = np.array([0, 1, 2, 3]) # Observarbare ordner
-
+l          = 29.8 * 10**-2          # længden mellem AOM og skærm
+sds_l      = 0.1 * 10**-2           # usikkerhed
 
 
 
@@ -117,9 +118,17 @@ x_lin_plt = x_lin/10**6
 limits_dplt  = [-10, 295, -0.005, 0.075] #graenser til plot nedenfor
 
 plt.figure()
-plt.title(r"Plot af $\theta_{sep}$ som funktion af $f_s$")
-plt.errorbar(fs_plt,theta_sep,fmt          = 'ko', xerr = sds_fs, yerr = sds_theta_sep)
+plt.title(r"Plot af $d$ som funktion af $f_s$")
+plt.errorbar(fs_plt,d,fmt        = 'ko', xerr = sds_fs, yerr = sds_d)
+plt.ylabel(r"$ d \ \left[ \si{\meter}\right]$")
+plt.xlabel(r"$f_s \ \left[ \si{\mega\hertz}\right]$")
+plt.tight_layout()
+plt.savefig('tegninger/rawdata_modul1.png')
 
+
+plt.figure()
+plt.title(r"Plot af $\theta_{sep}$ som funktion af $f_s$")
+plt.errorbar(fs_plt,theta_sep,fmt = 'ko', xerr = sds_fs, yerr = sds_theta_sep)
 plt.plot(x_lin_plt,theta_fit, '--b', label ="fit")
 plt.ylabel(r"$\theta_{sep} \ \left[ \si{\radian}\right]$")
 plt.xlabel(r"$f_s \ \left[ \si{\mega\hertz}\right]$")
