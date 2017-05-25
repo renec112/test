@@ -64,7 +64,7 @@ Når lyset spredes gælder det, at vinklen mellem nulte og første orden er give
 \end{equation}
 hvor $\theta_B$ er Bragg vinklen.
 
-En anden måde at tolke denne interaktion mellem lyd og lys er ved at betragte det som et stød mellem begges partikelmodel. Fotonens impuls ændres idet fononen støder ind i den, og dens energi overføres til fotonen. Det vil der dog ikke gøres mere ud af i denne rapport. 
+En anden måde at tolke denne interaktion mellem lyd og lys er ved at betragte det som et stød mellem begges partikelmodel. Fotonens impuls ændres idet fononen støder ind i den, og dens energi overføres til fotonen. Det vil der dog ikke gøres mere ud af i denne rapport.
 
 \subsection{Effektivitet}
 I forsøget vil forholdet mellem lydbølgernes amplitude og laserens intensitet undersøges. Der gælder at intensiteten for $n=1$ er
@@ -80,18 +80,21 @@ Når det plotts, kan det forventes et peak ved en bestemt $P=P_0$.
 Fra geometrisk optik vil lys fokuseres til et punkt ved at propagerere gennem en konkav linse. Dette punkt kaldes fokalpunktet.
 Der vil nu bruges en anden model, som beskrive dette punkt som en minimal afstand, og ikke et samlepunkt. Den minimale afstand kaldes for strålens \emph{waist} og betegnes $w_0$.
 
-I forsøget bruges til en god approksimation en monokromatisk laserstråle. Den kan tilnærme sig en Gaussisk stråle, da dens tranversale magnetiske-- og elektriske feltbølgers amplitude kan beskrives ved en Gauss funktion. Den fundamentale tranversale gaussiske tilstand ($TEM_{00}$) beskriver mange lasere\footnote{\url{https://en.wikipedia.org/wiki/Gaussian_beam}}. For en given bølgelængde $\lambda$ beskrives en gaussisk stråle af én parameter $w_0$ kaldet laserens \emph{waist}. Strålens waist er et mål for strålens størrelse ved fokalpunktet ($z=0$). Her er strålens bredde minimal, og intensiteten er størst. Bredden er en funktion af $z$, hvor $z$ er afstanden relativt til fokalpunktet. 
+I forsøget bruges til en god approksimation en monokromatisk laserstråle. Den kan tilnærme sig en Gaussisk stråle, da dens tranversale magnetiske-- og elektriske feltbølgers amplitude kan beskrives ved en Gauss funktion. Den fundamentale tranversale gaussiske tilstand ($TEM_{00}$) beskriver mange lasere\footnote{\url{https://en.wikipedia.org/wiki/Gaussian_beam}}. For en given bølgelængde $\lambda$ beskrives en gaussisk stråle af én parameter $w_0$ kaldet laserens \emph{waist}. Strålens waist er et mål for strålens størrelse ved fokalpunktet ($z=0$). Her er strålens bredde minimal, og intensiteten er størst. Bredden er en funktion af $z$, hvor $z$ er afstanden relativt til fokalpunktet.
 
 \subsection{Hastighed for switch af lys}
-Så længe lydbølgen opretholdes af PZT'en, vil der være diffraktion. Vil man måle hastigheden for at tænde / slukke for lyset, kan man slukke for PZT'en. I det lyden tøver vil der være en responstid fra at lyden slukkes til sidste bølgetop passerer target, og denne tid må være proportional med lydens hastighed samt targets størrelse. 
+Så længe lydbølgen opretholdes af PZT'en, vil der være diffraktion. Vil man måle hastigheden for at tænde / slukke for lyset, kan man slukke for PZT'en. I det lyden tøver vil der være en responstid fra at lyden slukkes til sidste bølgetop passerer target, og denne tid må være proportional med lydens hastighed samt targets størrelse.
 \begin{equation}
     T_R \propto \frac{A}{v_S}.
 \end{equation}
-Der er interesse i tiden det tager for at intensiteten stiger fra $10\%$ til $90\%$. Hertil bruges
+Hvor $T_R$ er defineret til at være tiden der tager intensiteten til at gå fra $ 10\% - 90\%$.  Hertil bruges
 \begin{equation}
-    T_R = 0.64 \frac{2w_0}{v_S}.
+    T_R = T_{90\%} - T_{10\%} = 0.64 \frac{2w_0}{v_S}.
     \label{eq:risetime}
 \end{equation}
-
-
+$\Rightarrow$
+\begin{equation} %TODO er dette skrald?
+    v_S =  0.64 \frac{2w_0}{T_R}.
+    \label{eq:risetimeIsolere}
+\end{equation}
 \end{document}

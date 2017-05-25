@@ -292,7 +292,8 @@ def lydhastighed(risetime, w0):
     return(vs)
 
 risetime = np.array([112, 200]) * 10 **-9
-
+#%%
+print(lydhastighed(risetime,w0_test))
 i  = np.ones(np.size(risetime))* w0# * 0.2 * 10**-3
 
 vs = lydhastighed(risetime, i)
@@ -324,7 +325,7 @@ print('sds_v = ', sds_v)
 
 
 
-
+# %% - - - - - - - - Graveyard - - - - - - - -
 # sr = np.sqrt(  1/(n-1)*np.sum(   (theta_sep-(c+k*fs)**2   )      ))
 # SSD_t = np.sum((fs-np.mean(fs))**2)
 # konf_int_beta_pm=2 * sr/np.sqrt(SSD_t)
