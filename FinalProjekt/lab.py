@@ -104,7 +104,7 @@ def thetaFit(fs, k,c):
 p_opt, p_cov = opt.curve_fit(thetaFit, fs, theta_sep)
 k            = p_opt[0] # 0'te indgang i p_opt pga. funktionen
 c            = p_opt[1] # 1'te indgang i p_opt pga. funktionen
-v_s          = lambda_l/k # lydhastighed fundet vha. fit ovenfor
+v_s_1          = lambda_l/k # lydhastighed fundet vha. fit ovenfor
 
 x_lin        = np.linspace(-0.2*10**8, fs[-1]+2*10**8, 100) # en linspace for at kunne plotte den fittede kurve med theta som funktion af fs
 theta_fit    = thetaFit(x_lin,k,c)
@@ -169,7 +169,7 @@ P_sorted   = np.sort(P)
 dBm_sorted = np.sort(dBm2)
 plt.figure()
 plt.plot(dBm_sorted,P_sorted,'rx')
-special.errorfill(dBm_sorted,P_sorted,sds_P,alpha_fill = 0.2,color = 'red')
+special.errorfill(dBm_sorted,P_sorted,sds_P,alpha_fill = 0.1,color = 'black')
 plt.xlabel(r'$P \left[ \si{\milli\watt}\right]$')
 plt.ylabel(r'$I_1 \ \left[ \si{\micro\watt}\right]$')
 plt.legend(['Datapunkter' ,'Linje genne punkter','Usikkerheder'])
@@ -302,3 +302,6 @@ langsom, aom giver 200 mhz, groen (langsom) .
 Groenne kanal - detektor,"""
 
 plt.show()
+
+print(k)
+print(v_s_1)
