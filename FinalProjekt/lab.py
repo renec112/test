@@ -66,7 +66,9 @@ d3 = np.array([0.7, 0.8, 0.9, 1.0, 1.1, 1.3, 1.3, 1.3, 1.4, 1.5, 1.6, 1.6, 1.7,
 # Definerer en gennemsnitlig afstand
 d4 = np.array([d1, d2, d3]).T
 d  = (d1 + d2 + d3)/3
+# %% plot maaligner her
 
+# %%
 theta_sep = d / l # Skøn over theta_sep -- array
 
 
