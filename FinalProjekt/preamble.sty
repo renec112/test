@@ -74,7 +74,7 @@
 \usepackage{varioref} % Brug \vrec, til referencer i nærområdet.
 % Hyperlinks i TOC, etc.
 \usepackage[colorlinks=true, allcolors=black]{hyperref}
-\usepackage{hypcap} 
+\usepackage{hypcap}
 
 % Smarte referancer
 \usepackage[danish]{cleveref}
@@ -89,5 +89,5 @@
 %Facit-komando
 \newcommand{\facit}[1]{\underline{\underline{#1}}}
 % \facit{a=b}
-
-
+\setsecnumformat{\csname the#1\endcsname\quad}
+\setsecnumdepth{subsubsection}
