@@ -252,6 +252,9 @@ def Errorfunction(x, w0):
 
 p_opt, p_cov = opt.curve_fit(Errorfunction, x, Intensitet)#, bounds=(0.05, 0.50))
 w0 = p_opt
+# w0 test af formel på side 4
+w0_marke = np.max(Intensitet)-np.min(Intensitet)
+w0_test = (lambda_l * 0.05)/(np.pi *w0_marke)
 
 w02 = Intensitet[0]/1000000 * w0
 print('HEJE', w02)
