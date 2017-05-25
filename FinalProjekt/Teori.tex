@@ -92,9 +92,14 @@ Hvor $T_R$ er defineret til at være tiden der tager intensiteten til at gå fra
     T_R & = T_{90\%} - T_{10\%} = 0.64 \frac{2w_0}{v_S}.\label{eq:risetime} \\
     \Rightarrow v_S & = 0.64 \frac{2w_0}{T_R}.    \label{eq:risetimeIsolere}
 \end{align}
-
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth]{tegninger/risefall.png} %TODO passer denne graf overhovedet
+    \caption{}
+    \label{}
+\end{figure}
 \subsection{Intensitet ved hjælp af errorfunction}
-I databehandlingen vil det have interesse at bestemme strålens waist, $w_0$, og hertil bruges følgende formel
+I databehandlingen vil det have interesse at bestemme strålens waist, $w_0$, og hertil fittes til følgende formel
 \begin{equation}
     I(z) = \text{erf}\left( \frac{x\sqrt{2}}{w_0} \right)
     \label{eq:errorfunc}

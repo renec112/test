@@ -80,3 +80,4 @@ plt.ylabel(r"\% og boolean")
 plt.axis([0,25,-0.1,1.1])
 plt.savefig("tegninger/risefall.png")
 plt.show()
+# if plot is stupid and works - is it stupid ?
