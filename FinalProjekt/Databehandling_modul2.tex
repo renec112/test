@@ -22,7 +22,7 @@ På \cref{fig:graf_find_w} ses de omtalte linjer og to røde krydser. De røde k
 Man kan også bestemme waist, $w_0$ ved at fitte til en funktion af typen som ses på \cref{eq:errorfunc}. Det har dog ikke været muligt grundet tekniske vanskeligheder.
 
 Der er blevet bestemt tre andre waists som der er lavet risetime målinger med.
-På \cref{fig:screenfigur} ses en måling af risetime med indstillede cursors. Denne måling er taget med en linse med brændvidde $F = \SI{50}{\milli\meter}$.
+På \cref{fig:screenfigur} ses en måling af risetime med indstillede cursors. Denne måling er taget med en linse med brændvidde $F = \SI{100}{\milli\meter}$.
 \begin{figure}[H]
   \includegraphics[width=\linewidth]{tegninger/screenfigur.png}
   \caption{}
@@ -38,7 +38,7 @@ Der er afbildet figurer med risetimes som funktion af waist ved disse fokallæng
   \caption{}
   \label{fig:risetime_fig}
 \end{figure}
-Det ses på \cref{fig:risetime_fig} at usikkerhederne på waist målingerne er ret store ift. til skalaen. Ud fra grafen her findes hældningen på kurven til at være, $\SI{0,002183}{\second\per\meter}$ og dette medfører da at den målte lydhastighed i krystallen her bliver: $v_{sound} = 586,3 \pm 138.5 \ \si{\meter\per\second}$. Usikkerheden på lydens hastighed er her fundet ud fra spredningen på fitteparametren, $k$ i et fit på typen $T_r = k\cdot w_0 +c $ - her er spredningen på denne parameter brugt til at finde usikkerheden på lydhastigheden ud fra ophobningsloven, altså ved:
+Det ses på \cref{fig:risetime_fig} at usikkerhederne på waist målingerne er ret store ift. til skalaen. Ud fra grafen her findes hældningen på kurven til at være, $\SI{0,002183}{\second\per\meter}$ og dette medfører da at den målte lydhastighed i krystallen her bliver: $v_{sound} = 586,3 \pm 138.5 \ \si{\meter\per\second}$. Usikkerheden på lydens hastighed er her fundet ud fra spredningen på fitteparametren, $k$ i et fit på typen $T_r = k\cdot w_0 +c $. Her er spredningen på denne parameter brugt til at finde usikkerheden på lydhastigheden ud fra ophobningsloven, altså ved:
 \begin{equation}
   \nonumber sds(v_{sound}) = \sqrt{\left(\frac{0.64 \cdot 2}{k^2}\right)^2 \cdot sds(k)^2}
 \end{equation}
