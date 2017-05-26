@@ -8,8 +8,12 @@
 \author{Rene Czepluch\thanks{rene.czepluch@post.au.dk}, Laurits N. Stokholm\thanks{laurits.stokholm@post.au.dk} og Rasmus Klitgaard\thanks{rasmus.klitgaard@post.au.dk}}
 \date{\today}
 
-\usepackage[backend=biber, style=authortitle, defernumbers=true, sorting=nty]{biblatex}
+\usepackage[backend=biber, sorting=none, defernumbers=true, isbn=false, style=numeric]{biblatex}
 \addbibresource{bib.bib}
+
+\defbibheading{secbib}[\bibname]{%
+    \section*{#1}%
+    \markboth{#1}{#1}}
 
 \begin{document}
 
@@ -27,5 +31,8 @@
 \subfile{Databehandling_modul2}
 \subfile{Diskussion}
 \subfile{Konklusion}
-%\subfile{ref}
+
+\printbibliography[heading=secbib]
+\nocite{*}
+
 \end{document}
