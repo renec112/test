@@ -1,10 +1,10 @@
 # Fdb version 3
-["biber Databehandling_modul2"] 1495793348 "Databehandling_modul2.bcf" "Databehandling_modul2.bbl" "Databehandling_modul2" 1495794285
-  "Databehandling_modul2.bcf" 1495794285 91115 9981fb6b4d6fe83663f8980eab8c9a7b ""
+["biber Databehandling_modul2"] 1495793348 "Databehandling_modul2.bcf" "Databehandling_modul2.bbl" "Databehandling_modul2" 1495797080
+  "Databehandling_modul2.bcf" 1495797080 91115 9981fb6b4d6fe83663f8980eab8c9a7b ""
   (generated)
-  "Databehandling_modul2.bbl"
   "Databehandling_modul2.blg"
-["pdflatex"] 1495794283 "Databehandling_modul2.tex" "Databehandling_modul2.pdf" "Databehandling_modul2" 1495794285
+  "Databehandling_modul2.bbl"
+["pdflatex"] 1495797078 "Databehandling_modul2.tex" "Databehandling_modul2.pdf" "Databehandling_modul2" 1495797080
   "/usr/local/texlive/2016/texmf-dist/fonts/enc/dvips/lm/lm-ec.enc" 1254269338 2375 baa924870cfb487815765f9094cf3728 ""
   "/usr/local/texlive/2016/texmf-dist/fonts/enc/dvips/lm/lm-mathex.enc" 1202520719 3486 c7eadf5dcc57b3b2d11736679f6636ba ""
   "/usr/local/texlive/2016/texmf-dist/fonts/enc/dvips/lm/lm-mathit.enc" 1202520719 2405 5dcf2c1b967ee25cc46c58cd52244aed ""
@@ -170,11 +170,11 @@
   "/usr/local/texlive/2016/texmf-var/fonts/map/pdftex/updmap/pdftex.map" 1492609164 1888048 f2c5faed5981a516f406b2ccc20bff71 ""
   "/usr/local/texlive/2016/texmf-var/web2c/pdftex/pdflatex.fmt" 1492609223 3873397 90a3f45594229090202f524eb775212b ""
   "/usr/local/texlive/2016/texmf.cnf" 1463979140 577 2938757e76f31531e65cc647e3507693 ""
-  "Databehandling_modul2.aux" 1495794285 2448 b2b3dba963fa7c12a87c82866f7ed8e2 ""
+  "Databehandling_modul2.aux" 1495797080 2448 b2b3dba963fa7c12a87c82866f7ed8e2 ""
   "Databehandling_modul2.bbl" 1495793349 466 fbca89dc3e3cb765908de4b0f2010489 "biber Databehandling_modul2"
-  "Databehandling_modul2.out" 1495794284 0 d41d8cd98f00b204e9800998ecf8427e ""
-  "Databehandling_modul2.run.xml" 1495794285 2416 04ce1c11e6f6863811f1f0e11f5e9c12 ""
-  "Databehandling_modul2.tex" 1495794281 3716 800c2e4cc3698e3a04bbcd18fc11a245 ""
+  "Databehandling_modul2.out" 1495797079 0 d41d8cd98f00b204e9800998ecf8427e ""
+  "Databehandling_modul2.run.xml" 1495797080 2416 04ce1c11e6f6863811f1f0e11f5e9c12 ""
+  "Databehandling_modul2.tex" 1495797075 3747 5a1277532b70c6881b919b65b7dbab30 ""
   "main.tex" 1495792313 901 3994811c140a84f424b4ee16cb64a500 ""
   "preamble.sty" 1495708503 2510 1a774577b7623d0f956e5a81c862bdda ""
   "tegninger/graf3.png" 1495633729 17915 c464269e4836ea23ed4f2b637f45b679 ""
@@ -182,9 +182,9 @@
   "tegninger/risetime_fig.png" 1495793339 26075 514c09e146e9c182137d48b397e5d72d ""
   "tegninger/screenfigur.png" 1495789860 267781 3670fade5bfb07f90ababa427fa84bac ""
   (generated)
-  "Databehandling_modul2.pdf"
-  "Databehandling_modul2.run.xml"
   "Databehandling_modul2.out"
-  "Databehandling_modul2.log"
-  "Databehandling_modul2.aux"
   "Databehandling_modul2.bcf"
+  "Databehandling_modul2.run.xml"
+  "Databehandling_modul2.aux"
+  "Databehandling_modul2.log"
+  "Databehandling_modul2.pdf"
