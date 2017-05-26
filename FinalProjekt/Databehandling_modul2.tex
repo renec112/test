@@ -11,15 +11,25 @@ Efter at have målt switchen, som beskrevet i \cref{dataopsamling2}, konkluderes
 \end{figure}
 På \cref{fig:graf3} ses det at intensiteten af strålen falder mest når kniven er omkring midten af strålen, hvilket giver god mening idet at vi forventer at strålen fordeler sig omkring sin akse og vi dermed rammer mere af strålen omkring centrum. Umiddelbart ser figuren symmetrisk ud på den måde at den bevæger sig ensartet i bunden af grafen og toppen af grafen, hvilket understøtter forventningen om at strålen fordeler sig ensartet omkring laserens akse.
 Ud fra figuren her kan waist, $w_0$ findes ved at indsætte nogle hjælpelinjer, netop da waist vil være forskellen i længde mellem de to punkter hvor intensiteten er 84\% og 16\% af max intensiteten.
-\begin{figure}
+\begin{figure}[H]
   \centering
   \includegraphics[width=\linewidth]{tegninger/graf_find_w.png}
   \caption{}
   \label{fig:graf_find_w}
 \end{figure}
-På \cref{fig:graf_find_w} ses de omtalte linjer og to røde krydser. De røde krydser indikerer punkterne hvor intensiteten er 84\% og 16\%. Det findes ud fra dette at afstanden mellem de to kryder bliver, $w_0 = 1,2 \pm 0,1 \ \si{\milli\meter}$. Usikkerheden her er netop usikkerheden på længdemålingerne, som grundet millimeterskruen er $0,1 \si{\milli\meter}$.
+På \cref{fig:graf_find_w} ses de omtalte linjer og to røde krydser. De røde krydser indikerer punkterne hvor intensiteten er 84\% og 16\%. Det findes ud fra dette at afstanden mellem de to kryder bliver, $w_0 = 1,2 \pm 0,1 \ \si{\milli\meter}$. Usikkerheden her er netop usikkerheden på længdemålingerne, som grundet millimeterskruen er $\SI{0,1}{\milli\meter}$. Det skal lige nævnes her at den omtalte waist her ikke er den sande waist idet at forsøgsopstillingen var lidt forkert, men at dette er metoden som bruges til at udregne waist.
 
 Man kan også bestemme waist, $w_0$ ved at fitte til en funktion af typen som ses på \cref{eq:errorfunc}. Det har dog ikke været muligt grundet tekniske vanskeligheder.
 
+Der er blevet bestemt tre andre waists som der er lavet risetime målinger med.
+På \cref{fig:screenfigur} ses en måling af risetime med indstillede cursors. Denne måling er taget med en linse med brændvidde $F = \SI{50}{\milli\meter}$.
+\begin{figure}[H]
+  \includegraphics[width=\linewidth]{tegninger/screenfigur.png}
+  \caption{}
+  \label{fig:screenfigur}
+\end{figure}
+Denne måling er taget med en waist på $w_0 = \SI{0,213}{\milli\meter}$.
+
+Der er yderligere taget målinger med fokallængder på $ $
 
 \end{document}

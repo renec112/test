@@ -234,8 +234,8 @@ x = np.arange(3.20, 3.20 + a, 0.1)*10**(-3) # målinger med kniv foran stråle i
 # 84 = 4.585
 # 16 = 4.705
 
-d = 4.705 - 4.585
-k_what = 3.618 - 3.405
+w01 = (4.705 - 4.585)*10**(-3)
+w02 = (3.618 - 3.405)*10**(-3)
 
 
 
@@ -303,6 +303,7 @@ plt.plot(waist_x[1],waist_y[1],'rx',markersize = 20)
 plt.xlabel(r'$x \ \left[\si{\meter}\right]$')
 plt.ylabel(r'$I \ \left[\si{\watt}\right]$')
 plt.legend()
+plt.tight_layout()
 plt.savefig('tegninger/graf_find_w.png')
 
 
@@ -320,21 +321,41 @@ kniv = np.array([3.51, 3.60 ])*10**-3
 #Imin =
 #Hoej =
 
-w0 = kniv[1] - kniv[0]
+w001 = kniv[1] - kniv[0]
+print(w001*10**3)
 
 def lydhastighed(risetime, w0):
     vs = 0.64*(2*w0/ risetime)
     return(vs)
 
-risetime = np.array([112, 200]) * 10 **-9
+risetime = np.array([112, 200, 145, 198.2, 273.9, 388.6, 438]) * 10 **-9
 #%%
 
-i  = np.ones(np.size(risetime))* w0# * 0.2 * 10**-3
+waists = np.array([w01,w01,w01,w01, w02,w02,w02])# * 0.2 * 10**-3
+sds_waist = 0.1/1000 #  0.1 mm
+# print(waists*10**3)
+# print('risetime = ',np.sort(risetime,axis=0))
 
-vs = lydhastighed(risetime, i)
+def fit_func_rise(w0, k):
+    T = k * w0 # k = 0.64 * 2 / v_s   --> vs = 0.64*2/k
+    return T
+k_rise, c_rise, r_value_rise, p_value_rise, sds_k_rise = stats.linregress(waists, risetime)
 
+x_fit_lin = np.linspace(0,waists[-1]+0.0002,100)
+linje = k_rise*x_fit_lin+c_rise
 
+plt.figure()
+plt.plot(x_fit_lin,linje,'r--',label = 'Fit')
+plt.errorbar(waists,risetime,fmt = 'ok',xerr = sds_waist, yerr = 0,label='Datapunkter')
+plt.xlabel(r'$w_0 \left[\si{\meter}\right]$')
+plt.ylabel(r'$T_r \left[\si{\second}\right]$')
+plt.legend()
 
+v_s_rise = 0.64*2/k_rise
+
+sds_v_s_rise = (0.64*2/k_rise**2)*sds_k_rise
+
+print(v_s_rise, '+-', sds_v_s_rise)
 # 50 OHM VED OSCILLOSKOP
 # 16 OG 84 til w0
 # 90 OG 10 til risetime
