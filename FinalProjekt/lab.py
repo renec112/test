@@ -358,6 +358,7 @@ sds_v_s_rise = (0.64*2/k_rise**2)*sds_k_rise
 
 print(v_s_rise, '+-', sds_v_s_rise)
 print(k_rise)
+print(c_rise)
 # 50 OHM VED OSCILLOSKOP
 # 16 OG 84 til w0
 # 90 OG 10 til risetime

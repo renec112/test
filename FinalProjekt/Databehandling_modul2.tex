@@ -17,7 +17,7 @@ Ud fra figuren her kan waist, $w_0$ findes ved at indsætte nogle hjælpelinjer,
   \caption{}
   \label{fig:graf_find_w}
 \end{figure}
-På \cref{fig:graf_find_w} ses de omtalte linjer og to røde krydser. De røde krydser indikerer punkterne hvor intensiteten er 84\% og 16\%. Det findes ud fra dette at afstanden mellem de to kryder bliver, $w_0 = 1,2 \pm 0,1 \ \si{\milli\meter}$. Usikkerheden her er netop usikkerheden på længdemålingerne, som grundet millimeterskruen er $\SI{0,1}{\milli\meter}$. Det skal lige nævnes her at den omtalte waist her ikke er den sande waist idet at forsøgsopstillingen var lidt forkert, men at dette er metoden som bruges til at udregne waist.
+På \cref{fig:graf_find_w} ses de omtalte linjer og to røde krydser. De røde krydser indikerer punkterne hvor intensiteten er 84\% og 16\%. Det findes ud fra dette at afstanden mellem de to kryder bliver, $w_0 =\SI{1,2 \pm 0,1}{\milli\meter} $. Usikkerheden her er netop usikkerheden på længdemålingerne, som grundet millimeterskruen er $\SI{0,1}{\milli\meter}$. Det skal lige nævnes her at den omtalte waist her ikke er den sande waist idet at forsøgsopstillingen var lidt forkert, men at dette er metoden som bruges til at udregne waist.
 
 Man kan også bestemme waist, $w_0$ ved at fitte til en funktion af typen som ses på \cref{eq:errorfunc}. Det har dog ikke været muligt grundet tekniske vanskeligheder.
 
@@ -40,7 +40,8 @@ Der er afbildet figurer med risetimes som funktion af waist ved disse fokallæng
 \end{figure}
 Det ses på \cref{fig:risetime_fig} at usikkerhederne på waist målingerne er ret store ift. til skalaen. Ud fra grafen her findes hældningen på kurven til at være, $\SI{0,002183}{\second\per\meter}$ og dette medfører da at den målte lydhastighed i krystallen her bliver: $v_{sound} = 586,3 \pm 138.5 \ \si{\meter\per\second}$. Usikkerheden på lydens hastighed er her fundet ud fra spredningen på fitteparametren, $k$ i et fit på typen $T_r = k\cdot w_0 +c $. Her er spredningen på denne parameter brugt til at finde usikkerheden på lydhastigheden ud fra ophobningsloven, altså ved:
 \begin{equation}
-  \nonumber sds(v_{sound}) = \sqrt{\left(\frac{0.64 \cdot 2}{k^2}\right)^2 \cdot sds(k)^2}
+  \nonumber sds(v_{sound}) = \sqrt{\left(\frac{0.64 \cdot 2}{k^2}\right)^2 \cdot sds(k)^2} = \SI{138.5}{\meter\per\second}
 \end{equation}
+Her skal det nævnes at der ikke burde være noget konstant led, men der er her brugt et for at sikre en god linje gennem datapunkterne. Den er ikke 0, men derimod $c = \SI{-9,82e-8}{\second}$ hvilket selvfølgelig er en meget lille værdi, men det er værdierne på vores data også.
 
 \end{document}

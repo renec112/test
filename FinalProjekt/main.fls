@@ -403,10 +403,10 @@ INPUT ./main.out
 INPUT main.run.xml
 OUTPUT main.run.xml
 INPUT /usr/local/texlive/2016/texmf-dist/fonts/enc/dvips/lm/lm-ec.enc
+INPUT /usr/local/texlive/2016/texmf-dist/fonts/enc/dvips/lm/lm-mathsy.enc
 INPUT /usr/local/texlive/2016/texmf-dist/fonts/enc/dvips/lm/lm-mathit.enc
 INPUT /usr/local/texlive/2016/texmf-dist/fonts/enc/dvips/lm/lm-mathex.enc
 INPUT /usr/local/texlive/2016/texmf-dist/fonts/enc/dvips/lm/lm-rm.enc
-INPUT /usr/local/texlive/2016/texmf-dist/fonts/enc/dvips/lm/lm-mathsy.enc
 INPUT /usr/local/texlive/2016/texmf-dist/fonts/enc/dvips/lm/lm-ts1.enc
 INPUT /usr/local/texlive/2016/texmf-dist/fonts/type1/public/lm/lmbx10.pfb
 INPUT /usr/local/texlive/2016/texmf-dist/fonts/type1/public/lm/lmbx12.pfb
@@ -427,6 +427,7 @@ INPUT /usr/local/texlive/2016/texmf-dist/fonts/type1/public/lm/lmr9.pfb
 INPUT /usr/local/texlive/2016/texmf-dist/fonts/type1/public/lm/lmri10.pfb
 INPUT /usr/local/texlive/2016/texmf-dist/fonts/type1/public/lm/lmro10.pfb
 INPUT /usr/local/texlive/2016/texmf-dist/fonts/type1/public/lm/lmsy10.pfb
+INPUT /usr/local/texlive/2016/texmf-dist/fonts/type1/public/lm/lmsy7.pfb
 INPUT /usr/local/texlive/2016/texmf-dist/fonts/type1/public/lm/lmsy9.pfb
 INPUT /usr/local/texlive/2016/texmf-dist/fonts/type1/public/lm/lmtt10.pfb
 INPUT /usr/local/texlive/2016/texmf-dist/fonts/type1/public/lm/lmtt8.pfb
