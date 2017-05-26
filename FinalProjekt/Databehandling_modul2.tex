@@ -38,6 +38,9 @@ Der er afbildet figurer med risetimes som funktion af waist ved disse fokallæng
   \caption{}
   \label{fig:risetime_fig}
 \end{figure}
-Det ses på \cref{fig:risetime_fig} at usikkerhederne på waist målingerne er ret store ift. til skalaen. Ud fra grafen her findes hældningen på kurven til at være, $\SI{0,002183}{\second\per\meter}$ og dette medfører da at den målte lydhastighed i krystallen her bliver: $v_{sound} = 586,3 \pm 138.5 \ \si{\meter\per\second}$. Usikkerheden på lydens hastighed er her fundet ud fra spredningen på fitteparametren, $k$ i et fit på typen $T_r = k\cdot w_0 +c $ - her er spredningen på denne parameter brugt til at finde usikkerheden på lydhastigheden ud fra ophobningsloven.
+Det ses på \cref{fig:risetime_fig} at usikkerhederne på waist målingerne er ret store ift. til skalaen. Ud fra grafen her findes hældningen på kurven til at være, $\SI{0,002183}{\second\per\meter}$ og dette medfører da at den målte lydhastighed i krystallen her bliver: $v_{sound} = 586,3 \pm 138.5 \ \si{\meter\per\second}$. Usikkerheden på lydens hastighed er her fundet ud fra spredningen på fitteparametren, $k$ i et fit på typen $T_r = k\cdot w_0 +c $ - her er spredningen på denne parameter brugt til at finde usikkerheden på lydhastigheden ud fra ophobningsloven, altså ved:
+\begin{equation}
+  \nonumber sds(v_{sound}) = \sqrt{\left(\frac{0.64 \cdot 2}{k^2}\right)^2 \cdot sds(k)^2}
+\end{equation}
 
 \end{document}

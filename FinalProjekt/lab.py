@@ -350,6 +350,7 @@ plt.errorbar(waists,risetime,fmt = 'ok',xerr = sds_waist, yerr = 0,label='Datapu
 plt.xlabel(r'$w_0 \left[\si{\meter}\right]$')
 plt.ylabel(r'$T_r \left[\si{\second}\right]$')
 plt.legend()
+plt.tight_layout()
 plt.savefig('tegninger/risetime_fig.png')
 
 v_s_rise = 0.64*2/k_rise
