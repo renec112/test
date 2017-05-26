@@ -220,8 +220,8 @@ Intensitet  = np.array([502.9, 502.1, 500.3, 496.4, 491.1, 487.3, 478.0, 471.3,
 a = np.size(Intensitet) * 0.1
 
 
-x = np.arange(3.20, 3.20 + a, 0.1) # målinger med kniv foran stråle i m
-print(x)
+x = np.arange(3.20, 3.20 + a, 0.1)*10**(-3) # målinger med kniv foran stråle i m
+
 
 
 
@@ -245,35 +245,65 @@ deltay = maxi - mini
 
 
 # DATA til fit med errorfunktion
-xdata = (x)*10**(-3) #  knivens position i meter
-ydata = (Intensitet)# normaliseret intensitet
+xdata = (x) #  knivens position i meter
+ydata = (Intensitet)#
 
 
 # Fit
 def Fit_error(x, w0):
     indmad = (x*np.sqrt(2.)/w0)
-    y = 1 - erf(indmad)
+    y = erfc(indmad)
     return(y)
 
 p_opt, p_cov = opt.curve_fit(Fit_error, xdata, ydata)#, bounds=(0.05, 0.50))
 w0 = p_opt[0]
 
 
-print('waist i millimeter',w0*10**3)
 
 
-fittet_intens = ydata * Fit_error(xdata, 99999999999) # den fittede Intensitet
+y_84 = 0.84*ydata[0]
+y_16 = 0.16*ydata[0]
+
+x_84 = xdata[10]
+
+x_16 = xdata[-10]
+antal = 1000
+y_len84 = np.ones(antal)*y_84
 
 
+x_len84 = np.ones(antal)*x_84
+y_spacer84 = np.linspace(0.0,y_84,antal)
+y_spacer16 = np.linspace(0.0,y_16,antal)
+
+x_spacer84 = np.linspace(0.003,x_84,antal)
+x_spacer16 = np.linspace(x_16,0.007,antal)
+
+y_len16 = np.ones(antal)*y_16
+x_len16 = np.ones(antal)*x_16
+# fittet_intens = ydata*Fit_error(xdata, w0) # den fittede Intensitet
+
+waist_x = np.array([x_84,x_16])
+waist_y = np.array([0,0])
+
+w0 = x_16-x_84
+print('waist i mm', w0*10**3)
 # %% plot
 plt.figure()
 plt.grid()
 plt.plot(xdata, ydata, 'ro', label='Data')
-plt.plot(xdata, fittet_intens, 'b-', label='Fit')
-plt.xlabel(r'$x \ \left[\si{\milli\meter}\right]$')
-plt.ylabel(r'$I \ \left[\si{\micro\watt}\right]$')
+
+plt.plot(x_spacer84,y_len84,'--k')
+plt.plot(x_spacer16,y_len16,'--k')
+plt.plot(x_len84,y_spacer84,'--k')
+plt.plot(x_len16,y_spacer16,'--k')
+
+plt.plot(waist_x[0],waist_y[0],'rx',markersize = 20)
+plt.plot(waist_x[1],waist_y[1],'rx',markersize = 20)
+
+plt.xlabel(r'$x \ \left[\si{\meter}\right]$')
+plt.ylabel(r'$I \ \left[\si{\watt}\right]$')
 plt.legend()
-# plt.savefig('tegninger/graf3.png')
+# plt.savefig('tegninger/graf_find_w.png')
 
 
 
