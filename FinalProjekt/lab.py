@@ -212,14 +212,16 @@ plt.savefig('tegninger/graf2.png')
 Intensitet  = np.array([502.9, 502.1, 500.3, 496.4, 491.1, 487.3, 478.0, 471.3,
     460.8, 444.7, 428.6, 406.2, 382.5, 354.2, 322.1, 290.3, 251.7, 218.1,
     187.3, 152.4, 123.5, 101.0, 76.51, 57.61, 45.21, 31.18, 24.81, 17.28,
-    14.03, 10.02, 6.982, 5.421])
-    #])# mikrowatt
+    14.03, 10.02, 6.982, 5.421])*10**(-6)
+    #])# watt
 
 
 
 a = np.size(Intensitet) * 0.1
-x = np.arange(3.20, 3.20 + a, 0.1) # målinger med kniv foran stråle
 
+
+x = np.arange(3.20, 3.20 + a, 0.1) # målinger med kniv foran stråle i m
+print(x)
 
 
 
@@ -242,29 +244,32 @@ mini   = 10
 deltay = maxi - mini
 
 
+# DATA til fit med errorfunktion
+xdata = (x)*10**(-3) #  knivens position i meter
+ydata = (Intensitet)# normaliseret intensitet
 
 
 # Fit
-def Errorfunction(x, w0):
-    indmad = (x/1000*np.sqrt(2.)/w0)
-    y = erf(indmad*1.)
+def Fit_error(x, w0):
+    indmad = (x*np.sqrt(2.)/w0)
+    y = 1 - erf(indmad)
     return(y)
 
-p_opt, p_cov = opt.curve_fit(Errorfunction, x, Intensitet)#, bounds=(0.05, 0.50))
-w0 = p_opt
-# w0 test af formel på side 4
-w0_marke = np.max(Intensitet)-np.min(Intensitet)
-w0_test = (lambda_l * 0.05)/(np.pi *w0_marke)
+p_opt, p_cov = opt.curve_fit(Fit_error, xdata, ydata)#, bounds=(0.05, 0.50))
+w0 = p_opt[0]
 
-w02 = Intensitet[0]/1000000 * w0
-print('HEJE', w02)
 
-estimat = Intensitet * Errorfunction(x, w0)
+print('waist i millimeter',w0*10**3)
+
+
+fittet_intens = ydata * Fit_error(xdata, 99999999999) # den fittede Intensitet
+
+
 # %% plot
 plt.figure()
 plt.grid()
-plt.plot(x, Intensitet, 'ro', label='Data')
-plt.plot(x, estimat, 'b-', label='Fit')
+plt.plot(xdata, ydata, 'ro', label='Data')
+plt.plot(xdata, fittet_intens, 'b-', label='Fit')
 plt.xlabel(r'$x \ \left[\si{\milli\meter}\right]$')
 plt.ylabel(r'$I \ \left[\si{\micro\watt}\right]$')
 plt.legend()
@@ -293,7 +298,7 @@ def lydhastighed(risetime, w0):
 
 risetime = np.array([112, 200]) * 10 **-9
 #%%
-print(lydhastighed(risetime,w0_test))
+
 i  = np.ones(np.size(risetime))* w0# * 0.2 * 10**-3
 
 vs = lydhastighed(risetime, i)
