@@ -395,6 +395,9 @@ INPUT ./tegninger/risetime_fig.png
 INPUT ./tegninger/risetime_fig.png
 INPUT Diskussion.tex
 INPUT Diskussion.tex
+INPUT tegninger/BILAG.png
+INPUT ./tegninger/BILAG.png
+INPUT ./tegninger/BILAG.png
 INPUT Konklusion.tex
 INPUT Konklusion.tex
 INPUT main.aux

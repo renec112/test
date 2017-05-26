@@ -1,11 +1,11 @@
 # Fdb version 3
-["biber main"] 1495792996 "main.bcf" "main.bbl" "main" 1495797514
+["biber main"] 1495792996 "main.bcf" "main.bbl" "main" 1495802205
   "bib.bib" 1495792313 187 c782ffa6e8d0afacb342ae6c18c9ffbc ""
-  "main.bcf" 1495797513 91427 9dc67577c48eb5163f95455514f8fe64 ""
+  "main.bcf" 1495802204 91427 9dc67577c48eb5163f95455514f8fe64 ""
   (generated)
-  "main.bbl"
   "main.blg"
-["pdflatex"] 1495797509 "main.tex" "main.pdf" "main" 1495797514
+  "main.bbl"
+["pdflatex"] 1495802200 "main.tex" "main.pdf" "main" 1495802205
   "/usr/local/texlive/2016/texmf-dist/fonts/enc/dvips/lm/lm-ec.enc" 1254269338 2375 baa924870cfb487815765f9094cf3728 ""
   "/usr/local/texlive/2016/texmf-dist/fonts/enc/dvips/lm/lm-mathex.enc" 1202520719 3486 c7eadf5dcc57b3b2d11736679f6636ba ""
   "/usr/local/texlive/2016/texmf-dist/fonts/enc/dvips/lm/lm-mathit.enc" 1202520719 2405 5dcf2c1b967ee25cc46c58cd52244aed ""
@@ -219,20 +219,21 @@
   "/usr/local/texlive/2016/texmf-var/fonts/map/pdftex/updmap/pdftex.map" 1492609164 1888048 f2c5faed5981a516f406b2ccc20bff71 ""
   "/usr/local/texlive/2016/texmf-var/web2c/pdftex/pdflatex.fmt" 1492609223 3873397 90a3f45594229090202f524eb775212b ""
   "/usr/local/texlive/2016/texmf.cnf" 1463979140 577 2938757e76f31531e65cc647e3507693 ""
-  "Abstract.tex" 1495792946 911 add672a80d01a984591da612b42e4b4c ""
+  "Abstract.tex" 1495798206 907 ffe35996a408fb01d33f58c83aff8882 ""
   "Databehandling_modul1.tex" 1495795947 4267 84725aafee351964f9e8e213a12025c4 ""
   "Databehandling_modul2.tex" 1495797507 4031 914715b06467d653aa937fd35d515d6a ""
-  "Diskussion.tex" 1495792313 1835 a11a9516f8b7c10c5cf03e624915c9fb ""
+  "Diskussion.tex" 1495799269 2676 e30722e0130da27e2c511401493650bd ""
   "Introduktion.tex" 1495719036 1071 fd230a15f9fbd178dae07f3be02ab29a ""
-  "Konklusion.tex" 1495793862 498 6374e3d6fcc69837eba2281f63d6efee ""
+  "Konklusion.tex" 1495798206 1478 3828a15d50acf9030983411126dcfdb9 ""
   "Opstilling.tex" 1495771928 4246 eebda91b5340449ac8f834895f718a57 ""
   "Teori.tex" 1495795947 8231 6ecbdf48998bd35482aba490d9d6adf1 ""
-  "main.aux" 1495797513 8469 2f1ec6ddb6f3278f515f804564dd8cbb ""
+  "main.aux" 1495802204 8898 0d405fe864ca810cc8824a7caa10c09e ""
   "main.bbl" 1495792997 1314 b1d8d4ff6175b79888381e8c89134744 "biber main"
-  "main.out" 1495797510 0 d41d8cd98f00b204e9800998ecf8427e ""
-  "main.run.xml" 1495797513 2297 1a121e70a6e64449bc6fcfdf31e8669c ""
-  "main.tex" 1495792313 901 3994811c140a84f424b4ee16cb64a500 ""
+  "main.out" 1495802201 0 d41d8cd98f00b204e9800998ecf8427e ""
+  "main.run.xml" 1495802204 2297 1a121e70a6e64449bc6fcfdf31e8669c ""
+  "main.tex" 1495802164 1005 cc2f64b5cb0e3aad67c0f8dd949417a9 ""
   "preamble.sty" 1495708503 2510 1a774577b7623d0f956e5a81c862bdda ""
+  "tegninger/BILAG.png" 1495799112 201262 96d4b159044a16f6679688b9c5bcda5b ""
   "tegninger/graf1.png" 1495633729 32668 4b6c12f813ad90c4882eb1ee173d9e2f ""
   "tegninger/graf2.png" 1495797212 40663 6289c8e964d2d4e5f92b0e2702579130 ""
   "tegninger/graf3.png" 1495633729 17915 c464269e4836ea23ed4f2b637f45b679 ""
@@ -247,7 +248,7 @@
   (generated)
   "main.out"
   "main.log"
-  "main.pdf"
   "main.bcf"
   "main.run.xml"
   "main.aux"
+  "main.pdf"
