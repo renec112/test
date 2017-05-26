@@ -350,12 +350,14 @@ plt.errorbar(waists,risetime,fmt = 'ok',xerr = sds_waist, yerr = 0,label='Datapu
 plt.xlabel(r'$w_0 \left[\si{\meter}\right]$')
 plt.ylabel(r'$T_r \left[\si{\second}\right]$')
 plt.legend()
+plt.savefig('tegninger/risetime_fig.png')
 
 v_s_rise = 0.64*2/k_rise
 
 sds_v_s_rise = (0.64*2/k_rise**2)*sds_k_rise
 
 print(v_s_rise, '+-', sds_v_s_rise)
+print(k_rise)
 # 50 OHM VED OSCILLOSKOP
 # 16 OG 84 til w0
 # 90 OG 10 til risetime
