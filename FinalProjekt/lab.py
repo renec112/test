@@ -303,7 +303,7 @@ plt.plot(waist_x[1],waist_y[1],'rx',markersize = 20)
 plt.xlabel(r'$x \ \left[\si{\meter}\right]$')
 plt.ylabel(r'$I \ \left[\si{\watt}\right]$')
 plt.legend()
-# plt.savefig('tegninger/graf_find_w.png')
+plt.savefig('tegninger/graf_find_w.png')
 
 
 
