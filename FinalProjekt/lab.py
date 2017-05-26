@@ -169,9 +169,8 @@ L = 2.00 * 10**(-3)
 dBm     = data[0] #power i vibrator
 P       = data[1] #intensitet i uW
 dBm2    = np.power(10, dBm/10.)
-sds_P   = 3 #TODO vurderet usikekrhed paa powermeter
-sds_dbm = 0 # TODO Diskuter den er sat til nul
-
+sds_P   = 3 #
+sds_dbm = 0 #
 
 # - - - - - - - - - - - - - plot - - - - - - - - - - - - - -
 P_sorted   = np.sort(P)
